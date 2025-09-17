@@ -34,8 +34,8 @@ export default function ContactSection() {
       icon: 'fa-envelope',
       title: t('email_us'),
       description: t('send_us_an_email_and_we_will_respond_within_24_hours'),
-      value: 'support@agentify.com',
-      action: 'mailto:support@agentify.com',
+      value: 'support@suqya.com',
+      action: 'mailto:support@suqya.com',
       color: 'blue'
     },
     {

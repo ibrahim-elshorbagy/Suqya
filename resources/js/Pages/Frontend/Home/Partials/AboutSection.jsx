@@ -156,7 +156,7 @@ export default function AboutSection() {
               <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
                 <i className="fa-solid fa-brain text-white text-sm"></i>
               </div>
-              <span className="text-blue-700 dark:text-blue-300 font-semibold">{t('about_agentify')}</span>
+              <span className="text-blue-700 dark:text-blue-300 font-semibold">{t('about_suqya')}</span>
             </div>
 
             <h2 className="text-4xl md:text-6xl font-bold text-neutral-900 dark:text-neutral-100 mb-8 leading-tight">
@@ -167,7 +167,7 @@ export default function AboutSection() {
             </h2>
 
             <p className="text-xl text-neutral-600 dark:text-neutral-300 max-w-4xl mx-auto leading-relaxed">
-              {t('agentify_provides_powerful_ai_agents_that_automate_your_email_management_data_analysis_and_hr_processes_our_platform_connects_seamlessly_with_your_existing_tools_to_boost_productivity_and_eliminate_repetitive_tasks')}
+              {t('suqya_provides_powerful_ai_agents_that_automate_your_email_management_data_analysis_and_hr_processes_our_platform_connects_seamlessly_with_your_existing_tools_to_boost_productivity_and_eliminate_repetitive_tasks')}
             </p>
           </div>
 
@@ -175,12 +175,12 @@ export default function AboutSection() {
             {/* Platform Overview */}
             <div>
               <h3 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
-                {t('what_makes_agentify_different')}
+                {t('what_makes_suqya_different')}
               </h3>
 
               <div className="space-y-6 text-neutral-600 dark:text-neutral-300">
                 <p className="text-lg leading-relaxed">
-                  {t('agentify_specializes_in_three_core_areas_email_automation_data_intelligence_and_hr_optimization_each_ai_agent_is_designed_to_understand_context_learn_from_your_patterns_and_deliver_results_that_match_your_specific_needs')}
+                  {t('suqya_specializes_in_three_core_areas_email_automation_data_intelligence_and_hr_optimization_each_ai_agent_is_designed_to_understand_context_learn_from_your_patterns_and_deliver_results_that_match_your_specific_needs')}
                 </p>
 
                 <p className="text-lg leading-relaxed">
@@ -445,7 +445,7 @@ export default function AboutSection() {
                   {t('ready_to_automate_your_workflow')}
                 </h4>
                 <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 mt-1">
-                  {t('start_using_agentify_ai_agents_today_and_transform_how_you_work')}
+                  {t('start_using_suqya_ai_agents_today_and_transform_how_you_work')}
                 </p>
               </div>
               <PrimaryButton

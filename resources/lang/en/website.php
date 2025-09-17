@@ -553,17 +553,17 @@ return [
   'contact_us' => "Contact Us",
 
   // Footer Header Company Info
-  'agentify_description' => 'Agentify – An innovative platform offering AI tools and services to simplify workflow and boost productivity.',
+  'agentify_description' => 'Suqya – An innovative platform offering AI tools and services to simplify workflow and boost productivity.',
 
   // Core About Section
-  'about_agentify' => 'About Agentify',
+  'about_agentify' => 'About Suqya',
   'intelligent_ai_tools' => 'Intelligent AI-powered tools',
   'for_modern_workflows' => 'For modern workflows',
-  'agentify_provides_powerful_ai_agents_that_automate_your_email_management_data_analysis_and_hr_processes_our_platform_connects_seamlessly_with_your_existing_tools_to_boost_productivity_and_eliminate_repetitive_tasks' => 'Agentify provides powerful intelligent agents that automate email management, data analysis, and HR processes. Our platform integrates seamlessly with your existing tools to boost productivity and eliminate repetitive tasks.',
+  'agentify_provides_powerful_ai_agents_that_automate_your_email_management_data_analysis_and_hr_processes_our_platform_connects_seamlessly_with_your_existing_tools_to_boost_productivity_and_eliminate_repetitive_tasks' => 'Suqya provides powerful intelligent agents that automate email management, data analysis, and HR processes. Our platform integrates seamlessly with your existing tools to boost productivity and eliminate repetitive tasks.',
 
   // Platform Overview
-  'what_makes_agentify_different' => 'What makes Agentify different',
-  'agentify_specializes_in_three_core_areas_email_automation_data_intelligence_and_hr_optimization_each_ai_agent_is_designed_to_understand_context_learn_from_your_patterns_and_deliver_results_that_match_your_specific_needs' => 'Agentify specializes in three core areas: email automation, data intelligence, and HR optimization. Each AI agent is designed to understand context, learn from your patterns, and deliver results tailored to your specific needs.',
+  'what_makes_agentify_different' => 'What makes Suqya different',
+  'agentify_specializes_in_three_core_areas_email_automation_data_intelligence_and_hr_optimization_each_ai_agent_is_designed_to_understand_context_learn_from_your_patterns_and_deliver_results_that_match_your_specific_needs' => 'Suqya specializes in three core areas: email automation, data intelligence, and HR optimization. Each AI agent is designed to understand context, learn from your patterns, and deliver results tailored to your specific needs.',
   'our_platform_integrates_with_gmail_outlook_google_sheets_and_supports_file_uploads_making_it_easy_to_connect_your_existing_workflow_without_disruption_security_is_built_in_with_bank_level_encryption_protecting_your_sensitive_information' => 'Our platform integrates with Gmail, Outlook, and Google Sheets, and supports file uploads, making it easy to connect your existing workflow without disruption. Security is built-in with bank-level encryption to protect your sensitive information.',
   'focus_on_what_matters_while_ai_handles_the_rest' => 'Focus on what matters while AI handles the rest',
   'let_intelligent_automation_free_up_your_time_for_strategic_work' => 'Let intelligent automation free up your time for strategic work',
@@ -636,7 +636,7 @@ return [
 
   // Bottom CTA
   'ready_to_automate_your_workflow' => 'Ready to automate your workflow?',
-  'start_using_agentify_ai_agents_today_and_transform_how_you_work' => 'Start using Agentify AI agents today and transform how you work',
+  'start_using_agentify_ai_agents_today_and_transform_how_you_work' => 'Start using Suqya AI agents today and transform how you work',
   'get_started_now' => 'Get started now',
 
   // plans

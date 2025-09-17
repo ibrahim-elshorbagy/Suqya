@@ -16,7 +16,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-        <p className='text-sm dark:text-white'>{t('agentify_description')}</p>
+        <p className='text-sm dark:text-white'>{t('suqya_description')}</p>
       </div>
     </footer>
   );

@@ -524,17 +524,17 @@ return [
   "about" => "عنا",
 
   // Footer Header Company Info
-  'agentify_description' => 'Agentify – منصة مبتكرة تقدم أدوات وخدمات الذكاء الاصطناعي لتبسيط سير العمل وزيادة الإنتاجية.',
+  'agentify_description' => 'Suqya – منصة مبتكرة تقدم أدوات وخدمات الذكاء الاصطناعي لتبسيط سير العمل وزيادة الإنتاجية.',
 
   // Core About Section
-  'about_agentify' => 'حول Agentify',
+  'about_agentify' => 'حول Suqya',
   'intelligent_ai_tools' => 'أدوات ذكية مدعومة بالذكاء الاصطناعي',
   'for_modern_workflows' => 'لسير العمل الحديث',
-  'agentify_provides_powerful_ai_agents_that_automate_your_email_management_data_analysis_and_hr_processes_our_platform_connects_seamlessly_with_your_existing_tools_to_boost_productivity_and_eliminate_repetitive_tasks' => 'يوفر Agentify وكلاء ذكيين قويين يقومون بأتمتة إدارة البريد الإلكتروني وتحليل البيانات وعمليات الموارد البشرية. تتصل منصتنا بسلاسة مع أدواتك الحالية لزيادة الإنتاجية والقضاء على المهام المتكررة.',
+  'agentify_provides_powerful_ai_agents_that_automate_your_email_management_data_analysis_and_hr_processes_our_platform_connects_seamlessly_with_your_existing_tools_to_boost_productivity_and_eliminate_repetitive_tasks' => 'يوفر Suqya وكلاء ذكيين قويين يقومون بأتمتة إدارة البريد الإلكتروني وتحليل البيانات وعمليات الموارد البشرية. تتصل منصتنا بسلاسة مع أدواتك الحالية لزيادة الإنتاجية والقضاء على المهام المتكررة.',
 
   // Platform Overview
-  'what_makes_agentify_different' => 'ما يجعل Agentify مختلفًا',
-  'agentify_specializes_in_three_core_areas_email_automation_data_intelligence_and_hr_optimization_each_ai_agent_is_designed_to_understand_context_learn_from_your_patterns_and_deliver_results_that_match_your_specific_needs' => 'يختص Agentify في ثلاثة مجالات أساسية: أتمتة البريد الإلكتروني، ذكاء البيانات، وتحسين الموارد البشرية. كل وكيل ذكي مصمم لفهم السياق والتعلم من أنماطك وتقديم نتائج تتناسب مع احتياجاتك المحددة.',
+  'what_makes_agentify_different' => 'ما يجعل Suqya مختلفًا',
+  'agentify_specializes_in_three_core_areas_email_automation_data_intelligence_and_hr_optimization_each_ai_agent_is_designed_to_understand_context_learn_from_your_patterns_and_deliver_results_that_match_your_specific_needs' => 'يختص Suqya في ثلاثة مجالات أساسية: أتمتة البريد الإلكتروني، ذكاء البيانات، وتحسين الموارد البشرية. كل وكيل ذكي مصمم لفهم السياق والتعلم من أنماطك وتقديم نتائج تتناسب مع احتياجاتك المحددة.',
   'our_platform_integrates_with_gmail_outlook_google_sheets_and_supports_file_uploads_making_it_easy_to_connect_your_existing_workflow_without_disruption_security_is_built_in_with_bank_level_encryption_protecting_your_sensitive_information' => 'تتكامل منصتنا مع Gmail وOutlook وGoogle Sheets وتدعم رفع الملفات، مما يجعل من السهل ربط سير عملك الحالي دون إزعاج. الأمان مدمج مع التشفير على مستوى البنوك لحماية معلوماتك الحساسة.',
   'focus_on_what_matters_while_ai_handles_the_rest' => 'ركز على ما يهم بينما يتولى الذكاء الاصطناعي الباقي',
   'let_intelligent_automation_free_up_your_time_for_strategic_work' => 'دع الأتمتة الذكية تحرر وقتك للعمل الاستراتيجي',
@@ -608,7 +608,7 @@ return [
 
   // Bottom CTA
   'ready_to_automate_your_workflow' => 'جاهز لأتمتة سير عملك؟',
-  'start_using_agentify_ai_agents_today_and_transform_how_you_work' => 'ابدأ استخدام وكلاء Agentify الذكيين اليوم وغير طريقة عملك',
+  'start_using_agentify_ai_agents_today_and_transform_how_you_work' => 'ابدأ استخدام وكلاء Suqya الذكيين اليوم وغير طريقة عملك',
   'get_started_now' => 'ابدأ الآن',
 
 
