@@ -217,7 +217,7 @@ export default function SelectableTable({
               })
             ) : (
               <tr>
-                <td colSpan={columns.length + 1} className="px-3 py-2 text-center text-neutral-500 dark:text-neutral-400">
+                <td colSpan={columns.length + 1} className="px-3 py-6 text-center text-neutral-500 dark:text-neutral-400">
                   <i className="fa-regular fa-face-frown"></i> {t('no_items_found')}
                 </td>
               </tr>

@@ -1,12 +1,12 @@
 export default function ApplicationLogo(props) {
   return (
-    <div className="text-center uppercase">
+    <div className="text-center text-xl ">
       {/* <img
         className="object-contain filter dark:invert"
         src="/assets/settings/logo.png"
         alt=""
       /> */}
-      Suqya
+      سُقيا
     </div>
   );
 }
