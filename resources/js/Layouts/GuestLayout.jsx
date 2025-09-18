@@ -39,7 +39,7 @@ export default function GuestLayout({ children, title = 'Authentication' }) {
 
       {/* Main Content - Modern Two Section Layout */}
       <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 via-neutral-50 to-blue-100 dark:bg-gradient-to-br dark:from-blue-950 dark:via-blue-900 dark:to-blue-800 pt-20">
-        <div className="w-full max-w-4xl mx-auto flex flex-col md:flex-row shadow-2xl rounded-2xl overflow-hidden border border-neutral-200 dark:border-blue-900 bg-white dark:bg-gradient-to-br dark:from-blue-950 dark:via-blue-900 dark:to-blue-800 animate-fadeIn">
+        <div className="w-full max-w-4xl mx-auto flex flex-col md:flex-row shadow-2xl sm:rounded-2xl overflow-hidden border border-neutral-200 dark:border-blue-900 bg-white dark:bg-gradient-to-br dark:from-blue-950 dark:via-blue-900 dark:to-blue-800 animate-fadeIn">
           {/* Left Section - Info/Branding */}
           <div className="hidden md:flex flex-col justify-center items-center bg-gradient-to-br from-blue-500 via-blue-400 to-blue-600 dark:from-blue-900 dark:via-blue-800 dark:to-blue-950 text-white px-8 py-12 w-1/2 relative">
             <div className="flex flex-col items-center gap-6">

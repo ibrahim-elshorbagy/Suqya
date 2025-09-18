@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tenant\Tenant;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\PermissionRegistrar;
 
 class RegisteredUserController extends Controller
 {
@@ -31,21 +33,21 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name'=>'required|string|max:255',
-            'username' => 'required|string|max:255|unique:'.User::class,
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|lowercase|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ], [
-            'name.required' => __('website_response.name_required'),
-            'username.required' => __('website_response.username_required'),
-            'username.unique' => __('website_response.username_unique'),
-            'email.required' => __('website_response.email_required'),
-            'email.email' => __('website_response.email_invalid'),
-            'email.unique' => __('website_response.email_unique'),
-            'password.required' => __('website_response.password_required'),
-            'password.confirmed' => __('website_response.password_confirmation'),
+            'tenant_name' => 'required|string|max:255',
+            'tenant_slug' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:tenants,slug',
+                'regex:/^[\\p{Arabic}a-z0-9-_]+$/u'
+            ],
         ]);
 
+        // Create user
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
@@ -53,9 +55,22 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole('user');
-        event(new Registered($user));
+        // Create tenant
+        $tenant = Tenant::create([
+            'name' => $request->tenant_name,
+            'slug' => $request->tenant_slug,
+            'owner_id' => $user->id,
+        ]);
+        $user->tenant_id = $tenant->id;
+        $user->save();
 
+        // Assign tenant role/team using Spatie
+        setPermissionsTeamId($tenant->id);
+        $user->assignRole('tenant');
+        setPermissionsTeamId(null);
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
+
+        event(new Registered($user));
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));

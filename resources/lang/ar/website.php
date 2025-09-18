@@ -23,6 +23,8 @@ return [
   // end Dashboard translations
 
   // Auth Pages
+  'register_company' => 'تسجيل شركة جديدة',
+  'register_company_subtitle' => 'أنشئ حساب شركتك لإدارة خدمات المياه بسهولة.',
   'auth_login' => 'تسجيل الدخول',
   'auth_welcome_back' => 'مرحباً بعودتك',
   'auth_sign_in_to_your_account' => 'سجل دخولك إلى حسابك',

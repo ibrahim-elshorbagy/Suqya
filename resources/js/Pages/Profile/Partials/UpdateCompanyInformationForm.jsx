@@ -72,7 +72,7 @@ export default function UpdateCompanyInformation({ className = '' }) {
               required
               autoComplete="url"
               icon="fa-link"
-              placeholder="water-company-1"
+              placeholder="water-company-link"
             />
             <InputError className="mt-2" message={errors.slug} />
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
