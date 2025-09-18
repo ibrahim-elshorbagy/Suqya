@@ -11,7 +11,7 @@ export default function SelectableTable({
   routeName,
   queryParams = {},
   renderRow = null,
-  renderCard = null, // New prop for custom card rendering
+  renderCard = null,
   idField = 'id',
   pagination = null,
   onSort = null,
@@ -22,9 +22,10 @@ export default function SelectableTable({
   perPageOptions = [10, 25, 50, 100],
   defaultPerPage = 15,
   getRowClassName = null,
-  getCardClassName = null, // New prop for custom card styling
+  getCardClassName = null,
   showSelection = true,
-  cardFields = [], // New prop to specify which fields to show in cards
+  cardFields = [],
+  defaultView = 'table', // New prop: 'table' or 'grid'
 }) {
   // Initialize translation
   const { t } = useTrans();
@@ -36,6 +37,7 @@ export default function SelectableTable({
   const [sortDirection, setSortDirection] = useState(defaultSortDirection);
   const [perPage, setPerPage] = useState(queryParams.per_page || 15);
   const [isMobile, setIsMobile] = useState(false);
+  const [viewMode, setViewMode] = useState(defaultView); // New state for view mode
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -53,6 +55,11 @@ export default function SelectableTable({
     setSelectedItems([]);
     setSelectAll(false);
   }, [data]);
+
+  // Handle view mode toggle
+  const toggleViewMode = () => {
+    setViewMode(prev => prev === 'table' ? 'grid' : 'table');
+  };
 
   // Handle row selection
   const handleSelect = (item) => {
@@ -200,8 +207,8 @@ export default function SelectableTable({
     );
   };
 
-  // Render mobile cards
-  const renderCards = () => (
+  // Render mobile cards (always cards on mobile)
+  const renderMobileCards = () => (
     <div className="space-y-3">
       {data.length > 0 ? (
         data.map((item, index) => {
@@ -213,6 +220,26 @@ export default function SelectableTable({
         })
       ) : (
         <div className="text-center py-12">
+          <i className="fa-regular fa-face-frown text-4xl text-neutral-400 dark:text-neutral-500 mb-4"></i>
+          <p className="text-neutral-500 dark:text-neutral-400">{t('no_items_found')}</p>
+        </div>
+      )}
+    </div>
+  );
+
+  // Render desktop grid cards
+  const renderDesktopGrid = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      {data.length > 0 ? (
+        data.map((item, index) => {
+          const isSelected = selectedItems.includes(item[idField]);
+
+          return renderCard
+            ? renderCard(item, isSelected, handleSelect, index)
+            : defaultCardRenderer(item, isSelected, index);
+        })
+      ) : (
+        <div className="col-span-full text-center py-12">
           <i className="fa-regular fa-face-frown text-4xl text-neutral-400 dark:text-neutral-500 mb-4"></i>
           <p className="text-neutral-500 dark:text-neutral-400">{t('no_items_found')}</p>
         </div>
@@ -322,6 +349,15 @@ export default function SelectableTable({
     </div>
   );
 
+  // Determine what to render
+  const renderContent = () => {
+    if (isMobile) {
+      return renderMobileCards();
+    } else {
+      return viewMode === 'table' ? renderTable() : renderDesktopGrid();
+    }
+  };
+
   return (
     <>
       <TableControls
@@ -339,10 +375,13 @@ export default function SelectableTable({
         queryParams={queryParams}
         routeName={routeName}
         showSelection={showSelection}
+        // Pass view toggle props
+        viewMode={viewMode}
+        onViewToggle={toggleViewMode}
+        isMobile={isMobile}
       />
 
-      {/* Render cards on mobile, table on desktop */}
-      {isMobile ? renderCards() : renderTable()}
+      {renderContent()}
 
       {pagination && <Pagination links={pagination.links} />}
     </>

@@ -18,6 +18,10 @@ export default function TableControls({
   queryParams = {},
   routeName,
   showSelection = true,
+  // New props for view toggle
+  viewMode = 'table',
+  onViewToggle,
+  isMobile = false,
 }) {
   const { t } = useTrans();
   const [showPerPage, setShowPerPage] = useState(false);
@@ -100,11 +104,9 @@ export default function TableControls({
                               ? 'text-red-600 dark:text-red-400'
                               : action.variant === 'blue'
                                 ? 'text-blue-600 dark:text-blue-400'
-                                : action.variant === 'blue'
-                                  ? 'text-blue-600 dark:text-blue-400'
-                                  : action.variant === 'yellow'
-                                    ? 'text-yellow-600 dark:text-yellow-400'
-                                    : 'text-neutral-700 dark:text-neutral-200'
+                                : action.variant === 'yellow'
+                                  ? 'text-yellow-600 dark:text-yellow-400'
+                                  : 'text-neutral-700 dark:text-neutral-200'
                             }`}
                           onClick={() => handleBulkAction(action)}
                         >
@@ -117,10 +119,6 @@ export default function TableControls({
                 )}
               </div>
             )}
-
-            {/* <span className="text-neutral-500 dark:text-neutral-400">
-              {selectedItems.length} {t('selected')}
-            </span> */}
           </div>
         ) : (
           <div className="text-neutral-500 dark:text-neutral-400">
@@ -130,6 +128,21 @@ export default function TableControls({
       </div>
 
       <div className="flex items-center gap-3">
+        {/* View Toggle Button - Only show on desktop */}
+        {!isMobile && onViewToggle && (
+          <ActionButton
+            variant="primary"
+            icon={viewMode === 'table' ? 'fa-th-large' : 'fa-table'}
+            size="sm"
+            onClick={onViewToggle}
+            title={viewMode === 'table' ? t('grid_view') : t('table_view')}
+          >
+            <span className="hidden sm:inline">
+              {viewMode === 'table' ? t('grid_view') : t('table_view')}
+            </span>
+          </ActionButton>
+        )}
+
         {/* Sort dropdown */}
         {sortOptions.length > 0 && (
           <div className="relative" onClick={stopPropagation}>
@@ -170,7 +183,6 @@ export default function TableControls({
             variant="primary"
             icon="fa-list-ol"
             size="sm"
-            className="bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600"
             onClick={(e) => { e.stopPropagation(); setShowPerPage(!showPerPage); }}
           >
             <span>{perPage}</span> {t('per_page')}

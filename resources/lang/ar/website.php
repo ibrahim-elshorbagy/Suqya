@@ -219,6 +219,8 @@ return [
   "tenant_slug"=>"رابط الشركة",
   "tenant_phone"=>"هاتف الشركة",
   "tenant_address"=>"عنوان الشركة",
+  "grid_view"=>"شبكه",
+  "table_view"=>"جدول",
 
 
   // User Management Bulk Actions
