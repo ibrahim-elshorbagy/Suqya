@@ -408,7 +408,7 @@ export default function UsersTable({ users, onEdit }) {
       getRowClassName={getRowClassName}
       getCardClassName={getCardClassName}
       bulkActions={bulkActions}
-      cardFields={cardFields}
+
     />
   );
 }

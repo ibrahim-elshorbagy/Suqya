@@ -24,7 +24,6 @@ export default function SelectableTable({
   getRowClassName = null,
   getCardClassName = null,
   showSelection = true,
-  cardFields = [],
   defaultView = 'table', // New prop: 'table' or 'grid'
 }) {
   // Initialize translation
@@ -124,88 +123,46 @@ export default function SelectableTable({
     }
   };
 
-  // Default card renderer
-  const defaultCardRenderer = (item, isSelected, index) => {
-    const displayFields = cardFields.length > 0 ? cardFields : columns.filter(col => col.field !== 'actions');
-
-    return (
-      <div
-        key={item[idField]}
-        className={`
-          relative p-4 rounded-lg border transition-all duration-200
-          ${isSelected
-            ? 'border-blue-500 bg-blue-50 dark:bg-blue-950 shadow-md'
-            : 'border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 hover:shadow-md'
-          }
-          ${getCardClassName ? getCardClassName(item, index, isSelected) : ''}
-          ${onRowClick ? 'cursor-pointer' : ''}
-        `}
-        onClick={onRowClick ? () => onRowClick(item) : undefined}
-      >
-        {/* Selection checkbox */}
-        {showSelection && (
-          <div className="absolute top-3 right-3">
-            <input
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-600"
-              checked={isSelected}
-              onChange={(e) => {
-                e.stopPropagation();
-                handleSelect(item);
-              }}
-            />
-          </div>
-        )}
-
-        {/* Card content */}
-        <div className="space-y-2">
-          {displayFields.map((column, colIndex) => {
-            if (column.field === 'actions') return null;
-
-            const value = column.render
-              ? column.render(item)
-              : item[column.accessor || column.field] || '-';
-
-            return (
-              <div key={colIndex} className="flex items-start gap-2">
-                {column.icon && (
-                  <i className={`fa-solid ${column.icon} text-neutral-500 dark:text-neutral-400 mt-0.5 text-sm`}></i>
-                )}
-                <div className="flex-1 min-w-0">
-                  <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wide">
-                    {column.label}
-                  </span>
-                  <div className="mt-1 text-sm text-neutral-900 dark:text-neutral-100">
-                    {typeof value === 'string' || typeof value === 'number' ? value : (
-                      <div>{value}</div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-
-          {/* Actions */}
-          {columns.find(col => col.field === 'actions') && renderRow && (
-            <div className="pt-3 mt-3 border-t border-neutral-200 dark:border-neutral-700">
-              <div className="flex items-center justify-end">
-                {/* Extract actions from renderRow - this is a bit hacky but works */}
-                {(() => {
-                  // Create a temporary container to render the row and extract actions
-                  const tempRow = renderRow(item, isSelected, handleSelect);
-                  const actionsCell = React.Children.toArray(tempRow.props.children).find(
-                    child => child.props?.className?.includes('font-medium') ||
-                             child.props?.children?.props?.className?.includes('gap-2')
-                  );
-                  return actionsCell?.props?.children || null;
-                })()}
-              </div>
-            </div>
-          )}
+  // Simple fallback card renderer (only used if no renderCard is provided)
+  const defaultCardRenderer = (item, isSelected, index) => (
+    <div
+      key={item[idField]}
+      className={`
+        relative p-4 rounded-lg border transition-all duration-200 text-center
+        ${isSelected
+          ? 'border-blue-500 bg-blue-50 dark:bg-blue-950 shadow-md'
+          : 'border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 hover:shadow-md'
+        }
+        ${getCardClassName ? getCardClassName(item, index, isSelected) : ''}
+      `}
+    >
+      {/* Selection checkbox */}
+      {showSelection && (
+        <div className="absolute top-3 right-3">
+          <input
+            type="checkbox"
+            className="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-600"
+            checked={isSelected}
+            onChange={(e) => {
+              e.stopPropagation();
+              handleSelect(item);
+            }}
+          />
         </div>
+      )}
+
+      {/* Simple message for missing renderCard */}
+      <div className="py-8">
+        <i className="fa-solid fa-code text-3xl text-neutral-400 dark:text-neutral-500 mb-3"></i>
+        <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+          No custom card template provided
+        </p>
+        <p className="text-neutral-500 dark:text-neutral-500 text-xs mt-1">
+          Please add renderCard prop to customize card display
+        </p>
       </div>
-    );
-  };
+    </div>
+  );
 
   // Render mobile cards (always cards on mobile)
   const renderMobileCards = () => (
