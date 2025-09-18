@@ -180,6 +180,7 @@ return [
         'role'                  =>  "الصلاحيه",
         'user_name'             =>  'اسم المستخدم',
         "current_password"      => "كلمة المرور الحالية",
+        "tenant_slug" => "يجب أن يحتوي معرف الشركة على أحرف عربية أو إنجليزية أو أرقام أو شرطات (-_) فقط.",
 
         // Plan validation attributes
         'price'                 => 'السعر',

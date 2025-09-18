@@ -65,7 +65,7 @@ export default function ThemeToggle({ className = '' }) {
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
       <i className={`fa-solid ${getThemeIcon()}`}></i>
-      <span>{getThemeText()}</span>
+      <span className='dark:text-white'>{getThemeText()}</span>
     </button>
   );
 }

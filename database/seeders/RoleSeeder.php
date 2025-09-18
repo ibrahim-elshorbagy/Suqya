@@ -36,7 +36,7 @@ class RoleSeeder extends Seeder
     $systemTenant = Tenant::create(
       [
         'id' => 1,
-        'name' => 'admin',
+        'name' => 'admin tenant',
         'phone' => null,
         'email' => 'system@example.com',
         'address' => 'Egypt',

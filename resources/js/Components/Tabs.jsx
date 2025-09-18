@@ -51,7 +51,7 @@ export default function Tabs({ tabs }) {
 
       </div>
 
-      <div className="p-4">
+      <div className="py-4">
         {tabs.map((tab, index) => (
           <div key={index} className={activeTab === index ? 'block' : 'hidden'}>
             {tab.content}

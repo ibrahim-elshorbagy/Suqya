@@ -40,7 +40,6 @@ export default function UsersTable({ users, onEdit }) {
     });
   };
 
-
   const handleBulkDelete = async (ids) => {
     router.delete(route('admin.users.bulk.delete'), {
       data: { ids },
@@ -84,9 +83,17 @@ export default function UsersTable({ users, onEdit }) {
     { field: 'email', label: t('email_address'), icon: 'fa-envelope' },
     { field: 'username', label: t('username'), icon: 'fa-at' },
     { field: 'status', label: t('status'), icon: 'fa-circle-info' },
-    { field: 'roles', label: t('role'), icon: 'fa-user-shield' },
     { field: 'created_at', label: t('created_at'), icon: 'fa-calendar' },
     { field: 'actions', label: t('actions'), icon: 'fa-gear', className: 'flex justify-center' }
+  ];
+
+  // Define which fields to show in mobile cards (excluding actions)
+  const cardFields = [
+    { field: 'name', label: t('name'), icon: 'fa-user' },
+    { field: 'email', label: t('email_address'), icon: 'fa-envelope' },
+    { field: 'username', label: t('username'), icon: 'fa-at' },
+    { field: 'status', label: t('status'), icon: 'fa-circle-info' },
+    { field: 'created_at', label: t('created_at'), icon: 'fa-calendar' }
   ];
 
   const sortOptions = [
@@ -133,24 +140,9 @@ export default function UsersTable({ users, onEdit }) {
             ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
             : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
         }`}>
-          <i className={`fa-solid ${user.blocked ? 'fa-ban' : 'fa-check-circle'} mr-1`}></i>
+          <i className={`fa-solid ${user.blocked ? 'fa-ban' : 'fa-check-circle'} mx-1`}></i>
           {user.blocked ? t('blocked') : t('active')}
         </span>
-      </td>
-      <td className="px-3 py-4 whitespace-nowrap">
-        {user.roles.map(role => (
-          <span
-            key={role.id}
-            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mr-1 ${
-              role.name === 'admin'
-                ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-            }`}
-          >
-            <i className="fa-solid fa-shield mr-1"></i>
-            {role.name === 'admin' ? t('admin') : t('user_role')}
-          </span>
-        ))}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-500 dark:text-neutral-400">
         {new Date(user.created_at).toLocaleDateString()}
@@ -200,19 +192,140 @@ export default function UsersTable({ users, onEdit }) {
     </>
   );
 
-  // Row styling function - similar to InboxTable
+  // Custom card renderer for better mobile experience
+  const renderCard = (user, isSelected, handleSelect, index) => {
+    return (
+      <div
+        key={user.id}
+        className={`
+          relative p-4 rounded-lg border transition-all duration-200
+          ${isSelected
+            ? 'border-blue-500 bg-blue-50 dark:bg-blue-950 shadow-md'
+            : user.blocked
+              ? 'border-red-300 bg-red-50 dark:bg-red-950 dark:border-red-700'
+              : 'border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800'
+          }
+          hover:shadow-md
+        `}
+      >
+        {/* Selection checkbox */}
+        <div className="absolute top-3 left-3">
+          <input
+            type="checkbox"
+            className="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-600"
+            checked={isSelected}
+            onChange={(e) => {
+              e.stopPropagation();
+              handleSelect(user);
+            }}
+          />
+        </div>
+
+        {/* User Avatar and Basic Info */}
+        <div className="flex items-start gap-3 mb-3">
+          <div className="flex-shrink-0">
+            <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+              <i className="fa-solid fa-user text-blue-600 dark:text-blue-400 text-lg"></i>
+            </div>
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 truncate">
+              {user.name}
+            </h3>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 truncate">
+              {user.email}
+            </p>
+            <p className="text-xs text-neutral-500 dark:text-neutral-500">
+              @{user.username}
+            </p>
+          </div>
+        </div>
+
+        {/* Status and Role */}
+        <div className="flex flex-wrap gap-2 mb-3">
+          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+            user.blocked
+              ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+              : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+          }`}>
+            <i className={`fa-solid ${user.blocked ? 'fa-ban' : 'fa-check-circle'} mx-1`}></i>
+            {user.blocked ? t('blocked') : t('active')}
+          </span>
+
+        </div>
+
+        {/* Created Date */}
+        <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400 mb-4">
+          <i className="fa-solid fa-calendar"></i>
+          <span>{t('created_at')}: {new Date(user.created_at).toLocaleDateString()}</span>
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center justify-end gap-2 pt-3 border-t border-neutral-200 dark:border-neutral-700">
+          <ActionButton
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit(user);
+            }}
+            variant="info"
+            icon="fa-edit"
+            size="xs"
+            as="button"
+          >
+            {t('edit')}
+          </ActionButton>
+
+          <ActionButton
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleBlock(user.id, user.blocked);
+            }}
+            variant={user.blocked ? "blue" : "yellow"}
+            icon={user.blocked ? "fa-check-circle" : "fa-ban"}
+            size="xs"
+            as="button"
+          >
+            {user.blocked ? t('unblock') : t('block')}
+          </ActionButton>
+
+          <ActionButton
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteUser(user);
+            }}
+            variant="delete"
+            icon="fa-trash-can"
+            size="xs"
+            as="button"
+          >
+            {t('delete')}
+          </ActionButton>
+        </div>
+      </div>
+    );
+  };
+
+  // Row styling function for desktop table
   const getRowClassName = (user, index, isSelected) => {
-    if (isSelected) return ''; // Let SelectableTable handle selected state
+    if (isSelected) return '';
 
     if (user.blocked) {
-      // Blocked users have red background
       return 'bg-red-50 dark:bg-red-950 hover:bg-red-100 dark:hover:bg-red-900';
     } else {
-      // Active users alternate between neutral backgrounds
       return index % 2 === 0
         ? 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700'
         : 'bg-neutral-50 dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800';
     }
+  };
+
+  // Card styling function for mobile cards
+  const getCardClassName = (user, index, isSelected) => {
+    if (isSelected) return '';
+
+    if (user.blocked) {
+      return 'hover:bg-red-100 dark:hover:bg-red-900';
+    }
+    return 'hover:bg-neutral-50 dark:hover:bg-neutral-750';
   };
 
   return (
@@ -226,8 +339,11 @@ export default function UsersTable({ users, onEdit }) {
       defaultSortField={'created_at'}
       defaultSortDirection={'desc'}
       renderRow={renderRow}
+      renderCard={renderCard}
       getRowClassName={getRowClassName}
+      getCardClassName={getCardClassName}
       bulkActions={bulkActions}
+      cardFields={cardFields}
     />
   );
 }

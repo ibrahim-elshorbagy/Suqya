@@ -9,7 +9,7 @@ import EditModal from './Partials/Modals//EditModal';
 import UsersTable from './Partials/Tables/UsersTable';
 import { useTrans } from '@/Hooks/useTrans';
 
-export default function Users({ auth, users, admins, roles, queryParams = null }) {
+export default function Users({ auth, tenants, admins, roles, queryParams = null }) {
   queryParams = queryParams || {};
   const { t } = useTrans();
 
@@ -35,7 +35,7 @@ export default function Users({ auth, users, admins, roles, queryParams = null }
     <div>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold leading-tight text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
-          <i className="fa-solid fa-users text-blue-500"></i> {t('users')}
+          <i className="fa-solid fa-users text-blue-500"></i> {t('the_tenants')}
         </h2>
         <PrimaryButton
           type="button"
@@ -43,7 +43,7 @@ export default function Users({ auth, users, admins, roles, queryParams = null }
           icon="fa-plus"
           size="large"
         >
-          <span className="max-xs:hidden">{t('create_user')}</span>
+          <span className="max-xs:hidden">{t('create_tenant')}</span>
         </PrimaryButton>
       </div>
 
@@ -58,7 +58,7 @@ export default function Users({ auth, users, admins, roles, queryParams = null }
       </div>
 
 
-      <UsersTable users={users} onEdit={toggleEditModal} />
+      <UsersTable users={tenants} onEdit={toggleEditModal} />
     </div>
   );
 
@@ -75,7 +75,7 @@ export default function Users({ auth, users, admins, roles, queryParams = null }
           icon="fa-plus"
           size="large"
         >
-          <span className="max-xs:hidden">{t('create_user')}</span>
+          <span className="max-xs:hidden">{t('create_admin')}</span>
         </PrimaryButton>
       </div>
 
@@ -95,7 +95,7 @@ export default function Users({ auth, users, admins, roles, queryParams = null }
 
   const tabs = [
     {
-      title: t('manage_users'),
+      title: t('manage_tenants'),
       icon: 'fa-users',
       content: usersContent,
     },
@@ -108,7 +108,7 @@ export default function Users({ auth, users, admins, roles, queryParams = null }
 
   return (
     <AppLayout user={auth.user}>
-      <Head title={t('user_management')} />
+      <Head title={t('manage_tenants')} />
 
       <div className="m-3 xl:m-5">
         <div className="overflow-hidden rounded-2xl shadow-lg dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700">

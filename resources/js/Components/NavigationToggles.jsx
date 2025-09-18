@@ -95,7 +95,7 @@ export default function NavigationToggles({
         title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       >
         <i className={`fa-solid ${getThemeIcon()}`}></i>
-        {showLabels && <span className="text-sm">{getThemeText()}</span>}
+        {showLabels && <span className="text-sm dark:text-white">{getThemeText()}</span>}
       </button>
 
       {/* Language Toggle */}

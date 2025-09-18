@@ -30,13 +30,17 @@ export default function EditModal({ isOpen, onClose, user, roles }) {
         password: '',
         password_confirmation: '',
         role: user.roles && user.roles.length > 0 ? user.roles[0].name : '',
+        tenant_name: user.tenant?.name || '',
+        tenant_slug: user.tenant?.slug || '',
+        tenant_phone: user.tenant?.phone || '',
+        tenant_address: user.tenant?.address || '',
         _method: 'PUT',
       });
     } else if (!isOpen) {
       reset();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isOpen]);
+
 
   if (!user) return null;
 
@@ -51,20 +55,12 @@ export default function EditModal({ isOpen, onClose, user, roles }) {
     });
   };
 
-  // Prepare roles for dropdown
-  const roleOptions = [
-    { value: '', label: `-- ${t('role')} --` },
-    ...(roles?.map(role => ({
-      value: role.name,
-      label: role.name === 'admin' ? t('admin') : t('user_role')
-    })) || []),
-  ];
 
   return (
     <AppModal
       isOpen={isOpen}
       onClose={onClose}
-      title={t('edit_user')}
+      title={t('edit')}
       icon="fa-pen-to-square"
       size="md"
     >
@@ -140,20 +136,66 @@ export default function EditModal({ isOpen, onClose, user, roles }) {
           />
           <InputError message={errors.password_confirmation} className="mt-2" />
         </div>
+        {data.role === 'tenant' && (
+          <>
+            <div className="mb-4">
+              <InputLabel htmlFor="tenant_name" value={t('tenant_name')} required />
+              <TextInput
+                id="tenant_name"
+                type="text"
+                name="tenant_name"
+                value={data.tenant_name || ''}
+                className="mt-1 block w-full"
+                onChange={(e) => setData('tenant_name', e.target.value)}
+                icon="fa-building"
+                required
+              />
+              <InputError message={errors.tenant_name} className="mt-2" />
+            </div>
+            {/* Tenant Slug */}
+            <div className="mb-4">
+              <InputLabel htmlFor="tenant_slug" value={t('tenant_slug')} required />
+              <TextInput
+                id="tenant_slug"
+                type="text"
+                name="tenant_slug"
+                value={data.tenant_slug || ''}
+                className="mt-1 block w-full"
+                onChange={(e) => setData('tenant_slug', e.target.value)}
+                icon="fa-link"
+                required
+              />
+              <InputError message={errors.tenant_slug} className="mt-2" />
+            </div>
 
-        <div className="mb-4">
-          <InputLabel htmlFor="role" value={t('role')} required />
-          <SelectInput
-            name="role"
-            value={data.role}
-            onChange={(e) => setData('role', e.target.value)}
-            options={roleOptions}
-            icon="fa-user-shield"
-            error={errors.role}
-            required
-          />
-        </div>
-
+            <div className="mb-4">
+              <InputLabel htmlFor="tenant_phone" value={t('tenant_phone')} />
+              <TextInput
+                id="tenant_phone"
+                type="text"
+                name="tenant_phone"
+                value={data.tenant_phone || ''}
+                className="mt-1 block w-full"
+                onChange={(e) => setData('tenant_phone', e.target.value)}
+                icon="fa-phone"
+              />
+              <InputError message={errors.tenant_phone} className="mt-2" />
+            </div>
+            <div className="mb-4">
+              <InputLabel htmlFor="tenant_address" value={t('tenant_address')} />
+              <TextInput
+                id="tenant_address"
+                type="text"
+                name="tenant_address"
+                value={data.tenant_address || ''}
+                className="mt-1 block w-full"
+                onChange={(e) => setData('tenant_address', e.target.value)}
+                icon="fa-location-dot"
+              />
+              <InputError message={errors.tenant_address} className="mt-2" />
+            </div>
+          </>
+        )}
         <div className="flex justify-end gap-2 mt-6">
           <SecondaryButton
             type="button"

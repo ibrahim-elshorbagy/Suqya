@@ -15,7 +15,6 @@ return new class extends Migration {
       $table->string('name');
       $table->string('slug')->nullable()->unique();
       $table->string('phone')->nullable();
-      $table->string('email')->nullable();
       $table->string('address')->nullable();
 
       $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();  //Owner of the tenant
