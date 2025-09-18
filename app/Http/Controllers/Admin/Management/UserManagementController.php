@@ -20,9 +20,7 @@ class UserManagementController extends Controller
   public function index(Request $request)
   {
     $request->validate([
-      'name' => ['nullable', 'string', 'max:255'],
-      'email' => ['nullable', 'string', 'max:255'],
-      'username' => ['nullable', 'string', 'max:255'],
+      'search' => ['nullable', 'string', 'max:255'],
       'sort' => ['nullable', 'string', 'in:id,name,email,username,created_at'],
       'direction' => ['nullable', 'string', 'in:asc,desc'],
       'per_page' => ['nullable', 'integer', 'min:1'],
@@ -32,20 +30,19 @@ class UserManagementController extends Controller
     $sortDirection = $request->input('direction', 'desc');
     $perPage = $request->input('per_page', 15);
 
-    // Shared filter function
     $applyFilters = function ($query) use ($request) {
-      if ($request->filled('name')) {
-        $query->where('name', 'like', '%' . $request->name . '%');
-      }
-      if ($request->filled('email')) {
-        $query->where('email', 'like', '%' . $request->email . '%');
-      }
-      if ($request->filled('username')) {
-        $query->where('username', 'like', '%' . $request->username . '%');
+      if ($request->filled('search')) {
+        $search = trim($request->search);
+        $query->where(function ($q) use ($search) {
+          $q->where('name', 'like', "%{$search}%")
+            ->orWhere('email', 'like', "%{$search}%")
+            ->orWhere('username', 'like', "%{$search}%");
+        });
       }
     };
 
-    // Admins query using Spatie role scope, with roles eager loaded
+
+    // Admins query
     $adminsQuery = User::role('admin')->with('roles');
     setPermissionsTeamId(1);
     $applyFilters($adminsQuery);
@@ -55,10 +52,8 @@ class UserManagementController extends Controller
       ->withQueryString();
     setPermissionsTeamId(null);
 
-    // Tenants query using subquery to respect role and team structure
-    $tenantsQuery = User::with(['tenant'])
-      ->withTenantRole();
-
+    // Tenants query
+    $tenantsQuery = User::with(['tenant'])->withTenantRole();
     $applyFilters($tenantsQuery);
 
     $tenants = $tenantsQuery

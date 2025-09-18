@@ -48,8 +48,8 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
       <div className="mb-4">
         <SearchBar
           placeholder={t('search_users')}
-          defaultValue={queryParams.name || ''}
-          queryKey="name"
+          defaultValue={queryParams.search || ''}
+          queryKey="search"
           routeName="admin.users.index"
           icon="fa-magnifying-glass"
           pageParam="tenants_page"
@@ -84,8 +84,8 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
       <div className="mb-4">
         <SearchBar
           placeholder={t('search_admins')}
-          defaultValue={queryParams.name || ''}
-          queryKey="name"
+          defaultValue={queryParams.search || ''}
+          queryKey="search"
           routeName="admin.users.index"
           icon="fa-magnifying-glass"
           pageParam="admins_page"
