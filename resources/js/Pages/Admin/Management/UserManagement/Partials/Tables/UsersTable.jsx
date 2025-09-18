@@ -135,11 +135,10 @@ export default function UsersTable({ users, onEdit }) {
         </div>
       </td>
       <td className="px-3 py-4 whitespace-nowrap">
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-          user.blocked
+        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${user.blocked
             ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
             : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-        }`}>
+          }`}>
           <i className={`fa-solid ${user.blocked ? 'fa-ban' : 'fa-check-circle'} mx-1`}></i>
           {user.blocked ? t('blocked') : t('active')}
         </span>
@@ -224,9 +223,17 @@ export default function UsersTable({ users, onEdit }) {
         {/* User Avatar and Basic Info */}
         <div className="flex items-start gap-3 mb-3">
           <div className="flex-shrink-0">
-            <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
-              <i className="fa-solid fa-user text-blue-600 dark:text-blue-400 text-lg"></i>
-            </div>
+            {user.image_url ? (
+              <img
+                src={user.image_url}
+                alt={user.name}
+                className="w-12 h-12 rounded-full object-cover border-2 border-blue-400 dark:border-blue-600"
+              />
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                <i className="fa-solid fa-user text-blue-600 dark:text-blue-400 text-lg"></i>
+              </div>
+            )}
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 truncate">
@@ -241,13 +248,44 @@ export default function UsersTable({ users, onEdit }) {
           </div>
         </div>
 
+        {/* Tenant Info */}
+        {user.roles && user.roles.length > 0 && user.roles[0].name === 'tenant' && user.tenant && (
+          <div className="mb-3 p-3 space-y-1
+            [&>div]:flex [&>div]:items-center [&>div]:gap-3
+            [&>div>i]:w-3 [&>div>i]:inline-flex [&>div>i]:justify-center
+            text-blue-700 dark:text-white text-sm rounded
+            bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-700"
+          >
+            <div>
+              <i className="fa-solid fa-building"></i>
+              <span>{t('tenant_name')}: {user.tenant.name}</span>
+            </div>
+            <div>
+              <i className="fa-solid fa-link"></i>
+              <span>{t('tenant_slug')}: {user.tenant.slug}</span>
+            </div>
+            {user.tenant.phone && (
+              <div>
+                <i className="fa-solid fa-phone"></i>
+                <span>{t('tenant_phone')}: {user.tenant.phone}</span>
+              </div>
+            )}
+            {user.tenant.address && (
+              <div>
+                <i className="fa-solid fa-location-dot"></i>
+                <span>{t('tenant_address')}: {user.tenant.address}</span>
+              </div>
+            )}
+          </div>
+
+        )}
+
         {/* Status and Role */}
         <div className="flex flex-wrap gap-2 mb-3">
-          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-            user.blocked
+          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${user.blocked
               ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
               : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-          }`}>
+            }`}>
             <i className={`fa-solid ${user.blocked ? 'fa-ban' : 'fa-check-circle'} mx-1`}></i>
             {user.blocked ? t('blocked') : t('active')}
           </span>
