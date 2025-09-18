@@ -222,6 +222,7 @@ return [
   "tenant_address"=>"عنوان الشركة",
   "grid_view"=>"شبكه",
   "table_view"=>"جدول",
+  "email"=> "البريد الإلكتروني",
 
   // Admin Impersonation
   'login_as' => 'تسجيل الدخول كـ',

@@ -29,7 +29,6 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
     setIsEditModalOpen(!isEditModalOpen);
   };
 
-
   // === Regular Users Tab ===
   const usersContent = (
     <div>
@@ -46,7 +45,6 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
           <span className="max-xs:hidden">{t('create_tenant')}</span>
         </PrimaryButton>
       </div>
-
       <div className="mb-4">
         <SearchBar
           placeholder={t('search_users')}
@@ -54,11 +52,16 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
           queryKey="name"
           routeName="admin.users.index"
           icon="fa-magnifying-glass"
+          pageParam="tenants_page"
         />
       </div>
-
-
-      <UsersTable users={tenants} onEdit={toggleEditModal} />
+      <UsersTable
+        users={tenants}
+        onEdit={toggleEditModal}
+        pageParam="tenants_page"
+        queryParams={queryParams}
+        routeName="admin.users.index"
+      />
     </div>
   );
 
@@ -78,7 +81,6 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
           <span className="max-xs:hidden">{t('create_admin')}</span>
         </PrimaryButton>
       </div>
-
       <div className="mb-4">
         <SearchBar
           placeholder={t('search_admins')}
@@ -86,10 +88,16 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
           queryKey="name"
           routeName="admin.users.index"
           icon="fa-magnifying-glass"
+          pageParam="admins_page"
         />
       </div>
-
-      <UsersTable users={admins} onEdit={toggleEditModal} />
+      <UsersTable
+        users={admins}
+        onEdit={toggleEditModal}
+        pageParam="admins_page"
+        queryParams={queryParams}
+        routeName="admin.users.index"
+      />
     </div>
   );
 
@@ -109,7 +117,6 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
   return (
     <AppLayout user={auth.user}>
       <Head title={t('manage_tenants')} />
-
       <div className="m-3 xl:m-5">
         <div className="overflow-hidden rounded-2xl shadow-lg dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700">
           <div className="p-4 text-neutral-900 dark:text-neutral-100">
@@ -124,7 +131,6 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
         onClose={toggleCreateModal}
         roles={roles}
       />
-
       <EditModal
         isOpen={isEditModalOpen}
         onClose={() => toggleEditModal()}

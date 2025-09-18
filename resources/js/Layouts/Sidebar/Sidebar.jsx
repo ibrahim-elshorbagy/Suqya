@@ -15,7 +15,6 @@ export default function Sidebar({ sidebarIsOpen, setSidebarIsOpen }) {
   // Get user roles
   const userRoles = auth.roles || [];
 
-  console.log(userRoles)
   const navItems = [
     { name: t('dashboard'), icon: 'fa-chart-line', href: route('dashboard'), route: 'dashboard', role: '' },
 

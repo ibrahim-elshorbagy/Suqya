@@ -18,10 +18,10 @@ export default function TableControls({
   queryParams = {},
   routeName,
   showSelection = true,
-  // New props for view toggle
   viewMode = 'table',
   onViewToggle,
   isMobile = false,
+  pageParam = 'page', // New prop for specific page parameter name
 }) {
   const { t } = useTrans();
   const [showPerPage, setShowPerPage] = useState(false);
@@ -34,12 +34,44 @@ export default function TableControls({
     if (field === sortField && sortDirection === 'asc') {
       direction = 'desc';
     }
-    onSort(field, direction);
+
+    if (onSort) {
+      onSort(field, direction);
+    } else if (routeName) {
+      // Get current URL query parameters instead of using props queryParams
+      let queryString = { ...Object.fromEntries(new URLSearchParams(window.location.search)) };
+      queryString.sort = field;
+      queryString.direction = direction;
+
+      // Explicitly set page to 1 to reset pagination
+      queryString[pageParam] = 1;
+
+      router.get(route(routeName, route().params), queryString, {
+        preserveState: true,
+        replace: true
+      });
+    }
+
     setShowSortMenu(false);
   };
 
   const handlePerPageChange = (value) => {
-    onPerPageChange(value);
+    if (onPerPageChange) {
+      onPerPageChange(value);
+    } else if (routeName) {
+      // Get current URL query parameters instead of using props queryParams
+      let queryString = { ...Object.fromEntries(new URLSearchParams(window.location.search)) };
+      queryString.per_page = value;
+
+      // Explicitly set page to 1 to reset pagination
+      queryString[pageParam] = 1;
+
+      router.get(route(routeName, route().params), queryString, {
+        preserveState: true,
+        replace: true
+      });
+    }
+
     setShowPerPage(false);
   };
 

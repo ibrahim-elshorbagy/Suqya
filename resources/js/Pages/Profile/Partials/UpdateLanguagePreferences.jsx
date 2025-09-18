@@ -17,11 +17,6 @@ export default function UpdateLanguagePreferences() {
     // );
   };
 
-  // Debugging logs
-  useEffect(() => {
-    console.log("Server locale updated to:", locale);
-  }, [locale]);
-
   return (
     <section className="space-y-6">
       <header>

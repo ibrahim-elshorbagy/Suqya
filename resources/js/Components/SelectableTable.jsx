@@ -24,7 +24,8 @@ export default function SelectableTable({
   getRowClassName = null,
   getCardClassName = null,
   showSelection = true,
-  defaultView = 'table', // New prop: 'table' or 'grid'
+  defaultView = 'table',
+  pageParam = 'page',
 }) {
   // Initialize translation
   const { t } = useTrans();
@@ -107,13 +108,18 @@ export default function SelectableTable({
     if (onSort) {
       onSort(field, direction);
     } else if (routeName) {
-      const params = new URLSearchParams(queryParams);
-      params.set('sort', field);
-      params.set('direction', direction);
-      router.get(route(routeName, {
-        ...route().params,
-        ...Object.fromEntries(params)
-      }), {}, { preserveState: true });
+      // Get current URL query parameters instead of using props queryParams
+      let queryString = { ...Object.fromEntries(new URLSearchParams(window.location.search)) };
+      queryString.sort = field;
+      queryString.direction = direction;
+
+      // Reset page to 1 when sorting
+      queryString[pageParam] = 1;
+
+      router.get(route(routeName, route().params), queryString, {
+        preserveState: true,
+        replace: true
+      });
     }
   };
 
@@ -122,12 +128,17 @@ export default function SelectableTable({
     setPerPage(value);
 
     if (routeName) {
-      const routeParams = { ...route().params };
-      if (routeParams.page) {
-        delete routeParams.page;
-      }
-      routeParams.per_page = value;
-      router.get(route(routeName, routeParams), {}, { preserveState: true });
+      // Get current URL query parameters instead of using props queryParams
+      let queryString = { ...Object.fromEntries(new URLSearchParams(window.location.search)) };
+      queryString.per_page = value;
+
+      // Reset page to 1 when changing per page
+      queryString[pageParam] = 1;
+
+      router.get(route(routeName, route().params), queryString, {
+        preserveState: true,
+        replace: true
+      });
     }
   };
 
@@ -348,14 +359,12 @@ export default function SelectableTable({
         queryParams={queryParams}
         routeName={routeName}
         showSelection={showSelection}
-        // Pass view toggle props
         viewMode={viewMode}
         onViewToggle={toggleViewMode}
         isMobile={isMobile}
+        pageParam={pageParam}
       />
-
       {renderContent()}
-
       {pagination && <Pagination links={pagination.links} />}
     </>
   );

@@ -30,7 +30,6 @@ export default function UpdateProfileImageForm({ className = "" }) {
   };
 
   const submit = (e) => {
-    console.log('Submitting form with image:', data.image);
     e.preventDefault();
 
     post(route("profile.image.update"), {
