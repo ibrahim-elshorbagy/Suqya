@@ -30,7 +30,7 @@ export default function ForgotPassword({ status }) {
       <div className="">
         {status && (
           <div className="mb-4 rounded-lg bg-blue-50 p-3 text-sm font-medium text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
               <i className="fa-solid fa-check-circle mr-2"></i>
               <span>{status}</span>
             </div>

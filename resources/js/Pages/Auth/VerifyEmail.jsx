@@ -39,7 +39,7 @@ export default function VerifyEmail({ status }) {
         {status === 'verification-link-sent' && (
           <div className="mb-4 rounded-lg bg-blue-50 p-3 text-sm font-medium text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
             <div className="flex items-center">
-              <i className="fa-solid fa-check-circle mr-2"></i>
+              <i className="fa-solid fa-check-circle mx-2"></i>
               <span>{t('auth_verification_link_sent') || 'A new verification link has been sent to your email address.'}</span>
             </div>
           </div>
