@@ -20,25 +20,23 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <GuestLayout>
-            <Head title={t('auth_confirm_password_title')} />
-
+        <GuestLayout title={t('auth_confirm_password_title')}>
             <div className="mb-6 text-center">
-                <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100">{t('auth_confirm_password_title')}</h1>
+                <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 flex items-center justify-center gap-2">
+                    <i className="fa-solid fa-shield-halved"></i> {t('auth_confirm_password_title')}
+                </h1>
                 <p className="mt-2 text-neutral-600 dark:text-neutral-400">
                     {t('auth_confirm_password_subtitle')}
                 </p>
             </div>
-
-            <div className="rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 overflow-hidden">
+            <div className="rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
                 <div className="p-6">
-                    <div className="mb-4 flex items-center p-3 rounded-lg bg-amber-50 text-sm text-amber-800 dark:bg-amber-900/20 dark:text-amber-400">
+                    <div className="mb-4 flex items-center p-3 rounded-lg bg-blue-50 text-sm text-blue-800 dark:bg-blue-900/20 dark:text-blue-400">
                         <i className="fa-solid fa-shield-halved mr-2"></i>
                         <span>{t('auth_secure_area_message')}</span>
                     </div>
-
-                    <form onSubmit={submit} className="mt-4">
-                        <div className="mb-6">
+                    <form onSubmit={submit} className="space-y-6">
+                        <div>
                             <InputLabel htmlFor="password" value={t('auth_password')} />
                             <TextInput
                                 id="password"
@@ -49,10 +47,10 @@ export default function ConfirmPassword() {
                                 isFocused={true}
                                 onChange={(e) => setData('password', e.target.value)}
                                 icon="fa-lock"
+                                required
                             />
                             <InputError message={errors.password} className="mt-2" />
                         </div>
-
                         <button
                             type="submit"
                             disabled={processing}
