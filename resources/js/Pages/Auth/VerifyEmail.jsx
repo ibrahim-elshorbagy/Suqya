@@ -22,7 +22,7 @@ export default function VerifyEmail({ status }) {
                     {t('auth_one_last_step')}
                 </p>
             </div>
-            <div className="rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
+            <div className="">
                 <div className="p-6">
                     <div className="flex justify-center mb-6">
                         <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">

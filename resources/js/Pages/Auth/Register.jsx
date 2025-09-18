@@ -33,7 +33,7 @@ export default function Register() {
                     {t('auth_join_us_today')}
                 </p>
             </div>
-            <div className="rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
+            <div className="">
                 <div className="p-6">
                     <form onSubmit={submit} className="space-y-6">
                         <div>

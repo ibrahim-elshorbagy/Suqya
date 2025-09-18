@@ -29,7 +29,7 @@ export default function ConfirmPassword() {
                     {t('auth_confirm_password_subtitle')}
                 </p>
             </div>
-            <div className="rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
+            <div className="">
                 <div className="p-6">
                     <div className="mb-4 flex items-center p-3 rounded-lg bg-blue-50 text-sm text-blue-800 dark:bg-blue-900/20 dark:text-blue-400">
                         <i className="fa-solid fa-shield-halved mr-2"></i>

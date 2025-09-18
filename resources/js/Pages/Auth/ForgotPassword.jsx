@@ -27,7 +27,7 @@ export default function ForgotPassword({ status }) {
                     {t('auth_enter_email_reset')}
                 </p>
             </div>
-            <div className="rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
+            <div className="">
                 <div className="p-6">
                     {status && (
                         <div className="mb-4 rounded-lg bg-blue-50 p-3 text-sm font-medium text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
