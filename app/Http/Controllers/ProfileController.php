@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\CompanyUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -90,6 +91,32 @@ class ProfileController extends Controller
     return Redirect::route('profile.edit')
       ->with('title', __('website_response.profile_image_updated_title'))
       ->with('message', __('website_response.profile_image_updated_message'))
+      ->with('status', 'success');
+  }
+
+  /**
+   * Update the company information for users with tenant role.
+   */
+  public function updateCompany(CompanyUpdateRequest $request): RedirectResponse
+  {
+    $user = $request->user();
+
+    // Get the user's tenant
+    $tenant = $user->tenant;
+
+    if (!$tenant) {
+      return Redirect::route('profile.edit')
+        ->with('title', __('website_response.error_title'))
+        ->with('message', 'لا يمكن العثور على معلومات الشركة')
+        ->with('status', 'error');
+    }
+
+    // Update tenant information
+    $tenant->update($request->validated());
+
+    return Redirect::route('profile.edit')
+      ->with('title', __('website_response.company_updated_title'))
+      ->with('message', __('website_response.company_updated_message'))
       ->with('status', 'success');
   }
 }

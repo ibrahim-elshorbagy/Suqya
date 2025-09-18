@@ -20,6 +20,10 @@ Route::middleware('auth')->group(function () {
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
   Route::post('/profile/image', [ProfileController::class, 'uploadProfileImage'])->name('profile.image.update');
 
+  // Company update route - only for users with tenant role
+  Route::patch('/company', [ProfileController::class, 'updateCompany'])
+    ->middleware('role:tenant')
+    ->name('company.update');
 });
 // User preferences routes
 // Route::post('/locale', [PreferencesController::class, 'changeLocale'])->name('locale.change');

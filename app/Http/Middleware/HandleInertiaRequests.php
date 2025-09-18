@@ -38,6 +38,9 @@ class HandleInertiaRequests extends Middleware
 
       $roles = $user->getRoleNames();
       $permissions = $user->getAllPermissions()->pluck('name');
+
+      // Load tenant information for the user
+      $user->load('tenant');
     } else {
       $roles = collect();
       $permissions = collect();

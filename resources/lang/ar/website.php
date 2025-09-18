@@ -110,6 +110,15 @@ return [
   'saved_successfully' => 'تم الحفظ بنجاح',
   'username' => 'اسم المستخدم',
 
+  /* Company Information */
+  'company_information' => 'معلومات الشركة',
+  'update_company_info' => 'تحديث معلومات الشركة وبيانات التواصل',
+  'company_name' => 'اسم الشركة',
+  'company_slug' => 'رابط الشركة',
+  'company_phone' => 'رقم هاتف الشركة',
+  'company_address' => 'عنوان الشركة',
+  "slug_condition"=>"يجب أن يحتوي على أحرف إنجليزية صغيرة او عربية و أرقام وشرطات فقط",
+
   /* Profile Image Form */
   'profile_image' => 'صورة الملف الشخصي',
   "choose_file" => "اختر ملف",

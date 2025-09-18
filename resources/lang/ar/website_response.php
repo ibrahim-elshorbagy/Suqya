@@ -51,6 +51,8 @@ return [
   'password_updated_message' => 'تم تحديث كلمة المرور الخاصة بك بنجاح.',
   'profile_image_updated_title' => 'تم تحديث الصورة ',
   'profile_image_updated_message' => 'تم تحديث صورة الملف الشخصي بنجاح.',
+  'company_updated_title' => 'تم تحديث معلومات الشركة',
+  'company_updated_message' => 'تم تحديث معلومات الشركة بنجاح.',
 
   /* User Management Responses */
   'user_created_title' => 'تم إنشاء المستخدم',
@@ -80,7 +82,7 @@ return [
   'impersonation_failed_title' => 'فشل العودة',
   'impersonation_failed_message' => 'تعذر العودة إلى حساب المدير.',
 
-  
+
   /* Plans Controller Responses */
   'plan_created_title' => 'تم إنشاء الخطة',
   'plan_created_message' => 'تم إنشاء الخطة بنجاح.',
