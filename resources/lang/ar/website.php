@@ -192,6 +192,7 @@ return [
   'delete_users' => 'حذف المستخدمين',
   "name"=>"اسم",
   "descending"=> "تنازلي",
+  "ascending"=> "تصاعدي",
   "sort"=> "ترتيب",
   "id"=> "معرف",
   "status"=>"الحالة",

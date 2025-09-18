@@ -32,16 +32,32 @@ export default function SelectableTable({
   // State
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [sortField, setSortField] = useState(defaultSortField || '');
-  const [sortDirection, setSortDirection] = useState(defaultSortDirection);
-  const [perPage, setPerPage] = useState(queryParams.per_page || 15);
+  const [sortField, setSortField] = useState(queryParams.sort || defaultSortField || '');
+  const [sortDirection, setSortDirection] = useState(queryParams.direction || defaultSortDirection);
+  const [perPage, setPerPage] = useState(queryParams.per_page || defaultPerPage);
   const [isMobile, setIsMobile] = useState(false);
-  const [viewMode, setViewMode] = useState(defaultView); // New state for view mode
+
+  // Store view mode in localStorage to persist across page changes
+  const [viewMode, setViewMode] = useState(() => {
+    // Try to get from localStorage, otherwise use default
+    if (typeof window !== 'undefined') {
+      const savedViewMode = localStorage.getItem('tableViewMode');
+      return savedViewMode || defaultView;
+    }
+    return defaultView;
+  });
+
+  // Save view mode to localStorage whenever it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('tableViewMode', viewMode);
+    }
+  }, [viewMode]);
 
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // md breakpoint
+      setIsMobile(window.innerWidth < 768);
     };
 
     checkMobile();
@@ -123,7 +139,7 @@ export default function SelectableTable({
     }
   };
 
-  // Simple fallback card renderer (only used if no renderCard is provided)
+  // Simple fallback card renderer
   const defaultCardRenderer = (item, isSelected, index) => (
     <div
       key={item[idField]}
@@ -164,7 +180,7 @@ export default function SelectableTable({
     </div>
   );
 
-  // Render mobile cards (always cards on mobile)
+  // Render mobile cards
   const renderMobileCards = () => (
     <div className="space-y-3">
       {data.length > 0 ? (
