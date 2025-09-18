@@ -1,11 +1,21 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Management\UserManagementController;
 use App\Http\Controllers\Admin\SubscriptionSystem\PlansController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::middleware( ['auth','role:admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
+    // Allow impersonated users to return to admin
+    Route::post('/admin/return-to-admin', [AdminController::class, 'returnToAdmin'])->name('admin.return_to_admin');
+});
+
+Route::middleware(['auth','role:admin'])->group(function () {
+
+    // Admin impersonation routes
+    Route::post('/admin/login-as/{user}', [AdminController::class, 'loginAs'])->name('admin.login_as');
+
     // User Management routes
     Route::get('/admin/users', [UserManagementController::class, 'index'])->name('admin.users.index');
     Route::post('/admin/users', [UserManagementController::class, 'store'])->name('admin.users.store');

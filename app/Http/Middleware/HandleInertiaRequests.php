@@ -52,6 +52,8 @@ class HandleInertiaRequests extends Middleware
         'permissions' => $permissions,
       ],
 
+      'impersonate_admin_id' => session('impersonate_admin_id'),
+
       'flash' => [
         'title' => session('title'),
         'message' => session('message'),

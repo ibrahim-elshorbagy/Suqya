@@ -72,7 +72,15 @@ return [
   'bulk_user_unblocked_title' => 'تم إلغاء الحظر',
   'bulk_user_unblocked_message' => 'تم إلغاء حظر :count مستخدم بنجاح.',
 
+  /* Admin Impersonation Responses */
+  'impersonation_success_title' => 'تم تسجيل الدخول كمستخدم',
+  'impersonation_success_message' => 'تم تسجيل الدخول بنجاح كمستخدم: :name',
+  'impersonation_return_title' => 'تم العودة إلى المدير',
+  'impersonation_return_message' => 'تم العودة إلى حساب المدير بنجاح.',
+  'impersonation_failed_title' => 'فشل العودة',
+  'impersonation_failed_message' => 'تعذر العودة إلى حساب المدير.',
 
+  
   /* Plans Controller Responses */
   'plan_created_title' => 'تم إنشاء الخطة',
   'plan_created_message' => 'تم إنشاء الخطة بنجاح.',

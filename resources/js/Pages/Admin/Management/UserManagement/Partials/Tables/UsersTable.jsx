@@ -151,9 +151,23 @@ export default function UsersTable({ users, onEdit }) {
           <ActionButton
             onClick={(e) => {
               e.stopPropagation();
-              onEdit(user);
+              if (confirm(t('are_you_sure_login_as') + ` \"${user.name}\"?`)) {
+                router.post(route('admin.login_as', user.id), {}, { preserveScroll: true });
+              }
             }}
             variant="info"
+            icon="fa-right-to-bracket"
+            size="xs"
+            as="button"
+          >
+            {t('login_as')}
+          </ActionButton>
+          <ActionButton
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit(user);
+            }}
+            variant="edit"
             icon="fa-edit"
             size="xs"
             as="button"
@@ -166,7 +180,7 @@ export default function UsersTable({ users, onEdit }) {
               e.stopPropagation();
               toggleBlock(user.id, user.blocked);
             }}
-            variant={user.blocked ? "blue" : "yellow"}
+            variant={user.blocked ? "success" : "delete"}
             icon={user.blocked ? "fa-check-circle" : "fa-ban"}
             size="xs"
             as="button"
@@ -305,7 +319,7 @@ export default function UsersTable({ users, onEdit }) {
               e.stopPropagation();
               onEdit(user);
             }}
-            variant="info"
+            variant="edit"
             icon="fa-edit"
             size="xs"
             as="button"
@@ -318,14 +332,27 @@ export default function UsersTable({ users, onEdit }) {
               e.stopPropagation();
               toggleBlock(user.id, user.blocked);
             }}
-            variant={user.blocked ? "blue" : "yellow"}
+            variant={user.blocked ? "success" : "delete"}
             icon={user.blocked ? "fa-check-circle" : "fa-ban"}
             size="xs"
             as="button"
           >
             {user.blocked ? t('unblock') : t('block')}
           </ActionButton>
-
+          <ActionButton
+            onClick={(e) => {
+              e.stopPropagation();
+              if (confirm(t('are_you_sure_login_as') + ` \"${user.name}\"?`)) {
+                router.post(route('admin.login_as', user.id), {}, { preserveScroll: true });
+              }
+            }}
+            variant="info"
+            icon="fa-right-to-bracket"
+            size="xs"
+            as="button"
+          >
+            {t('login_as')}
+          </ActionButton>
           <ActionButton
             onClick={(e) => {
               e.stopPropagation();

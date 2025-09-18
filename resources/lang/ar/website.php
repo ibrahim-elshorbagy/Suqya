@@ -222,6 +222,11 @@ return [
   "grid_view"=>"شبكه",
   "table_view"=>"جدول",
 
+  // Admin Impersonation
+  'login_as' => 'تسجيل الدخول كـ',
+  'are_you_sure_login_as' => 'هل أنت متأكد أنك تريد تسجيل الدخول كـ',
+  'return_to_admin' => 'العودة إلى حساب المدير',
+
 
   // User Management Bulk Actions
   'confirm_block_users' => 'هل أنت متأكد أنك تريد حظر :count مستخدمين؟',
