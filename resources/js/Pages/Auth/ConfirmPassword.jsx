@@ -46,6 +46,7 @@ export default function ConfirmPassword() {
               isFocused={true}
               onChange={(e) => setData('password', e.target.value)}
               icon="fa-lock"
+              placeholder={t('auth_password')}
               required
             />
             <InputError message={errors.password} className="mt-2" />

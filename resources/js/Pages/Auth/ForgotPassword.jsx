@@ -48,6 +48,7 @@ export default function ForgotPassword({ status }) {
               isFocused={true}
               onChange={(e) => setData('email', e.target.value)}
               icon="fa-envelope"
+              placeholder={t('auth_email_address')}
               required
             />
             <InputError message={errors.email} className="mt-2" />

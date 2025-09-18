@@ -45,6 +45,7 @@ export default function ResetPassword({ token, email }) {
               autoComplete="username"
               onChange={(e) => setData('email', e.target.value)}
               icon="fa-envelope"
+              placeholder={t('auth_email_address')}
               required
             />
             <InputError message={errors.email} className="mt-2" />
@@ -60,6 +61,7 @@ export default function ResetPassword({ token, email }) {
               autoComplete="new-password"
               isFocused={true}
               onChange={(e) => setData('password', e.target.value)}
+              placeholder={t('auth_new_password')}
               icon="fa-lock"
               required
             />
@@ -75,6 +77,7 @@ export default function ResetPassword({ token, email }) {
               className="mt-1 block w-full"
               autoComplete="new-password"
               onChange={(e) => setData('password_confirmation', e.target.value)}
+              placeholder={t('auth_confirm_new_password')}
               icon="fa-lock"
               required
             />

@@ -124,6 +124,7 @@ return [
   'company_phone' => 'رقم هاتف الشركة',
   'company_address' => 'عنوان الشركة',
   "slug_condition"=>"يجب أن يحتوي على أحرف إنجليزية صغيرة او عربية و أرقام وشرطات فقط",
+  "company_slug_placeholder" => "مثال: water-company-slug",
 
   /* Profile Image Form */
   'profile_image' => 'صورة الملف الشخصي',

@@ -47,6 +47,7 @@ export default function Login({ status, canResetPassword }) {
               onChange={(e) => setData('username', e.target.value)}
               icon="fa-user"
               required
+              placeholder={t('auth_username')}
             />
             <InputError message={errors.username} className="mt-2" />
           </div>
@@ -71,6 +72,7 @@ export default function Login({ status, canResetPassword }) {
               autoComplete="current-password"
               onChange={(e) => setData('password', e.target.value)}
               icon="fa-lock"
+              placeholder={t('auth_password')}
               required
             />
             <InputError message={errors.password} className="mt-2" />

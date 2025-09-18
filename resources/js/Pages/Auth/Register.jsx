@@ -38,7 +38,7 @@ export default function Register() {
         <form onSubmit={submit} className="space-y-6">
           {/* Company Name */}
           <div>
-            <InputLabel htmlFor="tenant_name" value={t('company_name') || 'اسم الشركة'} required />
+            <InputLabel htmlFor="tenant_name" value={t('company_name')} required />
             <TextInput
               id="tenant_name"
               name="tenant_name"
@@ -47,13 +47,14 @@ export default function Register() {
               autoComplete="organization"
               onChange={(e) => setData('tenant_name', e.target.value)}
               required
+              placeholder={t('company_name')}
               icon="fa-building"
             />
             <InputError message={errors.tenant_name} className="mt-2" />
           </div>
           {/* Company Slug */}
           <div>
-            <InputLabel htmlFor="tenant_slug" value={t('company_slug') || 'رابط الشركة'} required />
+            <InputLabel htmlFor="tenant_slug" value={t('company_slug')} required />
             <TextInput
               id="tenant_slug"
               name="tenant_slug"
@@ -63,7 +64,9 @@ export default function Register() {
               onChange={(e) => setData('tenant_slug', e.target.value)}
               required
               icon="fa-link"
+              placeholder={t('company_slug_placeholder')}
             />
+            <span className=' italic text-sm text-gray-500'>suqya.net/water-company-slug</span>
             <InputError message={errors.tenant_slug} className="mt-2" />
           </div>
           {/* Full Name */}
@@ -79,6 +82,8 @@ export default function Register() {
               onChange={(e) => setData('name', e.target.value)}
               required
               icon="fa-user"
+              placeholder={t('auth_full_name')}
+
             />
             <InputError message={errors.name} className="mt-2" />
           </div>
@@ -94,6 +99,8 @@ export default function Register() {
               onChange={(e) => setData('username', e.target.value)}
               required
               icon="fa-at"
+              placeholder={t('auth_username')}
+
             />
             <InputError message={errors.username} className="mt-2" />
           </div>
@@ -110,6 +117,8 @@ export default function Register() {
               onChange={(e) => setData('email', e.target.value)}
               required
               icon="fa-envelope"
+              placeholder={t('auth_email_address')}
+
             />
             <InputError message={errors.email} className="mt-2" />
           </div>
@@ -126,6 +135,8 @@ export default function Register() {
               onChange={(e) => setData('password', e.target.value)}
               required
               icon="fa-lock"
+              placeholder={t('auth_password')}
+
             />
             <InputError message={errors.password} className="mt-2" />
           </div>
@@ -142,6 +153,8 @@ export default function Register() {
               onChange={(e) => setData('password_confirmation', e.target.value)}
               required
               icon="fa-lock"
+              placeholder={t('auth_confirm_password')}
+
             />
             <InputError message={errors.password_confirmation} className="mt-2" />
           </div>
