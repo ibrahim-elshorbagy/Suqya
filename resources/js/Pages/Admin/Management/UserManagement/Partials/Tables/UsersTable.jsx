@@ -313,7 +313,7 @@ export default function UsersTable({ users, onEdit ,pageParam}) {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-end gap-2 pt-3 border-t border-neutral-200 dark:border-neutral-700">
+        <div className="flex flex-wrap items-center justify-end gap-2 pt-3 border-t border-neutral-200 dark:border-neutral-700">
           <ActionButton
             onClick={(e) => {
               e.stopPropagation();

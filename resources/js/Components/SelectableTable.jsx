@@ -194,6 +194,21 @@ export default function SelectableTable({
   // Render mobile cards
   const renderMobileCards = () => (
     <div className="space-y-3">
+      {/* Select All checkbox for mobile cards */}
+      {showSelection && data.length > 0 && (
+        <div className="flex items-center gap-2 p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+          <input
+            type="checkbox"
+            className="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-600"
+            checked={data.length > 0 && selectedItems.length === data.length}
+            onChange={handleSelectAll}
+          />
+          <label className="text-sm text-neutral-700 dark:text-neutral-300">
+            {t('select_all')} ({data.length})
+          </label>
+        </div>
+      )}
+
       {data.length > 0 ? (
         data.map((item, index) => {
           const isSelected = selectedItems.includes(item[idField]);
@@ -211,25 +226,43 @@ export default function SelectableTable({
     </div>
   );
 
+
   // Render desktop grid cards
   const renderDesktopGrid = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {data.length > 0 ? (
-        data.map((item, index) => {
-          const isSelected = selectedItems.includes(item[idField]);
-
-          return renderCard
-            ? renderCard(item, isSelected, handleSelect, index)
-            : defaultCardRenderer(item, isSelected, index);
-        })
-      ) : (
-        <div className="col-span-full text-center py-12">
-          <i className="fa-regular fa-face-frown text-4xl text-neutral-400 dark:text-neutral-500 mb-4"></i>
-          <p className="text-neutral-500 dark:text-neutral-400">{t('no_items_found')}</p>
+    <div className="space-y-4">
+      {/* Select All checkbox for desktop grid */}
+      {showSelection && data.length > 0 && (
+        <div className="flex items-center gap-2 p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+          <input
+            type="checkbox"
+            className="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-neutral-800 dark:focus:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700 dark:border-neutral-600"
+            checked={data.length > 0 && selectedItems.length === data.length}
+            onChange={handleSelectAll}
+          />
+          <label className="text-sm text-neutral-700 dark:text-neutral-300">
+            {t('select_all')} ({data.length})
+          </label>
         </div>
       )}
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+        {data.length > 0 ? (
+          data.map((item, index) => {
+            const isSelected = selectedItems.includes(item[idField]);
+            return renderCard
+              ? renderCard(item, isSelected, handleSelect, index)
+              : defaultCardRenderer(item, isSelected, index);
+          })
+        ) : (
+          <div className="col-span-full text-center py-12">
+            <i className="fa-regular fa-face-frown text-4xl text-neutral-400 dark:text-neutral-500 mb-4"></i>
+            <p className="text-neutral-500 dark:text-neutral-400">{t('no_items_found')}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
+
 
   // Render desktop table
   const renderTable = () => (

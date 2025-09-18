@@ -239,6 +239,7 @@ return [
   "grid_view"=>"شبكه",
   "table_view"=>"جدول",
   "email"=> "البريد الإلكتروني",
+  "select_all"=>"تحديد الجميع",
 
   // Admin Impersonation
   'login_as' => 'تسجيل الدخول كـ',
