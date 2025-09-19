@@ -89,7 +89,7 @@ export default function UsersTable({ users, onEdit ,pageParam}) {
 
 
   const sortOptions = [
-    { field: 'row_number', label: t('serial') },
+    // { field: 'row_number', label: t('serial') },
     { field: 'name', label: t('name') },
     { field: 'email', label: t('email_address') },
     { field: 'username', label: t('username') },

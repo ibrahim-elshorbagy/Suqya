@@ -50,11 +50,8 @@ class UserManagementController extends Controller
       ->paginate($perPage, ['*'], 'admins_page')
       ->withQueryString();
 
-    // Add sequential numbering to admins
-    $admins->getCollection()->transform(function ($user, $key) use ($admins) {
-      $user->row_number = ($admins->perPage() * ($admins->currentPage() - 1)) + $key + 1;
-      return $user;
-    });
+    // Use base controller method to add row numbers
+    $admins = $this->addRowNumbers($admins);
 
     setPermissionsTeamId(null);
 
@@ -66,11 +63,11 @@ class UserManagementController extends Controller
       ->paginate($perPage, ['*'], 'tenants_page')
       ->withQueryString();
 
-    $tenants->getCollection()->transform(function ($user, $key) use ($tenants) {
-      // Add sequential numbering
-      $user->row_number = ($tenants->perPage() * ($tenants->currentPage() - 1)) + $key + 1;
+    // Use base controller method to add row numbers
+    $tenants = $this->addRowNumbers($tenants);
 
-      // Load roles for tenants
+    // Load roles for tenants (after adding row numbers)
+    $tenants->getCollection()->transform(function ($user) {
       if ($user->tenant_id) {
         setPermissionsTeamId($user->tenant_id);
         $user->load('roles');
@@ -78,7 +75,6 @@ class UserManagementController extends Controller
       }
       return $user;
     });
-
 
     $roles = Role::all();
 
@@ -89,6 +85,7 @@ class UserManagementController extends Controller
       'queryParams' => $request->query() ?: null,
     ]);
   }
+
 
 
   public function store(Request $request)

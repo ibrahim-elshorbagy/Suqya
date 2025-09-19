@@ -28,7 +28,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::delete('/admin/users/bulk/delete', [UserManagementController::class, 'bulkDelete'])->name('admin.users.bulk.delete');
 
     // Plans Management routes
-    Route::get('/admin/plans', [PlansController::class, 'index'])->name('admin.plans.index');
-    Route::get('/admin/plans/{plan}/edit', [PlansController::class, 'edit'])->name('admin.plans.edit');
-    Route::put('/admin/plans/{plan}', [PlansController::class, 'update'])->name('admin.plans.update');
+    // Route::get('/admin/plans', [PlansController::class, 'index'])->name('admin.plans.index');
+    // Route::get('/admin/plans/{plan}/edit', [PlansController::class, 'edit'])->name('admin.plans.edit');
+    // Route::put('/admin/plans/{plan}', [PlansController::class, 'update'])->name('admin.plans.update');
 });
