@@ -223,6 +223,7 @@ return [
   "edit"=>"تعديل",
   "save"=>"حفظ",
   "saving_changes"=>"جاري الحفظ...",
+  "saving"=> "جاري الحفظ...",
   "tenants"=>"شركات",
   "the_tenants"=>"الشركات",
   "tenant"=>"شركة",
@@ -270,6 +271,7 @@ return [
   'select_role_required' => '-- اختر الدور --',
   'add_user' => 'إضافة مستخدم',
   'search_name_username_email' => 'البحث بالاسم أو اسم المستخدم أو البريد الإلكتروني...',
+  "serial"=>"التسلسل",
 
   /* Plans Management */
   'plans' => 'الخطط',

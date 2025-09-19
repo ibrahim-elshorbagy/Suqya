@@ -41,7 +41,6 @@ class UserManagementController extends Controller
       }
     };
 
-
     // Admins query
     $adminsQuery = User::role('admin')->with('roles');
     setPermissionsTeamId(1);
@@ -50,18 +49,28 @@ class UserManagementController extends Controller
       ->orderBy($sortField, $sortDirection)
       ->paginate($perPage, ['*'], 'admins_page')
       ->withQueryString();
+
+    // Add sequential numbering to admins
+    $admins->getCollection()->transform(function ($user, $key) use ($admins) {
+      $user->row_number = ($admins->perPage() * ($admins->currentPage() - 1)) + $key + 1;
+      return $user;
+    });
+
     setPermissionsTeamId(null);
 
     // Tenants query
     $tenantsQuery = User::with(['tenant'])->withTenantRole();
     $applyFilters($tenantsQuery);
-
     $tenants = $tenantsQuery
       ->orderBy($sortField, $sortDirection)
       ->paginate($perPage, ['*'], 'tenants_page')
       ->withQueryString();
 
-    $tenants->getCollection()->transform(function ($user) {
+    $tenants->getCollection()->transform(function ($user, $key) use ($tenants) {
+      // Add sequential numbering
+      $user->row_number = ($tenants->perPage() * ($tenants->currentPage() - 1)) + $key + 1;
+
+      // Load roles for tenants
       if ($user->tenant_id) {
         setPermissionsTeamId($user->tenant_id);
         $user->load('roles');

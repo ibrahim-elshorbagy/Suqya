@@ -78,7 +78,7 @@ export default function UsersTable({ users, onEdit ,pageParam}) {
 
   // Table configuration
   const columns = [
-    { field: 'id', label: t('id'), icon: 'fa-hashtag' },
+    { field: 'row_number', label: t('serial'), icon: 'fa-hashtag' },
     { field: 'name', label: t('name'), icon: 'fa-user' },
     { field: 'email', label: t('email_address'), icon: 'fa-envelope' },
     { field: 'username', label: t('username'), icon: 'fa-at' },
@@ -87,17 +87,9 @@ export default function UsersTable({ users, onEdit ,pageParam}) {
     { field: 'actions', label: t('actions'), icon: 'fa-gear', className: 'flex justify-center' }
   ];
 
-  // Define which fields to show in mobile cards (excluding actions)
-  const cardFields = [
-    { field: 'name', label: t('name'), icon: 'fa-user' },
-    { field: 'email', label: t('email_address'), icon: 'fa-envelope' },
-    { field: 'username', label: t('username'), icon: 'fa-at' },
-    { field: 'status', label: t('status'), icon: 'fa-circle-info' },
-    { field: 'created_at', label: t('created_at'), icon: 'fa-calendar' }
-  ];
 
   const sortOptions = [
-    { field: 'id', label: t('id') },
+    { field: 'row_number', label: t('serial') },
     { field: 'name', label: t('name') },
     { field: 'email', label: t('email_address') },
     { field: 'username', label: t('username') },
@@ -108,7 +100,7 @@ export default function UsersTable({ users, onEdit ,pageParam}) {
   const renderRow = (user) => (
     <>
       <td className="px-3 py-4 whitespace-nowrap text-sm text-neutral-900 dark:text-neutral-100">
-        {user.id}
+        {user.row_number}
       </td>
       <td className="px-3 py-4 whitespace-nowrap">
         <div className="flex items-center gap-2">

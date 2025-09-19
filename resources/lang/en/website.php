@@ -210,6 +210,7 @@ return [
   'permissions' => 'Permissions',
   'search_users' => 'Search users...',
   "search_admins" => "Search admins...",
+  "serial"=>"Serial",
 
   'select_role_required' => '-- Select Role --',
 
