@@ -64,7 +64,7 @@ class HandleInertiaRequests extends Middleware
         'type' => session('type'),
       ],
 
-      'translations' => fn() => __('website'),
+      // 'translations' => fn() => __('website'),
       'available_locales' => ['en', 'ar'],
       'locale' => fn() => app()->getLocale(),
     ];
