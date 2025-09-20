@@ -1,0 +1,1 @@
+function w(){const e=window.translations||{},o=window.locale||"en",l=window.availableLocales||["en","ar"];function c(a,t={}){let n=e[a]||a;return Object.entries(t).forEach(([s,r])=>{n=n.replace(`:${s}`,r)}),n}return{t:c,locale:o,availableLocales:l,changeLocale:a=>{window.location.href=`?locale=${a}`}}}export{w as u};
