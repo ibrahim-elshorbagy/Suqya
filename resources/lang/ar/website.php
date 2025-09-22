@@ -380,6 +380,16 @@ return [
 
   // end Tenant information attributes
 
+  // view_tenant
+  'view_tenant' => 'عرض الشركة',
+  'tenant_details_and_information' => 'تفاصيل ومعلومات الشركة',
+  'back' => 'رجوع',
+  'owner_information' => 'معلومات المالك',
+  'not_provided' => 'غير مقدم',
+  'not_uploaded' => 'غير مرفوع',
+  'no_logo_uploaded' => 'لم يتم رفع شعار',
+  'view' => 'عرض',
+  "location_on_map"=>"الموقع على الخريطة",
 
 
 ];

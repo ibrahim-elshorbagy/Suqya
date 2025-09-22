@@ -2,9 +2,9 @@ import ActionButton from '@/Components/ActionButton';
 import SelectableTable from '@/Components/SelectableTable';
 import React from 'react';
 import { useTrans } from '@/Hooks/useTrans';
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 
-export default function UsersTable({ users, onEdit ,pageParam}) {
+export default function UsersTable({ users, onEdit, pageParam }) {
   const { t } = useTrans();
 
   // Individual user actions
@@ -128,8 +128,8 @@ export default function UsersTable({ users, onEdit ,pageParam}) {
       </td>
       <td className="px-3 py-4 whitespace-nowrap">
         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${user.blocked
-            ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-            : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+          ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+          : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
           }`}>
           <i className={`fa-solid ${user.blocked ? 'fa-ban' : 'fa-check-circle'} mx-1`}></i>
           {user.blocked ? t('blocked') : t('active')}
@@ -166,6 +166,20 @@ export default function UsersTable({ users, onEdit ,pageParam}) {
           >
             {t('edit')}
           </ActionButton>
+          {user.roles[0].name == 'tenant' && user.tenant && (
+            <ActionButton
+              onClick={(e) => {
+                e.stopPropagation();
+                router.get(route('admin.users.view-tenant', user.id));
+              }}
+              variant="primary"
+              icon="fa-eye"
+              size="xs"
+              as="button"
+            >
+              {t('view')}
+            </ActionButton>
+          )}
 
           <ActionButton
             onClick={(e) => {
@@ -289,8 +303,8 @@ export default function UsersTable({ users, onEdit ,pageParam}) {
         {/* Status and Role */}
         <div className="flex flex-wrap gap-2 mb-3">
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${user.blocked
-              ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-              : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+            ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+            : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
             }`}>
             <i className={`fa-solid ${user.blocked ? 'fa-ban' : 'fa-check-circle'} mx-1`}></i>
             {user.blocked ? t('blocked') : t('active')}
@@ -345,6 +359,20 @@ export default function UsersTable({ users, onEdit ,pageParam}) {
           >
             {t('login_as')}
           </ActionButton>
+          {user.roles[0].name == 'tenant' && user.tenant && (
+            <ActionButton
+              onClick={(e) => {
+                e.stopPropagation();
+                router.get(route('admin.users.view-tenant', user.id));
+              }}
+              variant="primary"
+              icon="fa-eye"
+              size="xs"
+              as="button"
+            >
+              {t('view')}
+            </ActionButton>
+          )}
           <ActionButton
             onClick={(e) => {
               e.stopPropagation();

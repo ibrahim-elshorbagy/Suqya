@@ -87,6 +87,27 @@ class UserManagementController extends Controller
   }
 
 
+  public function viewTenant(User $user)
+  {
+    // Ensure user is a tenant
+    setPermissionsTeamId($user->tenant_id);
+    if (!$user->hasRole('tenant') || !$user->tenant) {
+      abort(404, 'Tenant not found');
+    }
+
+    // Load tenant with all relationships
+    $tenant = $user->tenant;
+
+    // Set permissions team ID to get tenant-specific roles
+    setPermissionsTeamId($user->tenant_id);
+    $user->load('roles');
+    setPermissionsTeamId(null);
+
+    return Inertia::render('Admin/Management/UserManagement/ViewTenant', [
+      'tenant' => $tenant,
+      'user' => $user->load('tenant'),
+    ]);
+  }
 
   public function store(Request $request)
   {

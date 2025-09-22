@@ -4,7 +4,6 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import UpdateLanguagePreferences from './Partials/UpdateLanguagePreferences';
 import UpdateProfileImageForm from './Partials/UpdateProfileImageForm';
-import UpdateCompanyInformationForm from './Partials/UpdateCompanyInformationForm';
 import AppLayout from '@/Layouts/AppLayout';
 import ThemeToggle from '@/Components/ThemeToggle';
 import { useState, useEffect } from 'react';

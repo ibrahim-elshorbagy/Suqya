@@ -21,6 +21,9 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('/admin/users', [UserManagementController::class, 'store'])->name('admin.users.store');
     Route::put('/admin/users/{user}', [UserManagementController::class, 'update'])->name('admin.users.update');
     Route::delete('/admin/users/{user}', [UserManagementController::class, 'destroy'])->name('admin.users.destroy');
+    
+    // Tenant View route
+    Route::get('/admin/users/tenant/{user}', [UserManagementController::class, 'viewTenant'])->name('admin.users.view-tenant');
 
     // User Management bulk actions
     Route::patch('/admin/users/bulk/block', [UserManagementController::class, 'bulkBlock'])->name('admin.users.bulk.block');
