@@ -62,7 +62,7 @@ export default function UpdateProfileInformation({
               autoComplete="username"
               icon="fa-user"
             />
-            <InputError className="mt-2" message={errors.name} />
+            <InputError className="mt-2" message={errors.username} />
           </div>
           <div className='space-y-2'>
             <InputLabel htmlFor="email" value={t('email_address')} />

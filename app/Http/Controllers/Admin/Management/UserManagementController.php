@@ -114,9 +114,19 @@ class UserManagementController extends Controller
     $rules = [
       'name' => ['required', 'string', 'max:255'],
       'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-      'username' => ['required', 'string', 'max:255', 'unique:users'],
+      'username' => [
+        'required',
+        'string',
+        'max:255',
+        'unique:users,username',
+        'regex:/^[a-z0-9-_]+$/', // only English letters, numbers, dash, underscore
+      ],
       'password' => ['required', Rules\Password::defaults(), 'confirmed'],
       'role' => ['required', 'string', 'exists:roles,name'],
+    ];
+
+    $messages = [
+      'username.regex' => 'اسم المستخدم يجب أن يحتوي على حروف إنجليزية وأرقام وشرطات فقط.',
     ];
 
     if ($request->role === 'tenant') {
@@ -126,7 +136,7 @@ class UserManagementController extends Controller
       $rules['tenant_address'] = ['nullable', 'string', 'max:255'];
     }
 
-    $data = $request->validate($rules);
+    $data = $request->validate($rules, $messages);
 
     // Create user
     $user = User::create([
@@ -196,8 +206,19 @@ class UserManagementController extends Controller
     $rules = [
       'name' => ['required', 'string', 'max:255'],
       'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-      'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $user->id],
+      'username' => [
+        'required',
+        'string',
+        'max:255',
+        'unique:users,username,' . $user->id,
+        'regex:/^[a-z0-9-_]+$/', // only English letters, numbers, dash, underscore
+      ],
       'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+    ];
+
+    $messages = [
+      'username.regex' => 'اسم المستخدم يجب أن يحتوي على حروف إنجليزية وأرقام وشرطات فقط.',
+      'tenant_slug.regex' => 'اسم النطاق يجب أن يحتوي على حروف عربية أو إنجليزية وأرقام وشرطات فقط.',
     ];
 
     setPermissionsTeamId($user->tenant_id);
@@ -207,13 +228,19 @@ class UserManagementController extends Controller
     if ($role == 'tenant') {
       $rules = array_merge($rules, [
         'tenant_name' => ['required', 'string', 'max:255'],
-        'tenant_slug' => ['required', 'string', 'max:255', 'unique:tenants,slug,' . ($user->tenant?->id ?? 'NULL')],
+        'tenant_slug' => [
+          'required',
+          'string',
+          'max:255',
+          'unique:tenants,slug,' . ($user->tenant?->id ?? 'NULL'),
+          'regex:/^[\p{Arabic}a-z0-9-_]+$/u',
+        ],
         'tenant_phone' => ['nullable', 'string', 'max:255'],
         'tenant_address' => ['nullable', 'string', 'max:255'],
       ]);
     }
 
-    $data = $request->validate($rules);
+    $data = $request->validate($rules, $messages);
 
     $updateData = [
       'name' => $data['name'],
