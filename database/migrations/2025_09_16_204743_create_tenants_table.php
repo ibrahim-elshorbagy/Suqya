@@ -12,16 +12,39 @@ return new class extends Migration {
   {
     Schema::create('tenants', function (Blueprint $table) {
       $table->id();
-      $table->string('name');
-      $table->string('slug')->nullable()->unique();
+      $table->string('name'); // Company name
+      $table->string('slug')->nullable()->unique(); // For custom URL like suqya.net/tenantname
+
+      // QR Code
+      $table->string('qr_code')->nullable(); // QR code image path for tenant URL
+      $table->string('commercial_registration')->nullable(); //File Path
+      $table->string('profession_license')->nullable(); //File Path
+
+      // Contact Information
       $table->string('phone')->nullable();
+      $table->string('whatsapp')->nullable(); // WhatsApp number
+      $table->string('email')->nullable();
       $table->string('address')->nullable();
+
+      // Location Details
+      $table->string('country')->nullable();
+      $table->string('city')->nullable();
+      $table->string('area')->nullable(); // District/Area
+      $table->string('full_address')->nullable(); // Complete address
+      $table->decimal('latitude', 10, 8)->nullable(); // For location mapping
+      $table->decimal('longitude', 11, 8)->nullable(); // For location mapping
+
+      // Business Information
+      $table->string('logo')->nullable(); // Company logo path
+
+      $table->index(['slug']);
+      $table->index(['country', 'city', 'area']);
 
       $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();  //Owner of the tenant
 
       $table->timestamps();
-
     });
+
 
     Schema::table('users', function (Blueprint $table) {
       $table->foreignId('tenant_id')->nullable()->constrained()->nullOnDelete(); // User may belong to a tenant // As owner / employee / driver / customer

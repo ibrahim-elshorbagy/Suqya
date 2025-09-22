@@ -11,7 +11,7 @@ return [
 
   'language_changed_title' => 'تم تغيير اللغة',
   'language_changed_message' => 'تم تغيير اللغة بنجاح.',
-  "blocked_account"=>"تم حظر حسابك. يُرجى التواصل مع المسؤول.",
+  "blocked_account" => "تم حظر حسابك. يُرجى التواصل مع المسؤول.",
 
   /* Auth Controller Responses */
   'login_successful_title' => 'تم تسجيل الدخول بنجاح',
@@ -93,5 +93,32 @@ return [
   'plans_deleted_title' => 'تم حذف الخطط',
   'plans_deleted_message' => 'تم حذف :count من الخطط بنجاح.',
 
+
+  /* Tenant Information Controller Responses */
+  'tenant_basic_info_updated_title' => 'تم تحديث المعلومات الأساسية',
+  'tenant_basic_info_updated_message' => 'تم تحديث المعلومات الأساسية للشركة بنجاح.',
+  'tenant_contact_info_updated_title' => 'تم تحديث معلومات الاتصال',
+  'tenant_contact_info_updated_message' => 'تم تحديث معلومات الاتصال بنجاح.',
+  'tenant_location_info_updated_title' => 'تم تحديث معلومات الموقع',
+  'tenant_location_info_updated_message' => 'تم تحديث معلومات الموقع بنجاح.',
+  'tenant_logo_updated_title' => 'تم تحديث الشعار',
+  'tenant_logo_updated_message' => 'تم تحديث شعار الشركة بنجاح.',
+
+  /* QR Code and Documents Responses */
+  'qr_code_generated_title' => 'تم إنشاء رمز الاستجابة السريعة',
+  'qr_code_generated_message' => 'تم إنشاء رمز الاستجابة السريعة بنجاح.',
+  'documents_updated_title' => 'تم تحديث الوثائق',
+  'documents_updated_message' => 'تم تحديث وثائق العمل بنجاح.',
+
+  /* Error Messages */
+  'tenant_not_found_message' => 'لا يمكن العثور على معلومات الشركة.',
+  'save_tenant_info_first_message' => 'يرجى حفظ معلومات الشركة أولاً.',
+  'qr_code_generation_failed_message' => 'فشل في إنشاء رمز الاستجابة السريعة.',
+  'file_upload_failed_message' => 'فشل في رفع الملف. يرجى المحاولة مرة أخرى.',
+  'tenant_not_found_message' => 'لا يمكن العثور على معلومات الشركة.',
+  'save_tenant_info_first_message' => 'يرجى حفظ معلومات الشركة أولاً.',
+  'qr_code_generation_failed_message' => 'فشل في إنشاء رمز الاستجابة السريعة.',
+
+  /*end Tenant Information Controller Responses */
 
 ];

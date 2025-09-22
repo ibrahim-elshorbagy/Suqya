@@ -94,7 +94,7 @@ return [
     'numeric'              => 'يجب على :attribute أن يكون رقمًا.',
     'password'             => 'كلمة المرور غير صحيحة.',
     'present'              => 'يجب تقديم :attribute.',
-    'regex'                => 'صيغة :attribute .غير صحيحة.',
+    'regex'                => 'صيغة :attribute غير صحيحة.',
     'required'             => ':attribute مطلوب.',
     'required_if'          => ':attribute مطلوب في حال ما إذا كان :other يساوي :value.',
     'required_unless'      => ':attribute مطلوب في حال ما لم يكن :other يساوي :values.',
@@ -181,7 +181,7 @@ return [
         'user_name'             =>  'اسم المستخدم',
         "current_password"      => "كلمة المرور الحالية",
         "tenant_slug" => "يجب أن يحتوي رابط الشركة على أحرف عربية أو إنجليزية أو أرقام أو شرطات (-_) فقط.",
-
+        "slug " => "الرابط",
         // Plan validation attributes
         'price'                 => 'السعر',
         'features'              => 'الميزات',

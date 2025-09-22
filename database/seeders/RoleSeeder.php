@@ -57,9 +57,9 @@ class RoleSeeder extends Seeder
       [
         'id' => 2,
         'name' => 'Tenant Owner',
-        'username' => 'tenant1',
+        'username' => 'u',
         'email' => 'tenant@example.com',
-        'password' => Hash::make('password'),
+        'password' => Hash::make('u'),
       ]
     );
 

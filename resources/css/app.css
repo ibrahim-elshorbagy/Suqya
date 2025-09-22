@@ -45,3 +45,7 @@ html {
 *:-moz-hover {
   scrollbar-color: rgba(59, 130, 246, 0.8) transparent; /* blue-500 80% */
 }
+
+.leaflet-bottom{
+  display: none;
+}

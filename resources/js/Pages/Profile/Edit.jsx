@@ -16,9 +16,6 @@ export default function Edit({ mustVerifyEmail, status }) {
   const { auth } = usePage().props;
   const [activeSection, setActiveSection] = useState('profile-info');
 
-  // Check if user has tenant role
-  const hasTenantRole = auth.roles && auth.roles.includes('tenant');
-
   // Check if URL has a hash and set the active section on load
   useEffect(() => {
     const hash = window.location.hash.substring(1);
@@ -85,15 +82,7 @@ export default function Edit({ mustVerifyEmail, status }) {
                   <i className={`fa-solid fa-shield-alt ${activeSection === 'security' ? 'text-blue-500' : ''}`}></i>
                   <span>{t('security')}</span>
                 </button>
-                {hasTenantRole && (
-                  <button
-                    onClick={() => handleMenuClick('company-info')}
-                    className={`flex w-full items-center gap-2 p-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-all ${activeSection === 'company-info' ? 'bg-blue-500/10 text-black dark:text-white font-medium' : ''}`}
-                  >
-                    <i className={`fa-solid fa-building ${activeSection === 'company-info' ? 'text-blue-500' : ''}`}></i>
-                    <span>{t('company_information')}</span>
-                  </button>
-                )}
+
                 {/* <button
                   onClick={() => handleMenuClick('account')}
                   className={`flex w-full items-center gap-2 p-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-all ${activeSection === 'account' ? 'bg-blue-500/10 text-black dark:text-white font-medium' : ''}`}
@@ -147,21 +136,6 @@ export default function Edit({ mustVerifyEmail, status }) {
                 </div>
                 <div className="p-6">
                   <UpdatePasswordForm />
-                </div>
-              </div>
-            )}
-
-            {/* Company Information Section */}
-            {activeSection === 'company-info' && hasTenantRole && (
-              <div className="bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden animate-fadeIn">
-                <div className="p-4 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950/30 flex items-center justify-between">
-                  <h2 className="font-semibold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
-                    <i className="fa-solid fa-building text-blue-500"></i>
-                    {t('company_information')}
-                  </h2>
-                </div>
-                <div className="p-6">
-                  <UpdateCompanyInformationForm />
                 </div>
               </div>
             )}
