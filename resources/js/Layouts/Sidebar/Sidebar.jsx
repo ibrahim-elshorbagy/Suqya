@@ -28,6 +28,13 @@ export default function Sidebar({ sidebarIsOpen, setSidebarIsOpen }) {
         { name: t('users'), href: route('admin.users.index'), route: 'admin.users.*', icon: 'fa-user' },
       ],
     },
+    {
+      name: t('site_settings'),
+      icon: 'fa-cogs',
+      href: route('admin.site-settings.index'),
+      route: 'admin.site-settings.*',
+      role: 'admin'
+    },
     // {
     //   name: t('plan_management'),
     //   icon: 'fa-tags',

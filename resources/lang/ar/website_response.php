@@ -121,4 +121,8 @@ return [
 
   /*end Tenant Information Controller Responses */
 
+  // Site Settings Responses
+  'settings_updated_title' => 'تم التحديث',
+  'settings_updated_message' => 'تم حفظ إعدادات الموقع بنجاح'
+
 ];
