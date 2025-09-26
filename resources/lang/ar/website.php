@@ -487,6 +487,10 @@ return [
   // General Settings
   'site_name' => 'اسم الموقع',
   'site_description' => 'وصف الموقع',
+  'site_description_help' => 'وصف قصير للموقع يظهر في محركات البحث',
+  'site_keywords' => 'الكلمات المفتاحية',
+  'site_keywords_placeholder' => 'الكلمات المفتاحية مفصولة بفواصل',
+  'site_keywords_help' => 'كلمات مفتاحية للبحث مفصولة بفواصل (مثال: مياه، توصيل، نقي)',
   'timezone' => 'المنطقة الزمنية',
   'site_logo' => 'شعار الموقع',
   'site_favicon' => 'أيقونة الموقع',

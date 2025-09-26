@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Admin\Site\SiteSetting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -67,6 +68,31 @@ class HandleInertiaRequests extends Middleware
       // 'translations' => fn() => __('website'),
       'available_locales' => ['en', 'ar'],
       'locale' => fn() => app()->getLocale(),
+      'site_settings' => function () {
+        // Only share safe, public settings - NEVER sensitive data like SMTP, OAuth secrets
+        $publicSettings = [
+          'site_name',
+          'site_description',
+          'site_keywords',
+          'site_logo',
+          'site_favicon',
+          'welcome_text',
+          'footer_text',
+          'timezone',
+          // Contact info (public)
+          'support_whatsapp',
+          'support_phone',
+          'support_mobile',
+          'support_email',
+          'company_address',
+          'business_latitude',
+          'business_longitude'
+        ];
+
+        return SiteSetting::whereIn('key', $publicSettings)
+          ->pluck('value', 'key')
+          ->toArray();
+      }
     ];
   }
 

@@ -18,9 +18,12 @@ export default function GeneralSettings({ settings, timezones = [] }) {
     settings: {
       site_name: settings.site_name || '',
       site_description: settings.site_description || '',
+      site_keywords: settings.site_keywords || '',
       timezone: settings.timezone || 'UTC',
       welcome_text: settings.welcome_text || '',
-      footer_text: settings.footer_text || ''
+      footer_text: settings.footer_text || '',
+      site_logo: settings.site_logo || '',
+      site_favicon: settings.site_favicon || ''
     },
     files: {},
     env_settings: ['site_name', 'timezone'] // Settings that should be stored in .env file
@@ -36,7 +39,12 @@ export default function GeneralSettings({ settings, timezones = [] }) {
 
   const handleFileChange = (key, file) => {
     if (file) {
-      setData('files', { ...data.files, [key]: file });
+      // Update files object for upload
+      setData((prevData) => ({
+        ...prevData,
+        files: { ...prevData.files, [key]: file },
+        settings: { ...prevData.settings, [key]: 'uploading' }
+      }));
 
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -49,9 +57,24 @@ export default function GeneralSettings({ settings, timezones = [] }) {
 
   const submit = (e) => {
     e.preventDefault();
+
+    // Debug logging
+    console.log('Form data being submitted:', data);
+    console.log('Files:', data.files);
+    console.log('Settings:', data.settings);
+
     post(route('admin.site-settings.update'), {
       preserveScroll: true,
-      forceFormData: true
+      forceFormData: true,
+      onSuccess: () => {
+        console.log('Upload successful');
+        // Reset file previews on success
+        setLogoPreview(null);
+        setFaviconPreview(null);
+      },
+      onError: (errors) => {
+        console.log('Upload errors:', errors);
+      }
     });
   };
 
@@ -94,7 +117,29 @@ export default function GeneralSettings({ settings, timezones = [] }) {
               className="mt-1 block w-full"
               rows="3"
             />
+            <p className="text-xs text-neutral-500 mt-1">
+              {t('site_description_help')}
+            </p>
             <InputError message={errors['settings.site_description']} className="mt-2" />
+          </div>
+
+          {/* Site Keywords */}
+          <div>
+            <InputLabel value={t('site_keywords')} />
+            <TextArea
+              value={data.settings.site_keywords}
+              onChange={(e) => setData('settings', {
+                ...data.settings,
+                site_keywords: e.target.value
+              })}
+              icon="fa-tags"
+              className="mt-1 block w-full"
+              placeholder={t('site_keywords_placeholder')}
+            />
+            <p className="text-xs text-neutral-500 mt-1">
+              {t('site_keywords_help')}
+            </p>
+            <InputError message={errors['settings.site_keywords']} className="mt-2" />
           </div>
 
           {/* Timezone */}

@@ -34,6 +34,8 @@ class SiteSettingsController extends Controller
     $request->validate([
       'settings' => 'required|array',
       'env_settings' => 'array', // Optional array of settings that should go to .env
+      'files.site_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+      'files.site_favicon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,ico',
     ]);
 
     // Define mapping of setting key to environment variable name

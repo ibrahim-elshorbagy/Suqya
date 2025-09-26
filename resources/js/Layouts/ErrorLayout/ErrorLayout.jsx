@@ -9,9 +9,7 @@ export default function ErrorLayout({ children, status }) {
   return (
     <div className="flex min-h-screen flex-col items-center bg-gradient-to-br from-blue-50 via-neutral-50 dark:from-blue-900 dark:via-neutral-900 dark:to-blue-800 pt-6 sm:justify-center sm:pt-0">
       <div className="h-32 w-32 mb-4">
-        <Link href="/">
-          <ApplicationLogo className="fill-current text-blue-500 dark:text-blue-400" />
-        </Link>
+        <ApplicationLogo  />
       </div>
 
       <div className="w-full max-w-md px-6 py-4">
