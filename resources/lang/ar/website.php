@@ -128,7 +128,7 @@ return [
   'company_address' => 'عنوان الشركة',
   'currency' => 'العملة',
   'select_currency' => 'اختر العملة',
-  "slug_condition" => "يجب أن يحتوي على أحرف إنجليزية صغيرة او عربية و أرقام وشرطات فقط",
+  "slug_condition" => "يجب أن يحتوي على أحرف إنجليزية وشرطات فقط",
   "company_slug_placeholder" => "مثال: water-company-slug",
 
   /* Profile Image Form */

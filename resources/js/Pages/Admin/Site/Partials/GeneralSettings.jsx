@@ -59,21 +59,16 @@ export default function GeneralSettings({ settings, timezones = [] }) {
     e.preventDefault();
 
     // Debug logging
-    console.log('Form data being submitted:', data);
-    console.log('Files:', data.files);
-    console.log('Settings:', data.settings);
 
     post(route('admin.site-settings.update'), {
       preserveScroll: true,
       forceFormData: true,
       onSuccess: () => {
-        console.log('Upload successful');
         // Reset file previews on success
         setLogoPreview(null);
         setFaviconPreview(null);
       },
       onError: (errors) => {
-        console.log('Upload errors:', errors);
       }
     });
   };

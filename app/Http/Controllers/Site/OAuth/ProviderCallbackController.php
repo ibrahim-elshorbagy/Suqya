@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Site\OAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Tenant\Tenant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class ProviderCallbackController extends Controller
 {
@@ -48,6 +51,29 @@ class ProviderCallbackController extends Controller
         'provider_token' => $socialUser->token ?? null,
         'provider_refresh_token' => $socialUser->refreshToken ?? null,
       ]);
+
+      // Check if this is a new user (doesn't have a tenant) or existing user without tenant
+      if (!$user->tenant_id) {
+        // Create a tenant for the new OAuth user
+        $tenant = Tenant::create([
+          'name' => $socialUser->getName() . "'s Company", // Basic name, user can change later
+          'owner_id' => $user->id,
+        ]);
+
+        // Update user with tenant_id
+        $user->update(['tenant_id' => $tenant->id]);
+
+        // Get the tenant role
+        $tenantRole = Role::firstOrCreate(['name' => 'tenant']);
+
+        // Set permissions context for the tenant and assign role
+        setPermissionsTeamId($tenant->id);
+        $user->assignRole($tenantRole);
+        setPermissionsTeamId(null);
+
+        // Reset permissions cache
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+      }
 
       Auth::login($user);
 

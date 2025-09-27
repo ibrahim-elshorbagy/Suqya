@@ -49,25 +49,21 @@ export default function UpdateBasicInfo({ tenant, currencies, className = '' }) 
   const generateQrCode = () => {
     if (isGeneratingQr) return; // Prevent multiple requests
 
-    console.log('Generating QR code for tenant:', tenant?.id, 'slug:', tenant?.slug);
     setIsGeneratingQr(true);
 
     router.post(route('tenant.generate-qr'), {}, {
       preserveState: true,
       preserveScroll: true,
       onSuccess: (page) => {
-        console.log('QR generation success:', page);
         setIsGeneratingQr(false);
         setQrImageKey(Date.now());
         // Reload tenant data
         router.reload({ only: ['tenant'] });
       },
       onError: (errors) => {
-        console.error('QR generation error:', errors);
         setIsGeneratingQr(false);
       },
       onFinish: () => {
-        console.log('QR generation finished');
         setIsGeneratingQr(false);
       },
     });
