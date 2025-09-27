@@ -13,6 +13,8 @@ return [
   'language_changed_message' => 'تم تغيير اللغة بنجاح.',
   "blocked_account" => "تم حظر حسابك. يُرجى التواصل مع المسؤول.",
 
+  "error_title"=>"خطاء",
+
   /* Auth Controller Responses */
   'login_successful_title' => 'تم تسجيل الدخول بنجاح',
   'login_successful_message' => 'مرحباً بعودتك! تم تسجيل دخولك بنجاح.',

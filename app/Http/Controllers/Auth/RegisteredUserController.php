@@ -43,11 +43,11 @@ class RegisteredUserController extends Controller
           'string',
           'max:255',
           'unique:tenants,slug',
-          'regex:/^[\p{Arabic}a-z0-9-_]+$/u',
+          'regex:/^[a-zA-Z-_]+$/u',
         ],
       ],
       [
-        'tenant_slug.regex' => 'اسم النطاق يجب أن يحتوي على حروف عربية أو إنجليزية وأرقام وشرطات فقط.',
+        'tenant_slug.regex' => 'اسم النطاق يجب أن يحتوي على حروف إنجليزية وشرطات فقط.',
       ]
     );
 

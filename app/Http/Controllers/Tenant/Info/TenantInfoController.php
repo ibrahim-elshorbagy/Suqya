@@ -49,7 +49,7 @@ class TenantInfoController extends Controller
         'required',
         'string',
         'max:255',
-        'regex:/^[\p{Arabic}a-z0-9-_]+$/u',
+        'regex:/^[a-zA-Z-_]+$/u',
         Rule::unique('tenants', 'slug')->ignore($tenant->id)
       ],
     ]);

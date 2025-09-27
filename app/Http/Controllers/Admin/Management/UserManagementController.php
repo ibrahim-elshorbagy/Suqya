@@ -120,7 +120,7 @@ class UserManagementController extends Controller
 
     if ($request->role === 'tenant') {
       $rules['tenant_name'] = ['required', 'string', 'max:255'];
-      $rules['tenant_slug'] = ['required', 'string', 'max:255', 'unique:tenants,slug', 'regex:/^[\p{Arabic}a-z0-9-_]+$/u'];
+      $rules['tenant_slug'] = ['required', 'string', 'max:255', 'unique:tenants,slug', 'regex:/^[a-zA-Z-_]+$/u'];
       $rules['tenant_phone'] = ['nullable', 'string', 'max:255'];
       $rules['tenant_address'] = ['nullable', 'string', 'max:255'];
     }
@@ -198,7 +198,7 @@ class UserManagementController extends Controller
     ];
 
     $messages = [
-      'tenant_slug.regex' => 'اسم النطاق يجب أن يحتوي على حروف عربية أو إنجليزية وأرقام وشرطات فقط.',
+      'tenant_slug.regex' => 'اسم النطاق يجب أن يحتوي على حروف إنجليزية وشرطات فقط.',
     ];
 
     setPermissionsTeamId($user->tenant_id);
@@ -213,7 +213,7 @@ class UserManagementController extends Controller
           'string',
           'max:255',
           'unique:tenants,slug,' . ($user->tenant?->id ?? 'NULL'),
-          'regex:/^[\p{Arabic}a-z0-9-_]+$/u',
+          'regex:/^[a-zA-Z-_]+$/u',
         ],
         'tenant_phone' => ['nullable', 'string', 'max:255'],
         'tenant_address' => ['nullable', 'string', 'max:255'],
