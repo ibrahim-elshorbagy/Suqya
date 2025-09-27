@@ -125,6 +125,18 @@ return [
 
   // Site Settings Responses
   'settings_updated_title' => 'تم التحديث',
-  'settings_updated_message' => 'تم حفظ إعدادات الموقع بنجاح'
+  'settings_updated_message' => 'تم حفظ إعدادات الموقع بنجاح',
+
+  // OAuth Authentication Responses
+  'oauth_login_success_title' => 'تم تسجيل الدخول بنجاح',
+  'oauth_login_success_message' => 'تم تسجيل دخولك بنجاح باستخدام :provider.',
+  'oauth_provider_invalid_title' => 'خطأ في مزود الخدمة',
+  'oauth_provider_invalid_message' => 'مزود الخدمة المحدد غير صالح.',
+  'oauth_authentication_failed_title' => 'فشل في المصادقة',
+  'oauth_authentication_failed_message' => 'فشل في تسجيل الدخول باستخدام :provider. يرجى المحاولة مرة أخرى.',
+  'oauth_user_creation_failed_title' => 'فشل في إنشاء المستخدم',
+  'oauth_user_creation_failed_message' => 'فشل في إنشاء حساب المستخدم. يرجى المحاولة مرة أخرى.',
+  'oauth_general_error_title' => 'حدث خطأ',
+  'oauth_general_error_message' => 'حدث خطأ أثناء المصادقة. يرجى المحاولة مرة أخرى.',
 
 ];
