@@ -69,6 +69,8 @@ return [
 
 
   "auth_modern_left_message" => "منصّة سُقيا | توصيل مياه شرب نقية للمنازل والشركات وخدمة محطات التنقية",
+  'auth_continue_with_google' => 'المتابعة باستخدام جوجل',
+  'auth_or' => 'أو',
   // end Auth Pages
 
   // Site Layout

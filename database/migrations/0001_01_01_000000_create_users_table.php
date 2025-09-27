@@ -20,6 +20,13 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->boolean('blocked')->default(false);
             $table->rememberToken();
+
+            // OAuth fields
+            $table->string('provider_id')->nullable();
+            $table->string('provider_name')->nullable();
+            $table->string('provider_token')->nullable();
+            $table->string('provider_refresh_token')->nullable();
+
             $table->timestamps();
         });
 

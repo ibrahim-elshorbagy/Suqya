@@ -3,9 +3,17 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PreferencesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Site\OAuth\ProviderCallbackController;
+use App\Http\Controllers\Site\OAuth\ProviderRedirectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Socialite\Facades\Socialite;
+
+
+// Socialite Authentication Routes
+Route::get('/auth/{provider}/redirect', ProviderRedirectController::class)->name('auth.redirect');
+Route::get('/auth/{provider}/callback', ProviderCallbackController::class)->name('auth.callback');
 
 // Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::redirect('/', '/login')->name('home');
@@ -20,13 +28,11 @@ Route::middleware('auth')->group(function () {
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
   Route::post('/profile/image', [ProfileController::class, 'uploadProfileImage'])->name('profile.image.update');
 
-  // Company update route - only for users with tenant role
-  Route::patch('/company', [ProfileController::class, 'updateCompany'])
-    ->middleware('role:tenant')
-    ->name('company.update');
 });
 // User preferences routes
 // Route::post('/locale', [PreferencesController::class, 'changeLocale'])->name('locale.change');
+
+
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Management\UserManagementController;
-use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\SubscriptionSystem\PlansController;
+use App\Http\Controllers\Site\SiteSettingsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
