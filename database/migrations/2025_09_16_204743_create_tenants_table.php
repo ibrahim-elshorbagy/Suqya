@@ -14,6 +14,7 @@ return new class extends Migration {
       $table->id();
       $table->string('name'); // Company name
       $table->string('slug')->nullable()->unique(); // For custom URL like suqya.net/tenantname
+      $table->foreignId('currency_id')->nullable()->constrained('currencies')->cascadeOnDelete();  //Owner of the tenant
 
       // QR Code
       $table->string('qr_code')->nullable(); // QR code image path for tenant URL

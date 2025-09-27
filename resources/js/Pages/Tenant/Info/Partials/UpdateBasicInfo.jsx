@@ -1,6 +1,7 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
+import SelectInput from '@/Components/SelectInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import ActionButton from '@/Components/ActionButton';
 import { Transition } from '@headlessui/react';
@@ -8,7 +9,7 @@ import { useForm, router, usePage } from '@inertiajs/react';
 import { useTrans } from '@/Hooks/useTrans';
 import { useState, useEffect } from 'react';
 
-export default function UpdateBasicInfo({ tenant, className = '' }) {
+export default function UpdateBasicInfo({ tenant, currencies, className = '' }) {
   const { t } = useTrans();
   const { flash } = usePage().props;
   const [isGeneratingQr, setIsGeneratingQr] = useState(false);
@@ -17,6 +18,7 @@ export default function UpdateBasicInfo({ tenant, className = '' }) {
   const { data, setData, patch, processing, errors, recentlySuccessful } = useForm({
     name: tenant?.name || '',
     slug: tenant?.slug || '',
+    currency_id: tenant?.currency_id || '',
   });
 
   // Update QR image key when tenant QR code changes
@@ -174,7 +176,27 @@ export default function UpdateBasicInfo({ tenant, className = '' }) {
               {t('slug_condition')}
             </p>
           </div>
-          <div className="pt-4 flex items-center gap-4">
+        </div>
+
+        <div className='space-y-2'>
+          <SelectInput
+            name="currency_id"
+            value={data.currency_id}
+            onChange={(e) => setData('currency_id', e.target.value)}
+            options={[
+              { value: '', label: t('select_currency') || 'Select Currency' },
+              ...currencies.map(currency => ({
+                value: currency.id,
+                label: `${currency.name} (${currency.code})`
+              }))
+            ]}
+            label={t('currency') || 'Currency'}
+            icon="fa-money-bill"
+          />
+          <InputError className="mt-2" message={errors.currency_id} />
+        </div>
+
+        <div className="pt-4 flex items-center gap-4">
           <PrimaryButton
             type="submit"
             disabled={processing}
@@ -196,7 +218,6 @@ export default function UpdateBasicInfo({ tenant, className = '' }) {
               <i className="fa-solid fa-check"></i> {t('saved_successfully') || 'Saved successfully!'}
             </p>
           </Transition>
-        </div>
         </div>
 
         {/* QR Code Section */}

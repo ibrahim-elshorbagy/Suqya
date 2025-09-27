@@ -15,6 +15,7 @@ use Endroid\QrCode\Writer\PngWriter;
 
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Admin\Site\Currency;
 
 
 
@@ -23,10 +24,11 @@ class TenantInfoController extends Controller
   public function index(): Response
   {
     $user = auth()->user();
-    $tenant = $user->tenant;
+    $tenant = $user->tenant->load('currency');
 
     return Inertia::render('Tenant/Info/Info', [
       'tenant' => $tenant,
+      'currencies' => Currency::all(['id', 'name', 'code']),
     ]);
   }
 
@@ -52,11 +54,12 @@ class TenantInfoController extends Controller
         'regex:/^[a-zA-Z-_]+$/u',
         Rule::unique('tenants', 'slug')->ignore($tenant->id)
       ],
+      'currency_id' => 'nullable|exists:currencies,id',
     ], [
       'slug.regex' => __('validation.tenant_slug'),
     ]);
 
-    $tenant->update($request->only(['name', 'slug']));
+    $tenant->update($request->only(['name', 'slug', 'currency_id']));
 
     return back()->with([
       'title' => __('website_response.tenant_basic_info_updated_title'),

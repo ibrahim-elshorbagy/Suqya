@@ -95,7 +95,7 @@ class UserManagementController extends Controller
     }
 
     // Load tenant with all relationships
-    $tenant = $user->tenant;
+    $tenant = $user->tenant->load('currency');
 
     // Set permissions team ID to get tenant-specific roles
     setPermissionsTeamId($user->tenant_id);

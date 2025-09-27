@@ -12,7 +12,7 @@ import UpdateDocumentsForm from './Partials/UpdateDocumentsForm';
 
 export default function Info() {
     const { t } = useTrans();
-    const { tenant } = usePage().props;
+    const { tenant, currencies } = usePage().props;
     const [activeSection, setActiveSection] = useState('basic-info');
 
     // Check if URL has a hash and set the active section on load
@@ -118,7 +118,7 @@ export default function Info() {
                                     </h2>
                                 </div>
                                 <div className="p-6">
-                                    <UpdateBasicInfo tenant={tenant} />
+                                    <UpdateBasicInfo tenant={tenant} currencies={currencies} />
                                 </div>
                             </div>
                         )}

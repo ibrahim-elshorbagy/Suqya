@@ -65,9 +65,10 @@ class RoleSeeder extends Seeder
       [
         'id' => 2,
         'name' => 'Water Company 1',
-        'slug' => 'water-company-1',
+        'slug' => 'water-company',
         'phone' => '123456789',
         'address' => 'Amman, Jordan',
+        'currency_id' => 1, // USD
         'owner_id' => $tenantOwner->id,
       ]
     );

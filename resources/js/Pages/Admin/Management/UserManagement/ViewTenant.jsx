@@ -105,6 +105,14 @@ export default function ViewTenant({ auth, tenant, user }) {
                       {tenant.slug || t('not_provided')}
                     </p>
                   </div>
+                  <div>
+                    <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                      {t('currency')}
+                    </label>
+                    <p className="text-neutral-900 dark:text-neutral-100 mt-1">
+                      {tenant.currency ? `${tenant.currency.name} (${tenant.currency.code})` : t('not_provided')}
+                    </p>
+                  </div>
                 </div>
                 {tenant.slug && (
                   <div>

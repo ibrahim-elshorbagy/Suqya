@@ -124,6 +124,8 @@ return [
   'company_slug' => 'رابط الشركة',
   'company_phone' => 'رقم هاتف الشركة',
   'company_address' => 'عنوان الشركة',
+  'currency' => 'العملة',
+  'select_currency' => 'اختر العملة',
   "slug_condition" => "يجب أن يحتوي على أحرف إنجليزية صغيرة او عربية و أرقام وشرطات فقط",
   "company_slug_placeholder" => "مثال: water-company-slug",
 
@@ -554,5 +556,8 @@ return [
   'mail_encryption' => 'نوع التشفير',
   'mail_encryption_help' => 'نوع التشفير المستخدم (TLS موصى به)',
   'none' => 'بدون',
+
+  "currency" => "العملة",
+  "select_currency" => "اختر العملة",
 
 ];
