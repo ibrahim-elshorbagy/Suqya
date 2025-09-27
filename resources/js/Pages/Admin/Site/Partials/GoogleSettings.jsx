@@ -80,20 +80,37 @@ export default function GoogleSettings({ settings }) {
           {/* Instructions */}
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
             <div className="flex items-start gap-3">
-              <i className="fa-solid fa-info-circle text-blue-500 mt-0.5"></i>
-              <div className="text-sm">
+              <i className="fa-solid fa-info-circle text-blue-500 mt-1"></i>
+              <div className="flex-1 text-sm">
                 <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
-                  {t('google_setup_instructions')}
+                  Google OAuth Callback URI
                 </h4>
-                <ol className="list-decimal list-inside space-y-1 text-blue-800 dark:text-blue-200">
-                  <li>{t('google_step_1')}</li>
-                  <li>{t('google_step_2')}</li>
-                  <li>{t('google_step_3')}</li>
-                  <li>{t('google_step_4')}</li>
-                </ol>
+                <div className="bg-white dark:bg-blue-950 border border-blue-200 dark:border-blue-700 rounded-md px-3 py-2 flex items-center justify-between">
+                  <span className="text-blue-800 dark:text-blue-200 break-all ">
+                    https://my.suqya.net/auth/google/callback
+                  </span>
+                  <button
+                    className="ml-3 px-2 py-1 text-xs rounded-md bg-blue-500 hover:bg-blue-600 text-white"
+                    onClick={(e) => { e.preventDefault(); navigator.clipboard.writeText("https://my.suqya.net/auth/google/callback") }}
+                  >
+                    Copy
+                  </button>
+                </div>
+                {/*
+                  <h4 className="font-medium text-blue-900 dark:text-blue-100 mt-4 mb-2">
+                    {t('google_setup_instructions')}
+                  </h4>
+                  <ol className="list-decimal list-inside space-y-1 text-blue-800 dark:text-blue-200">
+                    <li>{t('google_step_1')}</li>
+                    <li>{t('google_step_2')}</li>
+                    <li>{t('google_step_3')}</li>
+                    <li>{t('google_step_4')}</li>
+                  </ol>
+                  */}
               </div>
             </div>
           </div>
+
 
           <div className="pt-4 border-t border-neutral-200 dark:border-neutral-800 flex items-center gap-4">
             <PrimaryButton
