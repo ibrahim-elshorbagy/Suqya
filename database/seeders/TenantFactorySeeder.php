@@ -18,7 +18,6 @@ class TenantFactorySeeder extends Seeder
         for ($i = 3; $i <= 102; $i++) { // Start from 3 to avoid collision with existing seeders
             $owner = User::create([
                 'name' => "Tenant Owner $i",
-                'username' => "tenant$i",
                 'email' => "tenant$i@example.com",
                 'password' => Hash::make('password'),
             ]);

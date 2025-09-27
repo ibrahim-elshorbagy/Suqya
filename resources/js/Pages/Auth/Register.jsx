@@ -9,7 +9,6 @@ export default function Register() {
   const { t } = useTrans();
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
-    username: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -86,23 +85,6 @@ export default function Register() {
 
             />
             <InputError message={errors.name} className="mt-2" />
-          </div>
-          {/* Username */}
-          <div>
-            <InputLabel htmlFor="username" value={t('auth_username')} required />
-            <TextInput
-              id="username"
-              name="username"
-              value={data.username}
-              className="mt-1 block w-full"
-              autoComplete="username"
-              onChange={(e) => setData('username', e.target.value)}
-              required
-              icon="fa-at"
-              placeholder={t('auth_username')}
-
-            />
-            <InputError message={errors.username} className="mt-2" />
           </div>
           {/* Email */}
           <div>

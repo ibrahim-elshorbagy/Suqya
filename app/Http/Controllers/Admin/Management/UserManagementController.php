@@ -21,7 +21,7 @@ class UserManagementController extends Controller
   {
     $request->validate([
       'search' => ['nullable', 'string', 'max:255'],
-      'sort' => ['nullable', 'string', 'in:id,name,email,username,created_at'],
+      'sort' => ['nullable', 'string', 'in:id,name,email,created_at'],
       'direction' => ['nullable', 'string', 'in:asc,desc'],
       'per_page' => ['nullable', 'integer', 'min:1'],
     ]);
@@ -35,8 +35,7 @@ class UserManagementController extends Controller
         $search = trim($request->search);
         $query->where(function ($q) use ($search) {
           $q->where('name', 'like', "%{$search}%")
-            ->orWhere('email', 'like', "%{$search}%")
-            ->orWhere('username', 'like', "%{$search}%");
+            ->orWhere('email', 'like', "%{$search}%");
         });
       }
     };
@@ -114,20 +113,10 @@ class UserManagementController extends Controller
     $rules = [
       'name' => ['required', 'string', 'max:255'],
       'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-      'username' => [
-        'required',
-        'string',
-        'max:255',
-        'unique:users,username',
-        'regex:/^[a-z0-9-_]+$/', // only English letters, numbers, dash, underscore
-      ],
       'password' => ['required', Rules\Password::defaults(), 'confirmed'],
       'role' => ['required', 'string', 'exists:roles,name'],
     ];
 
-    $messages = [
-      'username.regex' => 'اسم المستخدم يجب أن يحتوي على حروف إنجليزية وأرقام وشرطات فقط.',
-    ];
 
     if ($request->role === 'tenant') {
       $rules['tenant_name'] = ['required', 'string', 'max:255'];
@@ -136,13 +125,12 @@ class UserManagementController extends Controller
       $rules['tenant_address'] = ['nullable', 'string', 'max:255'];
     }
 
-    $data = $request->validate($rules, $messages);
+    $data = $request->validate($rules);
 
     // Create user
     $user = User::create([
       'name' => $data['name'],
       'email' => $data['email'],
-      'username' => $data['username'],
       'password' => Hash::make($data['password']),
     ]);
 
@@ -206,18 +194,10 @@ class UserManagementController extends Controller
     $rules = [
       'name' => ['required', 'string', 'max:255'],
       'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-      'username' => [
-        'required',
-        'string',
-        'max:255',
-        'unique:users,username,' . $user->id,
-        'regex:/^[a-z0-9-_]+$/', // only English letters, numbers, dash, underscore
-      ],
       'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
     ];
 
     $messages = [
-      'username.regex' => 'اسم المستخدم يجب أن يحتوي على حروف إنجليزية وأرقام وشرطات فقط.',
       'tenant_slug.regex' => 'اسم النطاق يجب أن يحتوي على حروف عربية أو إنجليزية وأرقام وشرطات فقط.',
     ];
 
@@ -245,7 +225,6 @@ class UserManagementController extends Controller
     $updateData = [
       'name' => $data['name'],
       'email' => $data['email'],
-      'username' => $data['username'],
     ];
 
     if (!empty($data['password'])) {

@@ -35,13 +35,6 @@ class RegisteredUserController extends Controller
     $request->validate(
       [
         'name' => 'required|string|max:255',
-        'username' => [
-          'required',
-          'string',
-          'max:255',
-          'unique:users,username',
-          'regex:/^[a-z0-9-_]+$/',
-        ],
         'email' => 'required|string|lowercase|email|max:255|unique:users',
         'password' => ['required', 'confirmed', Rules\Password::defaults()],
         'tenant_name' => 'required|string|max:255',
@@ -54,7 +47,6 @@ class RegisteredUserController extends Controller
         ],
       ],
       [
-        'username.regex' => 'اسم المستخدم يجب أن يحتوي على حروف إنجليزية وأرقام وشرطات فقط.',
         'tenant_slug.regex' => 'اسم النطاق يجب أن يحتوي على حروف عربية أو إنجليزية وأرقام وشرطات فقط.',
       ]
     );
@@ -63,7 +55,6 @@ class RegisteredUserController extends Controller
     // Create user
     $user = User::create([
       'name' => $request->name,
-      'username' => $request->username,
       'email' => $request->email,
       'password' => Hash::make($request->password),
     ]);

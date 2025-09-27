@@ -281,14 +281,6 @@ export default function ViewTenant({ auth, tenant, user }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                      {t('username')}
-                    </label>
-                    <p className="text-neutral-900 dark:text-neutral-100 mt-1">
-                      {user.username}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
                       {t('status')}
                     </label>
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-1 ${user.blocked

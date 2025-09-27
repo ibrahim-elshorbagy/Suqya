@@ -14,7 +14,6 @@ export default function EditModal({ isOpen, onClose, user, roles }) {
   const { data, setData, post, errors, reset, processing } = useForm({
     name: '',
     email: '',
-    username: '',
     password: '',
     password_confirmation: '',
     role: '',
@@ -26,7 +25,6 @@ export default function EditModal({ isOpen, onClose, user, roles }) {
       setData({
         name: user.name || '',
         email: user.email || '',
-        username: user.username || '',
         password: '',
         password_confirmation: '',
         role: user.roles && user.roles.length > 0 ? user.roles[0].name : '',
@@ -92,20 +90,6 @@ export default function EditModal({ isOpen, onClose, user, roles }) {
             icon="fa-envelope"
           />
           <InputError message={errors.email} className="mt-2" />
-        </div>
-
-        <div className="mb-4">
-          <InputLabel htmlFor="username" value={t('username')} required />
-          <TextInput
-            id="username"
-            name="username"
-            value={data.username}
-            className="mt-1 block w-full"
-            onChange={(e) => setData('username', e.target.value)}
-            required
-            icon="fa-at"
-          />
-          <InputError message={errors.username} className="mt-2" />
         </div>
 
         <div className="mb-4">

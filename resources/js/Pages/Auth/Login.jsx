@@ -9,7 +9,7 @@ import { useTrans } from '@/Hooks/useTrans';
 export default function Login({ status, canResetPassword }) {
   const { t } = useTrans();
   const { data, setData, post, processing, errors, reset } = useForm({
-    username: '',
+    email: '',
     password: '',
     remember: false,
   });
@@ -35,21 +35,21 @@ export default function Login({ status, canResetPassword }) {
       <div className="">
         <form onSubmit={submit} className="space-y-6">
           <div>
-            <InputLabel htmlFor="username" value={t('auth_username')} />
+            <InputLabel htmlFor="email" value={t('auth_email')} />
             <TextInput
-              id="username"
-              type="text"
-              name="username"
-              value={data.username}
+              id="email"
+              type="email"
+              name="email"
+              value={data.email}
               className="mt-1 block w-full"
-              autoComplete="username"
+              autoComplete="email"
               isFocused={true}
-              onChange={(e) => setData('username', e.target.value)}
-              icon="fa-user"
+              onChange={(e) => setData('email', e.target.value)}
+              icon="fa-envelope"
               required
-              placeholder={t('auth_username')}
+              placeholder={t('auth_email')}
             />
-            <InputError message={errors.username} className="mt-2" />
+            <InputError message={errors.email} className="mt-2" />
           </div>
           <div>
             <div className="flex items-center justify-between">

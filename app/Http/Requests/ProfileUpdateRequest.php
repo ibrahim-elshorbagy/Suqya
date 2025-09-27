@@ -17,13 +17,6 @@ class ProfileUpdateRequest extends FormRequest
   {
     return [
       'name' => ['required', 'string', 'max:255'],
-      'username' => [
-        'required',
-        'string',
-        'max:255',
-        'regex:/^[a-z0-9-_]+$/', // only English letters, numbers, dash, underscore
-        Rule::unique(User::class)->ignore($this->user()?->id),
-      ],
       'email' => [
         'required',
         'string',
@@ -43,7 +36,6 @@ class ProfileUpdateRequest extends FormRequest
   public function messages(): array
   {
     return [
-      'username.regex' => 'اسم المستخدم يجب أن يحتوي على حروف إنجليزية وأرقام وشرطات فقط.',
     ];
   }
 }

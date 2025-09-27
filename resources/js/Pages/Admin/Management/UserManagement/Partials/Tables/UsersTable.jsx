@@ -81,7 +81,6 @@ export default function UsersTable({ users, onEdit, pageParam }) {
     { field: 'row_number', label: t('serial'), icon: 'fa-hashtag' },
     { field: 'name', label: t('name'), icon: 'fa-user' },
     { field: 'email', label: t('email_address'), icon: 'fa-envelope' },
-    { field: 'username', label: t('username'), icon: 'fa-at' },
     { field: 'status', label: t('status'), icon: 'fa-circle-info' },
     { field: 'created_at', label: t('created_at'), icon: 'fa-calendar' },
     { field: 'actions', label: t('actions'), icon: 'fa-gear', className: 'flex justify-center' }
@@ -89,10 +88,9 @@ export default function UsersTable({ users, onEdit, pageParam }) {
 
 
   const sortOptions = [
-    // { field: 'row_number', label: t('serial') },
+    // { field: 'row_number', label: t('se rial') },
     { field: 'name', label: t('name') },
     { field: 'email', label: t('email_address') },
-    { field: 'username', label: t('username') },
     { field: 'blocked', label: t('status') },
     { field: 'created_at', label: t('created_at') }
   ];
@@ -115,14 +113,6 @@ export default function UsersTable({ users, onEdit, pageParam }) {
           <i className="fa-solid fa-envelope text-blue-500"></i>
           <span className="text-sm text-neutral-900 dark:text-neutral-100">
             {user.email}
-          </span>
-        </div>
-      </td>
-      <td className="px-3 py-4 whitespace-nowrap">
-        <div className="flex items-center gap-2">
-          <i className="fa-solid fa-at text-blue-500"></i>
-          <span className="text-sm text-neutral-900 dark:text-neutral-100">
-            {user.username}
           </span>
         </div>
       </td>
@@ -261,9 +251,6 @@ export default function UsersTable({ users, onEdit, pageParam }) {
             </h3>
             <p className="text-sm text-neutral-600 dark:text-neutral-400 truncate">
               {user.email}
-            </p>
-            <p className="text-xs text-neutral-500 dark:text-neutral-500">
-              @{user.username}
             </p>
           </div>
         </div>

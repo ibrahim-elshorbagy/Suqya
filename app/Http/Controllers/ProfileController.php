@@ -36,7 +36,6 @@ class ProfileController extends Controller
     $validated = $request->validated();
 
     $user->name = $validated['name'];
-    $user->username = $validated['username'];
     if ($user->email !== $validated['email']) {
       $user->email = $validated['email'];
       $user->email_verified_at = null;

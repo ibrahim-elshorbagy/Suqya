@@ -37,6 +37,7 @@ return [
   'auth_join_us_today' => 'انضم إلينا اليوم',
   'auth_full_name' => 'الاسم الكامل',
   'auth_email_address' => 'عنوان البريد الإلكتروني',
+  'auth_email' => 'عنوان البريد الإلكتروني',
   'auth_confirm_password' => 'تأكيد كلمة المرور',
   'auth_already_have_account' => 'لديك حساب بالفعل؟',
   'auth_dont_have_account' => 'ليس لديك حساب؟',
@@ -270,7 +271,7 @@ return [
   'leave_empty_to_keep_current' => 'اتركه فارغًا للاحتفاظ بكلمة المرور الحالية',
   'select_role_required' => '-- اختر الدور --',
   'add_user' => 'إضافة مستخدم',
-  'search_name_username_email' => 'البحث بالاسم أو اسم المستخدم أو البريد الإلكتروني...',
+  'search_name_username_email' => 'البحث بالاسم أو البريد الإلكتروني...',
   "serial" => "التسلسل",
 
   /* Plans Management */

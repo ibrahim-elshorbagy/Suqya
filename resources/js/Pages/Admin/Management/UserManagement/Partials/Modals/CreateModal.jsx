@@ -17,7 +17,6 @@ export default function CreateModal({ isOpen, onClose, roles }) {
     tenant_phone: '',
     tenant_address: '',
     email: '',
-    username: '',
     password: '',
     password_confirmation: '',
     role: '',
@@ -25,7 +24,6 @@ export default function CreateModal({ isOpen, onClose, roles }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     post(route('admin.users.store'), {
       onSuccess: () => {
         reset();
@@ -82,22 +80,6 @@ export default function CreateModal({ isOpen, onClose, roles }) {
             required
           />
           <InputError message={errors.email} className="mt-2" />
-        </div>
-
-        {/* Username */}
-        <div className="mb-4">
-          <InputLabel htmlFor="username" value={t('username')} required />
-          <TextInput
-            id="username"
-            type="text"
-            name="username"
-            value={data.username}
-            className="mt-1 block w-full"
-            onChange={(e) => setData('username', e.target.value)}
-            icon="fa-at"
-            required
-          />
-          <InputError message={errors.username} className="mt-2" />
         </div>
 
         {/* Password */}

@@ -42,7 +42,7 @@ export default function ResetPassword({ token, email }) {
               name="email"
               value={data.email}
               className="mt-1 block w-full"
-              autoComplete="username"
+              autoComplete="email"
               onChange={(e) => setData('email', e.target.value)}
               icon="fa-envelope"
               placeholder={t('auth_email_address')}

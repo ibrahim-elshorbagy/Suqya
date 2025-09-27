@@ -18,7 +18,6 @@ export default function UpdateProfileInformation({
     useForm({
       name: user.name,
       email: user.email,
-      username: user.username,
     });
 
   const submit = (e) => {
@@ -51,20 +50,6 @@ export default function UpdateProfileInformation({
           </div>
 
           <div className='space-y-2'>
-            <InputLabel htmlFor="username" value={t('username')} />
-            <TextInput
-              id="username"
-              className="mt-1 block w-full"
-              value={data.username}
-              onChange={(e) => setData('username', e.target.value)}
-              required
-              isFocused
-              autoComplete="username"
-              icon="fa-user"
-            />
-            <InputError className="mt-2" message={errors.username} />
-          </div>
-          <div className='space-y-2'>
             <InputLabel htmlFor="email" value={t('email_address')} />
             <TextInput
               id="email"
@@ -73,7 +58,7 @@ export default function UpdateProfileInformation({
               value={data.email}
               onChange={(e) => setData('email', e.target.value)}
               required
-              autoComplete="username"
+              autoComplete="email"
               icon="fa-envelope"
             />
             <InputError className="mt-2" message={errors.email} />
