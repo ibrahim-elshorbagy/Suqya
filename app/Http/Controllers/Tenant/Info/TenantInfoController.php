@@ -52,6 +52,8 @@ class TenantInfoController extends Controller
         'regex:/^[a-zA-Z-_]+$/u',
         Rule::unique('tenants', 'slug')->ignore($tenant->id)
       ],
+    ], [
+      'slug.regex' => __('validation.tenant_slug'),
     ]);
 
     $tenant->update($request->only(['name', 'slug']));
