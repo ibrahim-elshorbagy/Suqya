@@ -112,16 +112,6 @@ export default function RouteOptimizer() {
         }
     };
 
-    const addManualPoint = () => {
-        const { lat, lng, name } = manualForm;
-        if (lat && lng) {
-            addPoint(lat, lng, name || `عميل ${coordinates.length + 1}`);
-            setManualForm({ lat: '', lng: '', name: '' });
-        } else {
-            showError('❌ الرجاء إدخال الإحداثيات');
-        }
-    };
-
     const startMapClickMode = () => {
         setAddingMode(true);
         setShowAddMenu(false);
@@ -160,11 +150,10 @@ export default function RouteOptimizer() {
         try {
             const optimizedOrder = await nearestNeighborWithOSRM();
             await drawOptimizedRoute(optimizedOrder);
-        } catch (error) {
-            console.error('Error:', error);
-            showWarning('⚠️ تعذر تحسين المسار، جاري استخدام الخوارزمية التقريبية');
-            optimizeWithApproximate();
-        }
+        }  catch (error) {
+          console.error('Error:', error);
+          showError('❌ تعذر تحسين المسار، يرجى المحاولة مرة أخرى');
+      }
         setIsOptimizing(false);
     };
 
@@ -205,13 +194,19 @@ export default function RouteOptimizer() {
             if (response.ok) {
                 const data = await response.json();
                 return data.routes[0].distance;
+            } else {
+                // OSRM API returned error
+                showError('❌ خدمة تحسين المسار غير متاحة حالياً');
+                return null; // Return null to indicate failure
             }
         } catch (error) {
             console.error('OSRM distance error:', error);
+            showError('❌ تعذر الاتصال بخدمة تحسين المسار');
+            return null; // Return null to indicate failure
         }
-
-        return calculateAirDistance(point1, point2);
     };
+
+
 
     const drawOptimizedRoute = async (optimizedOrder) => {
         const coordsString = optimizedOrder.map(coord => `${coord.lng},${coord.lat}`).join(';');
@@ -232,7 +227,7 @@ export default function RouteOptimizer() {
                 showSuccess(`✅ تم تحسين المسار - المسافة: ${(route.distance / 1000).toFixed(2)} كم`);
             }
         } catch (error) {
-            drawApproximateOptimized(optimizedOrder);
+          showWarning('⚠️ تعذر تحميل المسار من OSRM، الرجاء المحاولة لاحقًا');
         }
     };
 
@@ -248,81 +243,12 @@ export default function RouteOptimizer() {
         });
     };
 
-    const optimizeWithApproximate = () => {
-        const optimizedOrder = nearestNeighborApproximate();
-        drawApproximateOptimized(optimizedOrder);
-    };
-
-    const nearestNeighborApproximate = () => {
-        const unvisited = [...coordinates];
-        const route = [];
-        let current = unvisited.shift();
-        route.push(current);
-
-        while (unvisited.length > 0) {
-            let nearestIndex = -1;
-            let minDistance = Infinity;
-
-            for (let i = 0; i < unvisited.length; i++) {
-                const distance = calculateAirDistance(current, unvisited[i]);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    nearestIndex = i;
-                }
-            }
-
-            if (nearestIndex !== -1) {
-                current = unvisited.splice(nearestIndex, 1)[0];
-                route.push(current);
-            }
-        }
-
-        return route;
-    };
-
-    const drawApproximateOptimized = (optimizedOrder) => {
-        const routeGeometry = optimizedOrder.map(coord => [coord.lat, coord.lng]);
-        setOptimizedRoute(routeGeometry);
-
-        setRouteInfo({
-            distance: 'غير معروف',
-            duration: 'غير معروف',
-            pointsCount: optimizedOrder.length,
-            order: optimizedOrder,
-            approximate: true
-        });
-
-        showSuccess('✅ تم تحسين المسار (مسار تقريبي)');
-    };
-
-    const calculateAirDistance = (point1, point2) => {
-        const R = 6371000;
-        const lat1 = point1.lat * Math.PI / 180;
-        const lat2 = point2.lat * Math.PI / 180;
-        const deltaLat = (point2.lat - point1.lat) * Math.PI / 180;
-        const deltaLng = (point2.lng - point1.lng) * Math.PI / 180;
-
-        const a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) +
-                  Math.cos(lat1) * Math.cos(lat2) *
-                  Math.sin(deltaLng/2) * Math.sin(deltaLng/2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-        return R * c;
-    };
-
     const clearAll = () => {
         setCoordinates([]);
         setOptimizedRoute([]);
         setRouteInfo(null);
         setAddingMode(false);
         showSuccess('🗑️ تم مسح جميع النقاط');
-    };
-
-    // Handler functions for the new modular components
-    const handleToggleAddMenu = () => setShowAddMenu(!showAddMenu);
-
-    const handleManualFormChange = (field, value) => {
-        setManualForm(prev => ({ ...prev, [field]: value }));
     };
 
     // Calculate bounds for all markers
@@ -504,10 +430,9 @@ export default function RouteOptimizer() {
                         {optimizedRoute.length > 0 && (
                             <Polyline
                                 positions={optimizedRoute}
-                                color={routeInfo?.approximate ? '#f59e0b' : '#10b981'}
                                 weight={6}
                                 opacity={0.8}
-                                dashArray={routeInfo?.approximate ? '5, 5' : undefined}
+                                color="#10b981"
                             />
                         )}
                     </MapContainer>
@@ -606,14 +531,6 @@ export default function RouteOptimizer() {
                                             </div>
                                         </div>
                                     </div>
-
-                                    {routeInfo.approximate && (
-                                        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3 text-center">
-                                            <span className="text-yellow-700 dark:text-yellow-400 text-sm">
-                                                ⚠️ مسار تقريبي - قد تختلف المسافة الفعلية
-                                            </span>
-                                        </div>
-                                    )}
 
                                     <div>
                                         <h4 className="font-semibold text-gray-800 dark:text-white mb-3">
