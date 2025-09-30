@@ -13,6 +13,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+  Route::get('/test/map', [AdminController::class, 'TestMap'])->name('test.map');
+
   // Site Settings routes
   Route::get('/admin/site-settings', [SiteSettingsController::class, 'index'])->name('admin.site-settings.index');
   Route::post('/admin/site-settings', [SiteSettingsController::class, 'update'])->name('admin.site-settings.update');

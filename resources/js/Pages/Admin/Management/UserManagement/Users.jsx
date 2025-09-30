@@ -5,7 +5,7 @@ import Tabs from '@/Components/Tabs';
 import SearchBar from '@/Components/SearchBar';
 import PrimaryButton from '@/Components/PrimaryButton';
 import CreateModal from './Partials/Modals/CreateModal';
-import EditModal from './Partials/Modals//EditModal';
+import EditModal from './Partials/Modals/EditModal';
 import UsersTable from './Partials/Tables/UsersTable';
 import { useTrans } from '@/Hooks/useTrans';
 
