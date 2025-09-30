@@ -103,6 +103,18 @@ export default function RouteOptimizer({ t }) {
     return () => document.removeEventListener('keydown', handleEscapeKey);
   }, [isFullscreen]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (addButtonRef.current && !addButtonRef.current.contains(event.target)) {
+        setShowAddMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       setIsLocating(true);
@@ -211,14 +223,6 @@ export default function RouteOptimizer({ t }) {
       setAddingMode(false);
     }
   }, [addingMode, addPoint]);
-
-  const addCurrentLocation = () => {
-    if (currentLocation) {
-      addPoint(currentLocation[0], currentLocation[1], t('current_location'));
-    } else {
-      showError(`❌ ${t('location_not_found')}`);
-    }
-  };
 
   const startMapClickMode = () => {
     setAddingMode(true);
@@ -370,14 +374,12 @@ export default function RouteOptimizer({ t }) {
   }, [coordinates]);
 
   return (
-    <div className={`${isFullscreen ? 'fixed inset-0 z-[999] bg-gray-900' : 'min-h-screen  py-6'}`}>
-      <div className={`${isFullscreen ? 'w-full h-full p-4' : ' mx-auto px-4 sm:px-6 lg:px-8'}`}>
-        {/* Header - Hidden in fullscreen */}
-
+    <div className={`${isFullscreen ? 'fixed inset-0 z-[999] bg-gray-900' : 'min-h-screen py-6'}`}>
+      <div className={`${isFullscreen ? 'w-full h-full p-4' : 'mx-auto px-4 sm:px-6 lg:px-8'}`}>
         {/* Main Action Buttons - Hidden in fullscreen */}
         {!isFullscreen && (
           <div className="flex flex-wrap gap-3 mb-6 justify-center">
-            {/* Add Point Button */}
+            {/* Add Point Button with Fixed Dropdown */}
             <div className="relative" ref={addButtonRef}>
               <button
                 onClick={() => setShowAddMenu(!showAddMenu)}
@@ -387,9 +389,9 @@ export default function RouteOptimizer({ t }) {
                 {t('add_customer')}
               </button>
 
-              {/* Add Menu Dropdown - Positioned above */}
+              {/* Fixed Add Menu Dropdown */}
               {showAddMenu && (
-                <div className="absolute bottom-full left-0 mb-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50">
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-[1000]">
                   <div className="p-4 space-y-3">
                     <h4 className="font-bold text-gray-800 dark:text-white text-center border-b pb-2">
                       {t('choose_add_method')}
@@ -397,7 +399,7 @@ export default function RouteOptimizer({ t }) {
 
                     <button
                       onClick={startMapClickMode}
-                      className="w-full flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors text-right"
+                      className="w-full flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors text-left"
                     >
                       <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white">
                         🗺️
@@ -405,19 +407,6 @@ export default function RouteOptimizer({ t }) {
                       <div className="flex-1">
                         <div className="font-semibold text-blue-700 dark:text-blue-300">{t('click_on_map')}</div>
                         <div className="text-xs text-blue-600 dark:text-blue-400">{t('click_anywhere_map')}</div>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={addCurrentLocation}
-                      className="w-full flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors text-right"
-                    >
-                      <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center text-white">
-                        🌍
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-green-700 dark:text-green-300">{t('current_location')}</div>
-                        <div className="text-xs text-green-600 dark:text-green-400">{t('use_current_location')}</div>
                       </div>
                     </button>
                   </div>
@@ -452,7 +441,7 @@ export default function RouteOptimizer({ t }) {
               {t('clear_all')}
             </button>
 
-            {/* Tracking Button */}
+            {/* Live Tracking Button */}
             {!isTracking ? (
               <button
                 onClick={startLocationTracking}
@@ -483,7 +472,7 @@ export default function RouteOptimizer({ t }) {
         )}
 
         {/* Map */}
-        <div className={`${isFullscreen ? 'w-full h-full' : 'w-full h-96 md:h-[500px] mb-6'} rounded-xl shadow-lg border-2 border-blue-200 overflow-hidden`}>
+        <div className={`${isFullscreen ? 'w-full h-full' : 'w-full h-[600px] md:h-[750px] mb-6'} rounded-xl shadow-lg border-2 border-blue-200 overflow-hidden`}>
           <MapContainer
             center={currentLocation}
             zoom={15}
@@ -684,14 +673,6 @@ export default function RouteOptimizer({ t }) {
           </div>
         )}
       </div>
-
-      {/* Backdrop for mobile menu */}
-      {showAddMenu && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setShowAddMenu(false)}
-        />
-      )}
     </div>
   );
 }
