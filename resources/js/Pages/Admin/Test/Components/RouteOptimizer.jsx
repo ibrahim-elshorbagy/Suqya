@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useAlert } from '@/Hooks/useAlert';
 
 // Fix for default markers in react-leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -40,14 +41,19 @@ function MapController({ center, bounds }) {
 
 // Main Component
 export default function RouteOptimizer() {
+    const { showSuccess, showError, showWarning, showInfo, showLoading } = useAlert();
+
     const [coordinates, setCoordinates] = useState([]);
     const [optimizedRoute, setOptimizedRoute] = useState([]);
     const [routeInfo, setRouteInfo] = useState(null);
-    const [status, setStatus] = useState({ message: '', type: '' });
     const [addingMode, setAddingMode] = useState(false);
     const [showAddMenu, setShowAddMenu] = useState(false);
     const [manualForm, setManualForm] = useState({ lat: '', lng: '', name: '' });
     const [currentLocation, setCurrentLocation] = useState([31.987, 35.891]);
+
+    // Loading states
+    const [isOptimizing, setIsOptimizing] = useState(false);
+    const [isLocating, setIsLocating] = useState(false);
     const [mapBounds, setMapBounds] = useState(null);
 
     const mapRef = useRef();
@@ -57,17 +63,20 @@ export default function RouteOptimizer() {
         getCurrentLocation();
     }, []);
 
-    const getCurrentLocation = () => {
+        const getCurrentLocation = () => {
         if (navigator.geolocation) {
+            setIsLocating(true);
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    const { latitude, longitude } = position.coords;
-                    setCurrentLocation([latitude, longitude]);
-                    updateStatus('📍 تم تحديد موقعك الحالي', 'success');
+                    const newLocation = [position.coords.latitude, position.coords.longitude];
+                    setCurrentLocation(newLocation);
+                    setIsLocating(false);
+                    showSuccess('📍 تم تحديد موقعك الحالي');
                 },
                 (error) => {
                     console.error('Error getting location:', error);
-                    updateStatus('⚠️ تعذر الحصول على الموقع الحالي', 'error');
+                    setIsLocating(false);
+                    showError('⚠️ تعذر الحصول على الموقع الحالي');
                 }
             );
         }
@@ -84,7 +93,7 @@ export default function RouteOptimizer() {
         };
 
         setCoordinates(prev => [...prev, newPoint]);
-        updateStatus(`✅ تم إضافة ${customerName}`, 'success');
+        showSuccess(`✅ تم إضافة ${customerName}`);
         setShowAddMenu(false);
     }, [coordinates.length]);
 
@@ -99,7 +108,7 @@ export default function RouteOptimizer() {
         if (currentLocation) {
             addPoint(currentLocation[0], currentLocation[1], 'الموقع الحالي');
         } else {
-            updateStatus('❌ لم يتم تحديد الموقع الحالي', 'error');
+            showError('❌ لم يتم تحديد الموقع الحالي');
         }
     };
 
@@ -109,14 +118,14 @@ export default function RouteOptimizer() {
             addPoint(lat, lng, name || `عميل ${coordinates.length + 1}`);
             setManualForm({ lat: '', lng: '', name: '' });
         } else {
-            updateStatus('❌ الرجاء إدخال الإحداثيات', 'error');
+            showError('❌ الرجاء إدخال الإحداثيات');
         }
     };
 
     const startMapClickMode = () => {
         setAddingMode(true);
         setShowAddMenu(false);
-        updateStatus('🗺️ انقر على الخريطة لإضافة نقطة جديدة', 'loading');
+        showInfo('🗺️ انقر على الخريطة لإضافة نقطة جديدة');
     };
 
     // Create custom icons
@@ -135,26 +144,28 @@ export default function RouteOptimizer() {
 
     const deletePoint = (id) => {
         setCoordinates(prev => prev.filter(point => point.id !== id));
-        updateStatus(`🗑️ تم حذف النقطة`, 'success');
+        showSuccess(`🗑️ تم حذف النقطة`);
     };
 
     // Route optimization functions
     const optimizeRoute = async () => {
         if (coordinates.length < 2) {
-            updateStatus('❌ يجب إضافة نقطتين على الأقل', 'error');
+            showError('❌ يجب إضافة نقطتين على الأقل');
             return;
         }
 
-        updateStatus('🔧 جاري تحسين المسار...', 'loading');
+        setIsOptimizing(true);
+        showInfo('🔧 جاري تحسين المسار...');
 
         try {
             const optimizedOrder = await nearestNeighborWithOSRM();
             await drawOptimizedRoute(optimizedOrder);
         } catch (error) {
             console.error('Error:', error);
-            updateStatus('⚠️ تعذر تحسين المسار، جاري استخدام الخوارزمية التقريبية', 'error');
+            showWarning('⚠️ تعذر تحسين المسار، جاري استخدام الخوارزمية التقريبية');
             optimizeWithApproximate();
         }
+        setIsOptimizing(false);
     };
 
     const nearestNeighborWithOSRM = async () => {
@@ -218,7 +229,7 @@ export default function RouteOptimizer() {
                 setOptimizedRoute(routeGeometry);
                 displayOptimizedInfo(optimizedOrder, route);
 
-                updateStatus(`✅ تم تحسين المسار - المسافة: ${(route.distance / 1000).toFixed(2)} كم`, 'success');
+                showSuccess(`✅ تم تحسين المسار - المسافة: ${(route.distance / 1000).toFixed(2)} كم`);
             }
         } catch (error) {
             drawApproximateOptimized(optimizedOrder);
@@ -281,7 +292,7 @@ export default function RouteOptimizer() {
             approximate: true
         });
 
-        updateStatus('✅ تم تحسين المسار (مسار تقريبي)', 'success');
+        showSuccess('✅ تم تحسين المسار (مسار تقريبي)');
     };
 
     const calculateAirDistance = (point1, point2) => {
@@ -304,30 +315,14 @@ export default function RouteOptimizer() {
         setOptimizedRoute([]);
         setRouteInfo(null);
         setAddingMode(false);
-        updateStatus('🗑️ تم مسح جميع النقاط', 'success');
+        showSuccess('🗑️ تم مسح جميع النقاط');
     };
 
-    const updateStatus = (message, type = '') => {
-        setStatus({ message, type });
+    // Handler functions for the new modular components
+    const handleToggleAddMenu = () => setShowAddMenu(!showAddMenu);
 
-        if (type === 'success' || type === 'error') {
-            setTimeout(() => {
-                setStatus({ message: '', type: '' });
-            }, 5000);
-        }
-    };
-
-    const getStatusClasses = () => {
-        switch (status.type) {
-            case 'success':
-                return 'bg-green-50 border-green-200 text-green-800 border-r-4 border-green-500';
-            case 'error':
-                return 'bg-red-50 border-red-200 text-red-800 border-r-4 border-red-500';
-            case 'loading':
-                return 'bg-yellow-50 border-yellow-200 text-yellow-800 border-r-4 border-yellow-500';
-            default:
-                return 'bg-blue-50 border-blue-200 text-blue-800 border-r-4 border-blue-500';
-        }
+    const handleManualFormChange = (field, value) => {
+        setManualForm(prev => ({ ...prev, [field]: value }));
     };
 
     // Calculate bounds for all markers
