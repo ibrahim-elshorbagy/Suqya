@@ -24,17 +24,19 @@ function MapEvents({ onMapClick, addingMode }) {
   return null;
 }
 
-// Component to handle map view changes
-function MapController({ center, bounds }) {
+// Component to handle map view changes - FIXED VERSION
+function MapController({ center, bounds, shouldFitBounds }) {
   const map = useMap();
 
   useEffect(() => {
-    if (bounds && bounds.length > 0) {
+    // Only fit bounds when explicitly requested (e.g., after route optimization)
+    if (shouldFitBounds && bounds && bounds.length > 0) {
       map.fitBounds(bounds, { padding: [20, 20] });
-    } else if (center) {
-      map.setView(center, 15);
+    } else if (center && !bounds) {
+      // Only set view to center when there are no bounds to fit
+      map.setView(center, map.getZoom()); // Keep current zoom level
     }
-  }, [map, center, bounds]);
+  }, [map, center, bounds, shouldFitBounds]);
 
   return null;
 }
@@ -74,6 +76,7 @@ export default function RouteOptimizer({ t }) {
   const [isLocating, setIsLocating] = useState(false);
   const [isTracking, setIsTracking] = useState(false);
   const [mapBounds, setMapBounds] = useState(null);
+  const [shouldFitBounds, setShouldFitBounds] = useState(false); // Control when to fit bounds
 
   const mapRef = useRef();
   const addButtonRef = useRef();
@@ -215,6 +218,8 @@ export default function RouteOptimizer({ t }) {
     setCoordinates(prev => [...prev, newPoint]);
     showSuccess(`✅ ${t('point_added')}: ${customerName}`);
     setShowAddMenu(false);
+    // Don't auto-fit bounds when adding a single point
+    setShouldFitBounds(false);
   }, [coordinates.length, t]);
 
   const handleMapClick = useCallback((latlng) => {
@@ -247,6 +252,7 @@ export default function RouteOptimizer({ t }) {
   const deletePoint = (id) => {
     setCoordinates(prev => prev.filter(point => point.id !== id));
     showSuccess(`🗑️ ${t('point_deleted')}`);
+    setShouldFitBounds(false); // Don't auto-fit after deletion
   };
 
   // Route optimization functions
@@ -262,6 +268,8 @@ export default function RouteOptimizer({ t }) {
     try {
       const optimizedOrder = await nearestNeighborWithOSRM();
       await drawOptimizedRoute(optimizedOrder);
+      // Enable auto-fit bounds after route optimization
+      setShouldFitBounds(true);
     } catch (error) {
       console.error('Error:', error);
       showError(`❌ ${t('optimization_failed')}`);
@@ -360,6 +368,7 @@ export default function RouteOptimizer({ t }) {
     setOptimizedRoute([]);
     setRouteInfo(null);
     setAddingMode(false);
+    setShouldFitBounds(false);
     showSuccess(`🗑️ ${t('all_cleared')}`);
   };
 
@@ -370,8 +379,20 @@ export default function RouteOptimizer({ t }) {
         coordinates.map(coord => L.marker([coord.lat, coord.lng]))
       );
       setMapBounds(group.getBounds());
+    } else {
+      setMapBounds(null);
     }
   }, [coordinates]);
+
+  // Reset shouldFitBounds after it's been used
+  useEffect(() => {
+    if (shouldFitBounds) {
+      const timer = setTimeout(() => {
+        setShouldFitBounds(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [shouldFitBounds]);
 
   return (
     <div className={`${isFullscreen ? 'fixed inset-0 z-[999] bg-gray-900' : 'min-h-screen py-6'}`}>
@@ -391,7 +412,7 @@ export default function RouteOptimizer({ t }) {
 
               {/* Fixed Add Menu Dropdown */}
               {showAddMenu && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-[1000]">
+                <div className="absolute top-full -left-10 xl:left-0 mt-2 w-64 bg-white dark:bg-neutral-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 z-[1000]">
                   <div className="p-4 space-y-3">
                     <h4 className="font-bold text-gray-800 dark:text-white text-center border-b pb-2">
                       {t('choose_add_method')}
@@ -485,7 +506,11 @@ export default function RouteOptimizer({ t }) {
             />
 
             <MapEvents onMapClick={handleMapClick} addingMode={addingMode} />
-            <MapController center={currentLocation} bounds={mapBounds} />
+            <MapController
+              center={currentLocation}
+              bounds={mapBounds}
+              shouldFitBounds={shouldFitBounds}
+            />
 
             {/* Render markers */}
             {coordinates.map((point, index) => {
