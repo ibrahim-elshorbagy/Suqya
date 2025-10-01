@@ -463,7 +463,7 @@ export default function RouteOptimizer({ t }) {
             </button>
 
             {/* Live Tracking Button */}
-            {!isTracking ? (
+            {/* {!isTracking ? (
               <button
                 onClick={startLocationTracking}
                 className="flex items-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg shadow-md transition-all duration-200 hover:-translate-y-0.5 min-w-[160px] justify-center"
@@ -479,7 +479,7 @@ export default function RouteOptimizer({ t }) {
                 <span>⏹️</span>
                 {t('stop_tracking')}
               </button>
-            )}
+            )} */}
 
             {/* Fullscreen Button */}
             <button
