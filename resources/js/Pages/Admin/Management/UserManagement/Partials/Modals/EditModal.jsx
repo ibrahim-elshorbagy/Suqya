@@ -31,7 +31,6 @@ export default function EditModal({ isOpen, onClose, user, roles }) {
         tenant_name: user.tenant?.name || '',
         tenant_slug: user.tenant?.slug || '',
         tenant_phone: user.tenant?.phone || '',
-        tenant_address: user.tenant?.address || '',
         _method: 'PUT',
       });
     } else if (!isOpen) {
@@ -165,19 +164,7 @@ export default function EditModal({ isOpen, onClose, user, roles }) {
               />
               <InputError message={errors.tenant_phone} className="mt-2" />
             </div>
-            <div className="mb-4">
-              <InputLabel htmlFor="tenant_address" value={t('tenant_address')} />
-              <TextInput
-                id="tenant_address"
-                type="text"
-                name="tenant_address"
-                value={data.tenant_address || ''}
-                className="mt-1 block w-full"
-                onChange={(e) => setData('tenant_address', e.target.value)}
-                icon="fa-location-dot"
-              />
-              <InputError message={errors.tenant_address} className="mt-2" />
-            </div>
+
           </>
         )}
         <div className="flex justify-end gap-2 mt-6">

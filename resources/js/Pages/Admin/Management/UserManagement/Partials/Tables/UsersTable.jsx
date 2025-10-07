@@ -289,10 +289,10 @@ export default function UsersTable({ users, onEdit, pageParam }) {
                 <span>{t('tenant_email')}: <a href={`mailto:${user.tenant.email}`} className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 underline">{user.tenant.email}</a></span>
               </div>
             )}
-            {user.tenant.address && (
+            {user.tenant.full_address && (
               <div>
                 <i className="fa-solid fa-location-dot"></i>
-                <span>{t('tenant_address')}: <a href={`https://www.google.com/maps/search/?api=1&query=${user.tenant.latitude && user.tenant.longitude ? `${user.tenant.latitude},${user.tenant.longitude}` : encodeURIComponent(user.tenant.address)}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 underline">{user.tenant.address}</a></span>
+                <span>{t('full_address')}: <a href={`https://www.google.com/maps/search/?api=1&query=${user.tenant.latitude && user.tenant.longitude ? `${user.tenant.latitude},${user.tenant.longitude}` : encodeURIComponent(user.tenant.full_address)}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 underline">{user.tenant.full_address}</a></span>
               </div>
             )}
           </div>

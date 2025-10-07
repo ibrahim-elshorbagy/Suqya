@@ -185,15 +185,7 @@ export default function ViewTenant({ auth, tenant, user }) {
                     {tenant.email || t('not_provided')}
                   </p>
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
-                    <i className="fa-solid fa-map-marker-alt text-xs"></i>
-                    {t('address')}
-                  </label>
-                  <p className="text-neutral-900 dark:text-neutral-100 mt-1">
-                    {tenant.address || t('not_provided')}
-                  </p>
-                </div>
+
               </div>
             </div>
 

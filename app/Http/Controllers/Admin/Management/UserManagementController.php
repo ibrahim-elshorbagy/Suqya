@@ -122,7 +122,6 @@ class UserManagementController extends Controller
       $rules['tenant_name'] = ['required', 'string', 'max:255'];
       $rules['tenant_slug'] = ['required', 'string', 'max:255', 'unique:tenants,slug', 'regex:/^[a-zA-Z-_]+$/u'];
       $rules['tenant_phone'] = ['nullable', 'string', 'max:255'];
-      $rules['tenant_address'] = ['nullable', 'string', 'max:255'];
     }
 
     $data = $request->validate($rules);
@@ -142,7 +141,6 @@ class UserManagementController extends Controller
         'name' => $data['tenant_name'],
         'slug' => $data['tenant_slug'],
         'phone' => $data['tenant_phone'] ?? null,
-        'address' => $data['tenant_address'] ?? null,
         'owner_id' => $user->id,
       ]);
       $user->tenant_id = $tenant->id;
@@ -216,7 +214,6 @@ class UserManagementController extends Controller
           'regex:/^[a-zA-Z-_]+$/u',
         ],
         'tenant_phone' => ['nullable', 'string', 'max:255'],
-        'tenant_address' => ['nullable', 'string', 'max:255'],
       ]);
     }
 
@@ -239,7 +236,6 @@ class UserManagementController extends Controller
         'name' => $data['tenant_name'],
         'slug' => $data['tenant_slug'],
         'phone' => $data['tenant_phone'] ?? null,
-        'address' => $data['tenant_address'] ?? null,
       ]);
     }
 

@@ -14,7 +14,6 @@ export default function UpdateContactInfo({ tenant, className = '' }) {
     phone: tenant?.phone || '',
     whatsapp: tenant?.whatsapp || '',
     email: tenant?.email || '',
-    address: tenant?.address || '',
   });
 
   const submit = (e) => {
@@ -79,19 +78,7 @@ export default function UpdateContactInfo({ tenant, className = '' }) {
           <InputError className="mt-2" message={errors.email} />
         </div>
 
-        <div className='space-y-2'>
-          <InputLabel htmlFor="address" value={t('address')} />
-          <TextArea
-            id="address"
-            className="mt-1 block w-full"
-            value={data.address}
-            onChange={(e) => setData('address', e.target.value)}
-            rows={3}
-            icon="fa-map-marker-alt"
-            placeholder={t('enter_company_address')}
-          />
-          <InputError className="mt-2" message={errors.address} />
-        </div>
+
 
         <div className="pt-4 flex items-center gap-4">
           <PrimaryButton

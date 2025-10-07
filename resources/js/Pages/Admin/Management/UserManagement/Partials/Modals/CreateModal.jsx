@@ -15,7 +15,6 @@ export default function CreateModal({ isOpen, onClose, roles }) {
     tenant_name: '',
     tenant_slug: '',
     tenant_phone: '',
-    tenant_address: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -173,19 +172,7 @@ export default function CreateModal({ isOpen, onClose, roles }) {
               />
               <InputError message={errors.tenant_phone} className="mt-2" />
             </div>
-            <div className="mb-4">
-              <InputLabel htmlFor="tenant_address" value={t('tenant_address')} />
-              <TextInput
-                id="tenant_address"
-                type="text"
-                name="tenant_address"
-                value={data.tenant_address || ''}
-                className="mt-1 block w-full"
-                onChange={(e) => setData('tenant_address', e.target.value)}
-                icon="fa-location-dot"
-              />
-              <InputError message={errors.tenant_address} className="mt-2" />
-            </div>
+
           </>
         )}
 

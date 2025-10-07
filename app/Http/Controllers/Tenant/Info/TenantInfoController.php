@@ -85,10 +85,9 @@ class TenantInfoController extends Controller
       'phone' => 'nullable|string|max:255',
       'whatsapp' => 'nullable|string|max:255',
       'email' => 'nullable|email|max:255',
-      'address' => 'nullable|string|max:500',
     ]);
 
-    $tenant->update($request->only(['phone', 'whatsapp', 'email', 'address']));
+    $tenant->update($request->only(['phone', 'whatsapp', 'email']));
 
     return back()->with([
       'title' => __('website_response.tenant_contact_info_updated_title'),
