@@ -175,7 +175,7 @@ return [
   /* Error Pages */
   'error' => 'Error',
   'error_occurred' => 'An error has occurred',
-  'not_found' => 'Not Found',
+  'not_found_404' => 'Not Found 404',
   'page_not_found' => 'The page you are looking for does not exist.',
   'forbidden' => 'Forbidden',
   'access_denied' => 'You do not have permission to access this resource.',

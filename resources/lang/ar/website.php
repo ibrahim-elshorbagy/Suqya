@@ -183,7 +183,7 @@ return [
   /* Error Pages */
   'error' => 'خطأ',
   'error_occurred' => 'حدث خطأ',
-  'not_found' => 'غير موجود',
+  'not_found_404' => '404 غير موجود',
   'page_not_found' => 'الصفحة التي تبحث عنها غير موجودة.',
   'forbidden' => 'محظور',
   'access_denied' => 'ليس لديك صلاحية للوصول إلى هذه الصفحه.',

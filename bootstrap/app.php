@@ -39,16 +39,25 @@ return Application::configure(basePath: dirname(__DIR__))
 
       if (in_array($status, [500, 503, 404, 403, 401, 429, 419])) {
         // Now this will work - cookie is unencrypted
-        $locale = $request->cookie('locale', 'en');
-        if (in_array($locale, ['en', 'ar'])) {
-          app()->setLocale($locale);
-        }
 
-        Inertia::share('translations', trans('website'));
-        Inertia::share('locale', app()->getLocale());
+
+        // Get site settings for error page
+        $publicSettings = [
+          'site_name',
+          'site_description',
+          'site_keywords',
+          'site_logo',
+          'site_favicon',
+          'welcome_text',
+        ];
+
+        $siteSettings = \App\Models\Admin\Site\SiteSetting::whereIn('key', $publicSettings)
+          ->pluck('value', 'key')
+          ->toArray();
 
         return Inertia::render('ErrorPage', [
           'status' => $status,
+          'site_settings' => $siteSettings,
         ])
           ->toResponse($request)
           ->setStatusCode($status);

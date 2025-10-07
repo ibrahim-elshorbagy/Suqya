@@ -76,7 +76,7 @@
     } else {
       document.documentElement.classList.remove('dark');
     }
-    window.translations = @json(__('website'));
+    window.translations = @json(__('website', [], 'ar'));
   </script>
 
   <!-- Scripts -->

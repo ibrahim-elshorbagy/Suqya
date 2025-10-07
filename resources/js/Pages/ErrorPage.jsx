@@ -1,15 +1,17 @@
 import React from 'react';
 import ErrorLayout from '@/Layouts/ErrorLayout/ErrorLayout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { useTrans } from '@/Hooks/useTrans';
 
-export default function ErrorPage({ status }) {
+export default function ErrorPage({ status, site_settings }) {
   const { t } = useTrans();
+  const { locale } = usePage().props;
 
+  // SEO-optimized titles in Arabic and English
   const title = {
     503: t('server_error'),
     500: t('server_error'),
-    404: t('not_found'),
+    404: t('not_found_404'),
     403: t('forbidden'),
     401: t('unauthorized'),
     429: t('too_many_requests'),
@@ -28,7 +30,12 @@ export default function ErrorPage({ status }) {
 
   return (
     <ErrorLayout status={status}>
-      <Head title={title} />
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+
       <div className="rounded-xl bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 overflow-hidden">
         <div className="p-6 min-w-[300px] lg:min-w-[400px]">
           <div className="mb-4 flex justify-center">
