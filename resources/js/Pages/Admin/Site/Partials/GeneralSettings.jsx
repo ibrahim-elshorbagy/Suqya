@@ -13,6 +13,7 @@ export default function GeneralSettings({ settings, timezones = [] }) {
   const { t } = useTrans();
   const [logoPreview, setLogoPreview] = useState(null);
   const [faviconPreview, setFaviconPreview] = useState(null);
+  const [welcomeIconPreview, setWelcomeIconPreview] = useState(null);
 
   const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
     settings: {
@@ -23,7 +24,8 @@ export default function GeneralSettings({ settings, timezones = [] }) {
       welcome_text: settings.welcome_text || '',
       footer_text: settings.footer_text || '',
       site_logo: settings.site_logo || '',
-      site_favicon: settings.site_favicon || ''
+      site_favicon: settings.site_favicon || '',
+      welcome_icon: settings.welcome_icon || ''
     },
     files: {},
     env_settings: ['site_name', 'timezone'] // Settings that should be stored in .env file
@@ -50,6 +52,7 @@ export default function GeneralSettings({ settings, timezones = [] }) {
       reader.onload = (e) => {
         if (key === 'site_logo') setLogoPreview(e.target.result);
         if (key === 'site_favicon') setFaviconPreview(e.target.result);
+        if (key === 'welcome_icon') setWelcomeIconPreview(e.target.result);
       };
       reader.readAsDataURL(file);
     }
@@ -67,6 +70,7 @@ export default function GeneralSettings({ settings, timezones = [] }) {
         // Reset file previews on success
         setLogoPreview(null);
         setFaviconPreview(null);
+        setWelcomeIconPreview(null);
       },
       onError: (errors) => {
       }
@@ -212,6 +216,40 @@ export default function GeneralSettings({ settings, timezones = [] }) {
               </div>
             </div>
             <InputError message={errors['files.site_favicon']} className="mt-2" />
+          </div>
+
+          {/* Welcome Icon Upload */}
+          <div>
+            <InputLabel value={t('welcome_icon')} />
+            <div className="mt-2 flex items-center gap-4">
+              {(welcomeIconPreview || settings.welcome_icon) && (
+                <img
+                  src={welcomeIconPreview || `/storage/${settings.welcome_icon}`}
+                  alt="Welcome Icon"
+                  className="h-16 w-16 object-contain border rounded"
+                />
+              )}
+              <div>
+                <input
+                  type="file"
+                  onChange={(e) => handleFileChange('welcome_icon', e.target.files[0])}
+                  accept="image/*"
+                  className="hidden"
+                  id="welcome-icon-upload"
+                />
+                <label
+                  htmlFor="welcome-icon-upload"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700"
+                >
+                  <i className="fas fa-upload"></i>
+                  {t('choose_welcome_icon')}
+                </label>
+              </div>
+            </div>
+            <p className="text-xs text-neutral-500 mt-1">
+              {t('welcome_icon_description')}
+            </p>
+            <InputError message={errors['files.welcome_icon']} className="mt-2" />
           </div>
 
           {/* Welcome Text */}

@@ -254,4 +254,9 @@ return [
   "pricing" => "Pricing",
   'get_started' => 'Get Started',
 
+  // Welcome Icon
+  'welcome_icon' => 'Welcome Icon',
+  'choose_welcome_icon' => 'Choose Welcome Icon',
+  'welcome_icon_description' => 'Upload a custom icon to display on the login/register page. If not set, a default shield icon will be used.',
+
 ];

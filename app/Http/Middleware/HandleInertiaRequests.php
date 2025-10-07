@@ -75,6 +75,7 @@ class HandleInertiaRequests extends Middleware
           'site_description',
           'site_keywords',
           'site_logo',
+          "welcome_icon",
           'site_favicon',
           'welcome_text',
           'footer_text',

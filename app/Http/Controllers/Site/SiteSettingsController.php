@@ -36,6 +36,7 @@ class SiteSettingsController extends Controller
       'env_settings' => 'array', // Optional array of settings that should go to .env
       'files.site_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
       'files.site_favicon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,ico',
+      'files.welcome_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,ico',
     ]);
 
     // Define mapping of setting key to environment variable name
@@ -54,8 +55,8 @@ class SiteSettingsController extends Controller
     ];
 
     foreach ($request->settings as $key => $value) {
-      // Handle file uploads for logo and favicon
-      if ($key === 'site_logo' || $key === 'site_favicon') {
+      // Handle file uploads for logo, favicon, and welcome icon
+      if ($key === 'site_logo' || $key === 'site_favicon' || $key === 'welcome_icon') {
         if ($request->hasFile("files.{$key}")) {
           $file = $request->file("files.{$key}");
 

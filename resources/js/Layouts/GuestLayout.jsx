@@ -59,7 +59,15 @@ export default function GuestLayout({ children, title = 'Authentication' }) {
                   {welcomeText}
                 </p>
                 <div className="mt-8">
-                  <i className="fa-solid fa-shield-halved text-5xl opacity-20 dark:opacity-30 text-neutral-400 dark:text-slate-600"></i>
+                  {site_settings?.welcome_icon ? (
+                    <img
+                      src={`/storage/${site_settings.welcome_icon}`}
+                      alt="Welcome Icon"
+                      className="w-20 h-20 object-contain "
+                    />
+                  ) : (
+                    <i className="fa-solid fa-shield-halved text-5xl opacity-20 dark:opacity-30 text-neutral-400 dark:text-slate-600"></i>
+                  )}
                 </div>
               </div>
               <div className="absolute bottom-6 left-0 right-0 text-center text-xs opacity-50 text-neutral-600 dark:text-slate-400">
