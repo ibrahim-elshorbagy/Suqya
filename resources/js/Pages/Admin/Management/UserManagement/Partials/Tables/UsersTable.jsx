@@ -257,7 +257,7 @@ export default function UsersTable({ users, onEdit, pageParam }) {
 
         {/* Tenant Info */}
         {user.roles && user.roles.length > 0 && user.roles[0].name === 'tenant' && user.tenant && (
-          <div className="mb-3 p-3 space-y-1
+          <div className="mb-3 p-3 space-y-1 min-h-[200px]
             [&>div]:flex [&>div]:items-center [&>div]:gap-3
             [&>div>i]:w-3 [&>div>i]:inline-flex [&>div>i]:justify-center
             text-blue-700 dark:text-white text-sm rounded
@@ -265,22 +265,34 @@ export default function UsersTable({ users, onEdit, pageParam }) {
           >
             <div>
               <i className="fa-solid fa-building"></i>
-              <span>{t('tenant_name')}: {user.tenant.name}</span>
+              <span>{t('tenant_name')}: <a href={route('admin.users.view-tenant', user.id)} className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 underline">{user.tenant.name}</a></span>
             </div>
             <div>
               <i className="fa-solid fa-link"></i>
-              <span>{t('tenant_slug')}: {user.tenant.slug}</span>
+              <span>{t('tenant_slug')}: <Link  target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 underline">{user.tenant.slug}</Link></span>
             </div>
             {user.tenant.phone && (
               <div>
                 <i className="fa-solid fa-phone"></i>
-                <span>{t('tenant_phone')}: {user.tenant.phone}</span>
+                <span>{t('tenant_phone')}: <a href={`tel:${user.tenant.phone}`} className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 underline">{user.tenant.phone}</a></span>
+              </div>
+            )}
+            {user.tenant.whatsapp && (
+              <div>
+                <i className="fa-brands fa-whatsapp"></i>
+                <span>{t('tenant_whatsapp')}: <a href={`https://wa.me/${user.tenant.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-200 underline">{user.tenant.whatsapp}</a></span>
+              </div>
+            )}
+            {user.tenant.email && (
+              <div>
+                <i className="fa-solid fa-envelope"></i>
+                <span>{t('tenant_email')}: <a href={`mailto:${user.tenant.email}`} className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 underline">{user.tenant.email}</a></span>
               </div>
             )}
             {user.tenant.address && (
               <div>
                 <i className="fa-solid fa-location-dot"></i>
-                <span>{t('tenant_address')}: {user.tenant.address}</span>
+                <span>{t('tenant_address')}: <a href={`https://www.google.com/maps/search/?api=1&query=${user.tenant.latitude && user.tenant.longitude ? `${user.tenant.latitude},${user.tenant.longitude}` : encodeURIComponent(user.tenant.address)}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200 underline">{user.tenant.address}</a></span>
               </div>
             )}
           </div>

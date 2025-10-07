@@ -228,10 +228,20 @@ export default function UpdateBasicInfo({ tenant, currencies, className = '' }) 
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
                   {t('qr_code_description')}
                 </p>
-                <div className="text-sm text-neutral-700 dark:text-neutral-300">
+                <div className="text-sm text-neutral-700 dark:text-neutral-300 ">
                   <strong>{t('website_url')}:</strong>
-                  <span className="ml-2 text-blue-600 dark:text-blue-400 break-all">
-                    {window.location.origin}/{tenant.slug}
+                  <br />
+                  <span className="ml-2 text-blue-600 dark:text-blue-400 break-all flex gap-2">
+                    <span>{window.location.origin}/{tenant.slug}</span>
+                    <a
+                      href={`${window.location.origin}/${tenant.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-2 inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                      aria-label="Open tenant link in new tab"
+                    >
+                      <i className="fa fa-external-link" aria-hidden="true"></i>
+                    </a>
                   </span>
                 </div>
 

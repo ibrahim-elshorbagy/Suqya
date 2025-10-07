@@ -259,4 +259,12 @@ return [
   'choose_welcome_icon' => 'Choose Welcome Icon',
   'welcome_icon_description' => 'Upload a custom icon to display on the login/register page. If not set, a default shield icon will be used.',
 
+  // Tenant Information
+  'tenant_name' => 'Company Name',
+  'tenant_slug' => 'Company Slug',
+  'tenant_phone' => 'Company Phone',
+  'tenant_whatsapp' => 'Company WhatsApp',
+  'tenant_email' => 'Company Email',
+  'tenant_address' => 'Company Address',
+
 ];

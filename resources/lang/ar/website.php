@@ -241,6 +241,8 @@ return [
   "tenant_name" => "اسم الشركة",
   "tenant_slug" => "رابط الشركة",
   "tenant_phone" => "هاتف الشركة",
+  "tenant_whatsapp" => "واتساب الشركة",
+  "tenant_email" => "إيميل الشركة",
   "tenant_address" => "عنوان الشركة",
   "grid_view" => "شبكه",
   "table_view" => "جدول",
