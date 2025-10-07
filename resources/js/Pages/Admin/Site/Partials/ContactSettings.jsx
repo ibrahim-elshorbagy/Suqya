@@ -59,20 +59,26 @@ export default function ContactSettings({ settings }) {
 
         markerInstance.on('dragend', function (e) {
           const position = e.target.getLatLng();
-          setData('settings', {
-            ...data.settings,
-            business_latitude: position.lat,
-            business_longitude: position.lng
-          });
+          setData(prevData => ({
+            ...prevData,
+            settings: {
+              ...prevData.settings,
+              business_latitude: position.lat,
+              business_longitude: position.lng
+            }
+          }));
         });
 
         mapInstance.on('click', function (e) {
           markerInstance.setLatLng(e.latlng);
-          setData('settings', {
-            ...data.settings,
-            business_latitude: e.latlng.lat,
-            business_longitude: e.latlng.lng
-          });
+          setData(prevData => ({
+            ...prevData,
+            settings: {
+              ...prevData.settings,
+              business_latitude: e.latlng.lat,
+              business_longitude: e.latlng.lng
+            }
+          }));
         });
 
         setMap(mapInstance);

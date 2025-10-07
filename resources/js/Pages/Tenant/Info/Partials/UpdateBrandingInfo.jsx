@@ -45,9 +45,6 @@ export default function UpdateBrandingInfo({ tenant, className = "" }) {
 
   return (
     <section className={`space-y-6 ${className}`}>
-      <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
-        {t('branding_description') || 'Upload and manage your company logo for better brand recognition.'}
-      </p>
 
       <form onSubmit={submit} className="mt-6 space-y-6">
         <div>
