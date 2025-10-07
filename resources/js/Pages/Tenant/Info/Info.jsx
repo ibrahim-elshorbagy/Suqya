@@ -7,8 +7,9 @@ import { usePage } from '@inertiajs/react';
 import UpdateBasicInfo from './Partials/UpdateBasicInfo';
 import UpdateContactInfo from './Partials/UpdateContactInfo';
 import UpdateLocationInfo from './Partials/UpdateLocationInfo';
-import UpdateLogoForm from './Partials/UpdateLogoForm';
+import UpdateBrandingInfo from './Partials/UpdateBrandingInfo';
 import UpdateDocumentsForm from './Partials/UpdateDocumentsForm';
+import QrCodeSection from './Partials/QrCodeSection';
 
 export default function Info() {
     const { t } = useTrans();
@@ -102,6 +103,13 @@ export default function Info() {
                                     <i className={`fa-solid fa-palette ${activeSection === 'branding' ? 'text-blue-500' : ''}`}></i>
                                     <span>{t('branding')}</span>
                                 </button>
+                                <button
+                                    onClick={() => handleMenuClick('qr-code')}
+                                    className={`flex w-full items-center gap-2 p-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-all ${activeSection === 'qr-code' ? 'bg-blue-500/10 text-black dark:text-white font-medium' : ''}`}
+                                >
+                                    <i className={`fa-solid fa-qrcode ${activeSection === 'qr-code' ? 'text-blue-500' : ''}`}></i>
+                                    <span>{t('qr_code')}</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -178,32 +186,22 @@ export default function Info() {
                                     </h2>
                                 </div>
                                 <div className="p-6">
-                                    <div className="space-y-8">
-                                        <UpdateLogoForm tenant={tenant} />
-                                        {tenant?.qr_code && (
-                                            <>
-                                                <hr className="border-neutral-200 dark:border-neutral-700" />
-                                                <div>
-                                                    <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-2">
-                                                        {t('qr_code')}
-                                                    </h3>
-                                                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
-                                                        {t('qr_code_description')}
-                                                    </p>
-                                                    <div className="flex items-center gap-4">
-                                                        <img
-                                                            src={`/storage/${tenant.qr_code}`}
-                                                            alt="QR Code"
-                                                            className="w-32 h-32 rounded-lg border border-neutral-200 dark:border-neutral-700"
-                                                        />
-                                                        <div className="text-sm text-neutral-600 dark:text-neutral-400">
-                                                            <p><strong>{t('website_url')}:</strong> {window.location.origin}/{tenant.slug}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        )}
-                                    </div>
+                                    <UpdateBrandingInfo tenant={tenant} />
+                                </div>
+                            </div>
+                        )}
+
+                        {/* QR Code Section */}
+                        {activeSection === 'qr-code' && (
+                            <div className="bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden animate-fadeIn">
+                                <div className="p-4 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950/30 flex items-center justify-between">
+                                    <h2 className="font-semibold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+                                        <i className="fa-solid fa-qrcode text-blue-500"></i>
+                                        {t('qr_code')}
+                                    </h2>
+                                </div>
+                                <div className="p-6">
+                                    <QrCodeSection tenant={tenant} />
                                 </div>
                             </div>
                         )}
