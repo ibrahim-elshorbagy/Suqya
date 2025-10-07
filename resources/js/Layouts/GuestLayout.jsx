@@ -54,7 +54,7 @@ export default function GuestLayout({ children, title = 'Authentication' }) {
                 <div className="rounded-full p-4 mb-4 w-32 h-32 flex items-center justify-center bg-white dark:bg-slate-800/50 shadow-lg dark:shadow-slate-900/50">
                   <ApplicationLogo />
                 </div>
-                <h2 className="text-3xl font-bold drop-shadow-sm text-neutral-800 dark:text-slate-100">{siteName}</h2>
+                <h2 className="text-3xl font-bold drop-shadow-sm text-neutral-800 dark:text-slate-100 text-center">{siteName}</h2>
                 <p className="text-lg opacity-80 text-center max-w-xs font-bold text-neutral-700 dark:text-slate-300">
                   {welcomeText}
                 </p>
