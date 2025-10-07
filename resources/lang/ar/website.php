@@ -349,6 +349,8 @@ return [
   'qr_code' => 'رمز الاستجابة السريعة',
   'qr_code_description' => 'رمز QR الخاص بشركتك للوصول السريع',
   'website_url' => 'رابط الموقع',
+  "save_basic_info_first"=>"يرجى حفظ معلوماتك الأساسية أولاً لإنشاء رمز QR.",
+  
   // Documents and QR Code
   'documents' => 'الوثائق',
   'business_documents' => 'وثائق العمل',

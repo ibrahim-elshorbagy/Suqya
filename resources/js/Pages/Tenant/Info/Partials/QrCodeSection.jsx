@@ -234,7 +234,7 @@ export default function QrCodeSection({ tenant, className = '' }) {
           <div className="flex items-center gap-2">
             <i className="fa-solid fa-exclamation-triangle text-yellow-600 dark:text-yellow-400"></i>
             <p className="text-sm text-yellow-800 dark:text-yellow-200">
-              {t('save_basic_info_first') || 'Please save your basic information first to generate a QR code.'}
+              {t('save_basic_info_first')}
             </p>
           </div>
         </div>
