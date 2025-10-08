@@ -192,6 +192,7 @@ return [
         'feature_usage'         => 'استخدام',
         'enabled'              => 'مُفعل',
         'disabled'             => 'معطل',
+        "tenant_slug"         => "رابط الشركة",
 
     ],
 ];

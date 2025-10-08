@@ -27,6 +27,8 @@ return Application::configure(basePath: dirname(__DIR__))
     $middleware->alias([
       'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
       'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+      'validate.tenant.slug' => \App\Http\Middleware\ValidateTenantSlug::class,
+      'verify.tenant.ownership' => \App\Http\Middleware\VerifyTenantOwnership::class,
     ]);
   })
   ->withExceptions(function (Exceptions $exceptions): void {

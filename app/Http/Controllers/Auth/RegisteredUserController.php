@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
           'string',
           'max:255',
           'unique:tenants,slug',
-          'regex:/^[a-zA-Z-_]+$/u',
+          new \App\Rules\AllowedTenantSlug,
         ],
       ],
       [

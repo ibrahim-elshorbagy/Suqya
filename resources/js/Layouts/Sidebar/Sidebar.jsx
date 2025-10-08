@@ -47,7 +47,7 @@ export default function Sidebar({ sidebarIsOpen, setSidebarIsOpen }) {
 
 
     // Tenant
-    { name: t('settings'), icon: 'fa-gear', href: route('tenant.info'), route: 'profile', role: 'tenant' },
+    { name: t('settings'), icon: 'fa-gear', href: route('tenant.info', { slug: auth?.user.tenant?.slug }), route: 'profile', role: 'tenant' },
   ];
 
   // Function to check if an item should be visible based on role

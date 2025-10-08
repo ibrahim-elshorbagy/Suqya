@@ -40,6 +40,7 @@ return [
   'email_invalid' => 'يرجى إدخال عنوان بريد إلكتروني صحيح.',
   'email_unique' => 'هذا البريد الإلكتروني مُسجل بالفعل.',
   'password_confirmation' => 'تأكيد كلمة المرور غير متطابق.',
+  'tenant_slug_reserved' => 'الـ :attribute محجوز ولا يمكن استخدامه.',
   /* End Auth Validation Messages */
 
   /* End Auth Controller Responses */

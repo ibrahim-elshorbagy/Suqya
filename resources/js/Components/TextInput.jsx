@@ -7,6 +7,7 @@ export default forwardRef(function TextInput(
         isFocused = false,
         icon = null,
         iconClassName = 'text-neutral-400',
+        direction = null,
         ...props
     },
     ref,
@@ -40,6 +41,7 @@ export default forwardRef(function TextInput(
                     (props.disabled ? disabledClasses : '') +
                     className
                 }
+                style={direction ? { direction } : undefined}
                 ref={localRef}
             />
             {icon && (

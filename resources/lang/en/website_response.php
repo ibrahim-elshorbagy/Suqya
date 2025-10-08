@@ -38,6 +38,7 @@ return [
   'email_invalid' => 'Please enter a valid email address.',
   'email_unique' => 'This email is already registered.',
   'password_confirmation' => 'The password confirmation does not match.',
+  'tenant_slug_reserved' => 'The :attribute is reserved and cannot be used.',
   /* End Auth Validation Messages */
 
   /* End Auth Controller Responses */
