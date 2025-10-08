@@ -67,9 +67,6 @@ class User extends Authenticatable
 
   public function getDashboardRoute(): string
   {
-    // Add this for debugging
-    Log::info('User roles: ' . json_encode($this->getRoleNames()));
-    Log::info('Tenant relationship: ' . ($this->tenant ? $this->tenant->slug : 'null'));
 
     // Admin - goes to main admin dashboard
     if ($this->hasRole('admin')) {

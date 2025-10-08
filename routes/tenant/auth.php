@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 // Tenant user authentication - using SAME controllers as platform
 Route::prefix('{slug}')->middleware('validate.tenant.slug')->group(function () {
 
-  Route::middleware('guest:tenant_user')->group(function () {
+  Route::middleware('guest')->group(function () {
     // Login
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])
         ->name('tenant-user.login');
