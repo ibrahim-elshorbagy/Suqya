@@ -1,23 +1,21 @@
 <?php
-// routes/admin/admin.php
+// routes/dashboard/admin.php
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Management\UserManagementController;
 use App\Http\Controllers\Admin\SubscriptionSystem\PlansController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Site\SiteSettingsController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 // Return to admin (accessible to all authenticated users who were impersonated)
 Route::middleware(['auth'])->group(function () {
   Route::post('/admin/return-to-admin', [AdminController::class, 'returnToAdmin'])->name('admin.return_to_admin');
 });
 
-// Admin Dashboard - outside prefix
+// Admin Dashboard
 Route::middleware(['auth', 'role:admin'])->group(function () {
-  Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-  })->name('dashboard');
+  Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
 });
 
 // Admin routes - using Spatie permission with /admin prefix
@@ -52,11 +50,4 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
       Route::delete('/delete', [UserManagementController::class, 'bulkDelete'])->name('delete');
     });
   });
-
-  // Plans Management (commented out as per original)
-  // Route::prefix('plans')->name('plans.')->group(function () {
-  //   Route::get('/', [PlansController::class, 'index'])->name('index');
-  //   Route::get('/{plan}/edit', [PlansController::class, 'edit'])->name('edit');
-  //   Route::put('/{plan}', [PlansController::class, 'update'])->name('update');
-  // });
 });

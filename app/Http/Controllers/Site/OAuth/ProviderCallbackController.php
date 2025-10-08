@@ -56,7 +56,7 @@ class ProviderCallbackController extends Controller
       if (!$user->tenant_id) {
         // Create a tenant for the new OAuth user
         $tenant = Tenant::create([
-          'name' => $socialUser->getName() . "'s Company", // Basic name, user can change later
+          'name' => $socialUser->getName() . "'s Company",
           'owner_id' => $user->id,
         ]);
 
@@ -87,7 +87,7 @@ class ProviderCallbackController extends Controller
         ]);
       }
 
-      return redirect(route('dashboard'))->with([
+      return redirect($user->getDashboardRoute())->with([
         'title' => __('website_response.oauth_login_success_title'),
         'message' => __('website_response.oauth_login_success_message', ['provider' => ucfirst($provider)]),
         'status' => 'success'
@@ -106,5 +106,6 @@ class ProviderCallbackController extends Controller
       ]);
     }
   }
+
 
 }

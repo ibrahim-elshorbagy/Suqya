@@ -16,7 +16,7 @@ export default function Sidebar({ sidebarIsOpen, setSidebarIsOpen }) {
   const userRoles = auth.roles || [];
 
   const navItems = [
-    { name: t('dashboard'), icon: 'fa-chart-line', href: route('dashboard'), route: 'dashboard', role: '' },
+    { name: t('dashboard'), icon: 'fa-chart-line', href: route('home'), route: 'dashboard', role: '' },
 
     // Admin
     {
@@ -161,7 +161,7 @@ export default function Sidebar({ sidebarIsOpen, setSidebarIsOpen }) {
               <SidebarLink
                 key={item.name}
                 href={item.href}
-                active={route().current(item.route)}
+                active={item.route === 'dashboard' ? route().current().includes('dashboard') : route().current(item.route)}
                 icon={item.icon}
               >
                 {item.name}

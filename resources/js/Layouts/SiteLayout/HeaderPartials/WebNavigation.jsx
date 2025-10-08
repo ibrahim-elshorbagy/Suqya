@@ -99,7 +99,7 @@ export default function WebNavigation() {
               variant="edit"
               icon="fa-play"
               className='ltr:flex-row-reverse gap-3'
-              href={route('dashboard')}
+              href={route('home')}
             >
               {t('get_started')}
             </PrimaryButton>
