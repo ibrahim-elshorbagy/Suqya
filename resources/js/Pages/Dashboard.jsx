@@ -23,7 +23,6 @@ export default function Dashboard() {
       }
     >
       <Head title={t('dashboard')} />
-
       <div className="  py-8  min-h-screen  bg-gradient-to-br from-blue-50 via-neutral-50 to-blue-100  dark:bg-neutral-800 dark:bg-none">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           {/* Welcome Section */}

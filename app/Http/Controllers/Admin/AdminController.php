@@ -18,7 +18,7 @@ class AdminController extends Controller
     // Store original admin ID in session
     session(['impersonate_admin_id' => Auth::id()]);
     Auth::login($userToLogin);
-    return redirect()->route('profile.edit')
+    return redirect()->route('home')
       ->with('title', __('website_response.impersonation_success_title'))
       ->with('message', __('website_response.impersonation_success_message', ['name' => $userToLogin->name]))
       ->with('status', 'success');

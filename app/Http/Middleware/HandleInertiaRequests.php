@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Admin\Site\SiteSetting;
+use App\Models\Tenant\Tenant;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -68,8 +69,45 @@ class HandleInertiaRequests extends Middleware
       // 'translations' => fn() => __('website'),
       'available_locales' => ['en', 'ar'],
       'locale' => fn() => app()->getLocale(),
-      'site_settings' => function () {
-        // Only share safe, public settings - NEVER sensitive data like SMTP, OAuth secrets
+
+      'site_settings' => function () use ($request) {
+        // Check if route has slug parameter (tenant route)
+        $slug = $request->route('slug');
+
+        if ($slug) {
+          // This is a tenant route - fetch tenant info
+          $tenant = Tenant::where('slug', $slug)->first();
+
+          if ($tenant) {
+            // Get the missing fields from main site settings
+            $fallbackSettings = SiteSetting::whereIn('key', ['site_keywords', 'footer_text', 'timezone'])
+              ->pluck('value', 'key')
+              ->toArray();
+
+            // Map tenant fields to match site_settings structure
+            return [
+              'site_name' => $tenant->name,
+              'site_description' => $tenant->welcome_message_desc,
+              'site_keywords' => $fallbackSettings['site_keywords'] ?? null,
+              'site_logo' => $tenant->logo,
+              'welcome_icon' => $tenant->favicon,
+              'site_favicon' => $tenant->favicon,
+              'welcome_text' => $tenant->welcome_message_title,
+              'footer_text' => $fallbackSettings['footer_text'] ?? null,
+              'timezone' => $fallbackSettings['timezone'] ?? null,
+              // Contact info from tenant
+              'support_whatsapp' => $tenant->whatsapp,
+              'support_phone' => $tenant->phone,
+              'support_mobile' => $tenant->phone, // Same as phone
+              'support_email' => $tenant->email,
+              'company_address' => $tenant->full_address,
+              'business_latitude' => $tenant->latitude,
+              'business_longitude' => $tenant->longitude,
+            ];
+          }
+        }
+
+        // No slug or tenant not found - use global site settings
         $publicSettings = [
           'site_name',
           'site_description',

@@ -4,11 +4,17 @@ import ThemeToggle from '@/Components/ThemeToggle';
 import LanguageToggle from '@/Components/LanguageToggle';
 import { useTrans } from '@/Hooks/useTrans';
 
+
 export default function SidebarProfileMenu() {
   const { t } = useTrans();
   const { auth, impersonate_admin_id } = usePage().props;
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef(null);
+
+  // Generate profile route based on user role
+  const profileRoute = !auth.roles?.includes('admin') && auth.user?.tenant
+    ? route('tenant.profile.edit', { slug: auth.user.tenant.slug })
+    : route('profile.edit');
 
   // Handle escape key press and click outside
   useEffect(() => {
@@ -35,7 +41,7 @@ export default function SidebarProfileMenu() {
     }
   }, [menuIsOpen]);
 
-  const HandleLogout=()=>{
+  const HandleLogout = () => {
     router.post(route('logout'), {}, { preserveScroll: true });
   }
 
@@ -73,16 +79,15 @@ export default function SidebarProfileMenu() {
           className="absolute w-full md:w-48  md:bottom-0 ltr:md:right-[-195px] rtl:md:left-[-195px] z-20   border divide-y divide-neutral-300 border-neutral-300 bg-neutral-100 dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-800 rounded-xl
           animate-fade-in"
           role="menu"
-
         >
           <div className="flex flex-col py-1.5">
-            <Link href={route('profile.edit')} className="flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-neutral-800 underline-offset-2 hover:bg-blue-500/5 hover:text-black focus-visible:underline focus:outline-hidden dark:text-neutral-300 dark:hover:bg-blue-400/5 dark:hover:text-neutral-100" role="menuitem">
+            <Link href={profileRoute} className="flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-neutral-800 underline-offset-2 hover:bg-blue-500/5 hover:text-black focus-visible:underline focus:outline-hidden dark:text-neutral-300 dark:hover:bg-blue-400/5 dark:hover:text-neutral-100" role="menuitem">
               <i className="fa-solid fa-user shrink-0" aria-hidden="true"></i>
               <span>{t('profile')}</span>
             </Link>
           </div>
           <div className="flex flex-col py-1.5">
-              <ThemeToggle className="w-full justify-start px-2 py-1.5 text-sm font-medium text-neutral-800 underline-offset-2 hover:bg-blue-500/5 hover:text-black focus-visible:underline focus:outline-hidden dark:text-neutral-300 dark:hover:bg-blue-400/5 dark:hover:text-neutral-100" />
+            <ThemeToggle className="w-full justify-start px-2 py-1.5 text-sm font-medium text-neutral-800 underline-offset-2 hover:bg-blue-500/5 hover:text-black focus-visible:underline focus:outline-hidden dark:text-neutral-300 dark:hover:bg-blue-400/5 dark:hover:text-neutral-100" />
           </div>
           {/* <div className="flex flex-col py-1.5">
               <LanguageToggle className="w-full justify-start px-2 py-1.5 text-sm font-medium text-neutral-800 underline-offset-2 hover:bg-blue-500/5 hover:text-black focus-visible:underline focus:outline-hidden dark:text-neutral-300 dark:hover:bg-blue-400/5 dark:hover:text-neutral-100" />

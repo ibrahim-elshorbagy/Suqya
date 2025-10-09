@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="ar" dir="rtl">
 
 <head>
   <meta charset="utf-8">
@@ -7,19 +7,41 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   @php
-    // Only fetch safe, public settings for frontend use
-    $publicSettingKeys = ['site_name', 'site_description', 'site_keywords', 'welcome_text', 'site_favicon'];
-    $siteSettings = \App\Models\Admin\Site\SiteSetting::whereIn('key', $publicSettingKeys)->pluck('value', 'key')->toArray();
+    $slug = request()->route('slug');
+    $tenant = null;
 
-    $siteName = $siteSettings['site_name'] ?? config('app.name', 'سُقيا');
-    $siteDescription = $siteSettings['site_description'] ?? '';
-    $siteKeywords = $siteSettings['site_keywords'] ?? '';
-    $welcomeText = $siteSettings['welcome_text'] ?? '';
-    $siteFavicon = $siteSettings['site_favicon'] ?? null;
-    $faviconUrl =
-        $siteFavicon && \Illuminate\Support\Facades\Storage::disk('public')->exists($siteFavicon)
-            ? \Illuminate\Support\Facades\Storage::url($siteFavicon)
-            : asset('favicon.ico');
+    if ($slug) {
+        $tenant = \App\Models\Tenant\Tenant::where('slug', $slug)->first();
+    }
+
+    if ($tenant) {
+        // Use tenant info
+        $siteName = $tenant->name;
+        $siteDescription = $tenant->welcome_message_desc ?? '';
+        $siteKeywords = '';
+        $welcomeText = $tenant->welcome_message_title ?? '';
+        $siteFavicon = $tenant->favicon;
+        $faviconUrl =
+            $siteFavicon && \Illuminate\Support\Facades\Storage::disk('public')->exists($siteFavicon)
+                ? \Illuminate\Support\Facades\Storage::url($siteFavicon)
+                : asset('favicon.ico');
+    } else {
+        // Use global site settings
+        $publicSettingKeys = ['site_name', 'site_description', 'site_keywords', 'welcome_text', 'site_favicon'];
+        $siteSettings = \App\Models\Admin\Site\SiteSetting::whereIn('key', $publicSettingKeys)
+            ->pluck('value', 'key')
+            ->toArray();
+
+        $siteName = $siteSettings['site_name'] ?? config('app.name', 'سُقيا');
+        $siteDescription = $siteSettings['site_description'] ?? '';
+        $siteKeywords = $siteSettings['site_keywords'] ?? '';
+        $welcomeText = $siteSettings['welcome_text'] ?? '';
+        $siteFavicon = $siteSettings['site_favicon'] ?? null;
+        $faviconUrl =
+            $siteFavicon && \Illuminate\Support\Facades\Storage::disk('public')->exists($siteFavicon)
+                ? \Illuminate\Support\Facades\Storage::url($siteFavicon)
+                : asset('favicon.ico');
+    }
   @endphp
 
   <title inertia>{{ $siteName }}</title>

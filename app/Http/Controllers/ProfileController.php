@@ -31,7 +31,6 @@ class ProfileController extends Controller
    */
   public function update(ProfileUpdateRequest $request): RedirectResponse
   {
-
     $user = Auth::user();
     $validated = $request->validated();
 
@@ -42,6 +41,14 @@ class ProfileController extends Controller
     }
 
     $user->save();
+
+    // Redirect based on user role
+    if (!$user->hasRole('admin') && $user->tenant) {
+      return Redirect::route('tenant.profile.edit', ['slug' => $user->tenant->slug])
+        ->with('title', __('website_response.profile_updated_title'))
+        ->with('message', __('website_response.profile_updated_message'))
+        ->with('status', 'success');
+    }
 
     return Redirect::route('profile.edit')
       ->with('title', __('website_response.profile_updated_title'))
@@ -75,7 +82,6 @@ class ProfileController extends Controller
 
   public function uploadProfileImage(Request $request)
   {
-
     $request->validate([
       'image' => 'required|image|max:4096',
     ]);
@@ -92,11 +98,17 @@ class ProfileController extends Controller
     $user->image_url = '/storage/' . $path;
     $user->save();
 
+    // Redirect based on user role
+    if (!$user->hasRole('admin') && $user->tenant) {
+      return Redirect::route('tenant.profile.edit', ['slug' => $user->tenant->slug])
+        ->with('title', __('website_response.profile_image_updated_title'))
+        ->with('message', __('website_response.profile_image_updated_message'))
+        ->with('status', 'success');
+    }
+
     return Redirect::route('profile.edit')
       ->with('title', __('website_response.profile_image_updated_title'))
       ->with('message', __('website_response.profile_image_updated_message'))
       ->with('status', 'success');
   }
-
-
 }
