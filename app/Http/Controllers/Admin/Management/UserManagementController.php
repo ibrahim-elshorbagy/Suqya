@@ -120,7 +120,7 @@ class UserManagementController extends Controller
 
     if ($request->role === 'tenant') {
       $rules['tenant_name'] = ['required', 'string', 'max:255'];
-      $rules['tenant_slug'] = ['required', 'string', 'max:255', 'unique:tenants,slug', 'regex:/^[a-zA-Z-_]+$/u'];
+      $rules['tenant_slug'] = ['required', 'string', 'max:255', 'unique:tenants,slug', 'regex:/^[a-zA-Z-_]+$/u', new \App\Rules\AllowedTenantSlug];
       $rules['tenant_phone'] = ['nullable', 'string', 'max:255'];
     }
 
@@ -212,6 +212,7 @@ class UserManagementController extends Controller
           'max:255',
           'unique:tenants,slug,' . ($user->tenant?->id ?? 'NULL'),
           'regex:/^[a-zA-Z-_]+$/u',
+          new \App\Rules\AllowedTenantSlug
         ],
         'tenant_phone' => ['nullable', 'string', 'max:255'],
       ]);

@@ -190,9 +190,10 @@ return [
         'feature_setting'       => 'إعداد الميزة',
         'feature_access'        => 'وصول',
         'feature_usage'         => 'استخدام',
-        'enabled'              => 'مُفعل',
-        'disabled'             => 'معطل',
-        "tenant_slug"         => "رابط الشركة",
+        'enabled'               => 'مُفعل',
+        'disabled'              => 'معطل',
+        "tenant_slug"           => "رابط الشركة",
+        "slug"                  => "الاختصار",
 
     ],
 ];

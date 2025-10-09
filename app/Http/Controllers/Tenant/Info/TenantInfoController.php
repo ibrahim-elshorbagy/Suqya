@@ -52,6 +52,7 @@ class TenantInfoController extends Controller
         'string',
         'max:255',
         'regex:/^[a-zA-Z-_]+$/u',
+        new \App\Rules\AllowedTenantSlug,
         Rule::unique('tenants', 'slug')->ignore($tenant->id)
       ],
       'currency_id' => 'nullable|exists:currencies,id',
@@ -61,7 +62,7 @@ class TenantInfoController extends Controller
 
     $tenant->update($request->only(['name', 'slug', 'currency_id']));
 
-    return back()->with([
+    return to_route('tenant.info', ['slug' => $tenant->slug])->with([
       'title' => __('website_response.tenant_basic_info_updated_title'),
       'message' => __('website_response.tenant_basic_info_updated_message'),
       'status' => 'success'
