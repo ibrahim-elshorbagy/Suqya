@@ -129,7 +129,25 @@ return [
   'currency' => 'العملة',
   'select_currency' => 'اختر العملة',
   "slug_condition" => "يجب أن يحتوي على أحرف إنجليزية وشرطات فقط",
-  "company_slug_placeholder" => "مثال: water-company-slug",
+  'company_slug_placeholder' => "مثال: water-company-slug",
+
+  /* Favicon */
+  'favicon' => 'أيقونة الموقع',
+  'favicon_description' => 'ارفع أيقونة الموقع لشركتك (الحجم المُوصى به: 16x16 أو 32x32 بكسل)',
+  'current_favicon' => 'الحالية',
+  'no_favicon' => 'لا توجد أيقونة',
+  'new_favicon' => 'جديدة',
+  'choose_favicon' => 'اختر أيقونة الموقع',
+  'favicon_requirements' => 'ملفات ICO, PNG, JPG, GIF, WEBP بحد أقصى 10 ميجابايت. الحجم المُوصى به: 16x16 أو 32x32 بكسل.',
+  'invalid_favicon_dimensions' => 'أبعاد أيقونة الموقع غير صحيحة. يجب أن تكون بين 16x16 و 512x512 بكسل.',
+
+  /* Welcome Message */
+  'welcome_message' => 'رسالة الترحيب',
+  'welcome_message_description' => 'خصص رسالة الترحيب المعروضة لعملائك في صفحة الدخول',
+  "sub_desc"=>'',
+  'welcome_message_title' => 'عنوان الترحيب',
+  'welcome_title_placeholder' => 'مرحباً بكم في متجرنا!',
+  'welcome_desc_placeholder' => 'صف عملك وما يميزك عن غيرك...',
 
   /* Profile Image Form */
   'profile_image' => 'صورة الملف الشخصي',

@@ -12,7 +12,7 @@ Route::prefix('{slug}')->middleware(['validate.tenant.slug'])->group(function ()
 
       // My Info Settings
       Route::get('/my-info', [TenantInfoController::class, 'index'])->name('tenant.info');
-      Route::patch('/basic-info', [TenantInfoController::class, 'updateBasicInfo'])->name('tenant.basic-info.update');
+      Route::post('/basic-info', [TenantInfoController::class, 'updateBasicInfo'])->name('tenant.basic-info.update');
       Route::patch('/contact-info', [TenantInfoController::class, 'updateContactInfo'])->name('tenant.contact-info.update');
       Route::patch('/location-info', [TenantInfoController::class, 'updateLocationInfo'])->name('tenant.location-info.update');
       Route::post('/logo', [TenantInfoController::class, 'uploadLogo'])->name('tenant.logo.update');

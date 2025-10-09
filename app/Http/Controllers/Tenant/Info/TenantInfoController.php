@@ -56,11 +56,65 @@ class TenantInfoController extends Controller
         Rule::unique('tenants', 'slug')->ignore($tenant->id)
       ],
       'currency_id' => 'nullable|exists:currencies,id',
+      'favicon' => [
+        'nullable',
+        'file',
+        'image',
+        'mimes:jpeg,jpg,png,gif,webp,ico',
+        'max:10240', // 10MB max
+        'dimensions:min_width=16,min_height=16,max_width=512,max_height=512'
+      ],
+      'welcome_message_title' => 'nullable|string|max:255',
+      'welcome_message_desc' => 'nullable|string|max:255',
     ], [
       'slug.regex' => __('validation.tenant_slug'),
+      'favicon.image' => __('website.invalid_file_type'),
+      'favicon.mimes' => __('website.invalid_file_type'),
+      'favicon.max' => __('website.file_too_large'),
+      'favicon.dimensions' => __('website.invalid_favicon_dimensions'),
     ]);
 
-    $tenant->update($request->only(['name', 'slug', 'currency_id']));
+    $updates = $request->only(['name', 'slug', 'currency_id', 'welcome_message_title', 'welcome_message_desc']);
+
+    // Handle favicon upload
+    if ($request->hasFile('favicon')) {
+      try {
+        $file = $request->file('favicon');
+
+        // Additional security checks
+        $realMimeType = $file->getClientMimeType();
+        $allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/x-icon', 'image/vnd.microsoft.icon'];
+
+        if (!in_array($realMimeType, $allowedMimes)) {
+          return back()->with([
+            'title' => __('website_response.error_title'),
+            'message' => __('website.invalid_file_type'),
+            'status' => 'error'
+          ]);
+        }
+
+        // Delete old favicon if exists
+        if ($tenant->favicon && Storage::disk('public')->exists($tenant->favicon)) {
+          Storage::disk('public')->delete($tenant->favicon);
+        }
+
+        // Generate unique filename to prevent conflicts
+        $filename = 'favicon_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('tenants/' . $tenant->id . '/favicon', $filename, 'public');
+
+        $updates['favicon'] = $path;
+
+      } catch (\Exception $e) {
+        Log::error('Favicon upload failed: ' . $e->getMessage());
+        return back()->with([
+          'title' => __('website_response.error_title'),
+          'message' => __('website_response.file_upload_failed_message'),
+          'status' => 'error'
+        ]);
+      }
+    }
+
+    $tenant->update($updates);
 
     return to_route('tenant.info', ['slug' => $tenant->slug])->with([
       'title' => __('website_response.tenant_basic_info_updated_title'),
