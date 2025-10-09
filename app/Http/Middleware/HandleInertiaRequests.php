@@ -79,19 +79,26 @@ class HandleInertiaRequests extends Middleware
           $tenant = Tenant::where('slug', $slug)->first();
 
           if ($tenant) {
-            // Get the missing fields from main site settings
-            $fallbackSettings = SiteSetting::whereIn('key', ['site_keywords', 'footer_text', 'timezone'])
+            // Get fallback settings from main site settings
+            $fallbackSettings = SiteSetting::whereIn('key', [
+              'site_keywords',
+              'footer_text',
+              'timezone',
+              'site_logo',
+              'site_favicon',
+              'welcome_icon'
+            ])
               ->pluck('value', 'key')
               ->toArray();
 
             // Map tenant fields to match site_settings structure
             return [
               'site_name' => $tenant->name,
-              'site_description' => '',
+              'site_description' => $tenant->welcome_message_desc ?? '',
               'site_keywords' => $fallbackSettings['site_keywords'] ?? null,
-              'site_logo' => $tenant->logo,
-              'welcome_icon' => $tenant->favicon,
-              'site_favicon' => $tenant->favicon,
+              'site_logo' => $tenant->logo ?? $fallbackSettings['site_logo'] ?? null,
+              'welcome_icon' => $tenant->favicon ?? $fallbackSettings['welcome_icon'] ?? null,
+              'site_favicon' => $tenant->favicon ?? $fallbackSettings['site_favicon'] ?? null,
               'welcome_text' => $tenant->welcome_message_title,
               'footer_text' => $fallbackSettings['footer_text'] ?? null,
               'timezone' => $fallbackSettings['timezone'] ?? null,

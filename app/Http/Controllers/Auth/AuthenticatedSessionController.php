@@ -41,12 +41,26 @@ class AuthenticatedSessionController extends Controller
    */
   public function destroy(Request $request): RedirectResponse
   {
+    $user = $request->user();
+
+    // Save tenant slug before logout (if user is not admin and has tenant)
+    $tenantSlug = null;
+    if ($user && !$user->hasRole('admin') && $user->tenant) {
+      $tenantSlug = $user->tenant->slug;
+    }
+
     Auth::guard('web')->logout();
 
     $request->session()->invalidate();
 
     $request->session()->regenerateToken();
 
+    // Redirect based on saved tenant slug
+    if ($tenantSlug) {
+      return redirect()->route('tenant-user.login', ['slug' => $tenantSlug]);
+    }
+
     return redirect('/');
   }
+
 }
