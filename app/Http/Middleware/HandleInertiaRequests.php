@@ -87,7 +87,7 @@ class HandleInertiaRequests extends Middleware
             // Map tenant fields to match site_settings structure
             return [
               'site_name' => $tenant->name,
-              'site_description' => $tenant->welcome_message_desc,
+              'site_description' => '',
               'site_keywords' => $fallbackSettings['site_keywords'] ?? null,
               'site_logo' => $tenant->logo,
               'welcome_icon' => $tenant->favicon,

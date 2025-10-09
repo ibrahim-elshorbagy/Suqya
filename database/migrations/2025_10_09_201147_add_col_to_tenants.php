@@ -13,7 +13,6 @@ return new class extends Migration {
     Schema::table('tenants', function (Blueprint $table) {
       $table->string('favicon')->nullable()->after('logo');
       $table->string('welcome_message_title')->nullable()->after('favicon');
-      $table->string('welcome_message_desc')->nullable()->after('welcome_message_title');
     });
   }
 

@@ -143,9 +143,8 @@ return [
 
   /* Welcome Message */
   'welcome_message' => 'رسالة الترحيب',
-  'welcome_message_description' => 'خصص رسالة الترحيب المعروضة لعملائك في صفحة الدخول',
+  'welcome_message_title' => 'خصص رسالة الترحيب المعروضة لعملائك في صفحة الدخول',
   "sub_desc"=>'',
-  'welcome_message_title' => 'عنوان الترحيب',
   'welcome_title_placeholder' => 'مرحباً بكم في متجرنا!',
   'welcome_desc_placeholder' => 'صف عملك وما يميزك عن غيرك...',
 

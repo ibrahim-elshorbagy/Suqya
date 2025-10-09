@@ -37,7 +37,7 @@ class RoleSeeder extends Seeder
         'id' => 1,
         'name' => 'admin tenant',
         'phone' => null,
-        'address' => 'Egypt',
+        'slug' => '1',
         'owner_id' => $admin->id,
       ]
     );
@@ -67,7 +67,6 @@ class RoleSeeder extends Seeder
         'name' => 'Water Company 1',
         'slug' => 'water-company',
         'phone' => '123456789',
-        'address' => 'Amman, Jordan',
         'currency_id' => 1, // USD
         'owner_id' => $tenantOwner->id,
       ]

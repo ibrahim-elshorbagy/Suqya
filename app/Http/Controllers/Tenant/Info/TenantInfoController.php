@@ -65,7 +65,6 @@ class TenantInfoController extends Controller
         'dimensions:min_width=16,min_height=16,max_width=512,max_height=512'
       ],
       'welcome_message_title' => 'nullable|string|max:255',
-      'welcome_message_desc' => 'nullable|string|max:255',
     ], [
       'slug.regex' => __('validation.tenant_slug'),
       'favicon.image' => __('website.invalid_file_type'),
@@ -74,7 +73,7 @@ class TenantInfoController extends Controller
       'favicon.dimensions' => __('website.invalid_favicon_dimensions'),
     ]);
 
-    $updates = $request->only(['name', 'slug', 'currency_id', 'welcome_message_title', 'welcome_message_desc']);
+    $updates = $request->only(['name', 'slug', 'currency_id', 'welcome_message_title']);
 
     // Handle favicon upload
     if ($request->hasFile('favicon')) {

@@ -17,8 +17,8 @@
     if ($tenant) {
         // Use tenant info
         $siteName = $tenant->name;
-        $siteDescription = $tenant->welcome_message_desc ?? '';
-        $siteKeywords = '';
+        $siteDescription = $siteSettings['site_description'] ?? '';
+        $siteKeywords = $siteSettings['site_keywords'] ?? '';
         $welcomeText = $tenant->welcome_message_title ?? '';
         $siteFavicon = $tenant->favicon;
         $faviconUrl =

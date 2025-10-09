@@ -19,7 +19,6 @@ export default function UpdateBasicInfo({ tenant, currencies, className = '' }) 
     currency_id: tenant?.currency_id || '',
     favicon: null,
     welcome_message_title: tenant?.welcome_message_title || '',
-    welcome_message_desc: tenant?.welcome_message_desc || '',
   });
 
   const [faviconPreview, setFaviconPreview] = useState(null);
@@ -232,14 +231,11 @@ export default function UpdateBasicInfo({ tenant, currencies, className = '' }) 
           <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
             {t('welcome_message') || 'Welcome Message'}
           </h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            {t('welcome_message_description') || 'Customize the welcome message displayed to your customers'}
-          </p>
-
           <div className="grid grid-cols-1 gap-4">
             <div className='space-y-2'>
               <InputLabel htmlFor="welcome_message_title" value={t('welcome_message_title') || 'Welcome Title'} />
-              <TextInput
+              <TextArea
+                rows={3}
                 id="welcome_message_title"
                 className="mt-1 block w-full"
                 value={data.welcome_message_title}
@@ -250,18 +246,6 @@ export default function UpdateBasicInfo({ tenant, currencies, className = '' }) 
               <InputError className="mt-2" message={errors.welcome_message_title} />
             </div>
 
-            <div className='space-y-2'>
-              <InputLabel htmlFor="welcome_message_desc" value={t('description')} />
-              <TextArea
-                id="welcome_message_desc"
-                className="mt-1 block w-full"
-                value={data.welcome_message_desc}
-                onChange={(e) => setData('welcome_message_desc', e.target.value)}
-                placeholder={t('welcome_desc_placeholder') || 'Describe your business and what makes you special...'}
-                rows={4}
-              />
-              <InputError className="mt-2" message={errors.welcome_message_desc} />
-            </div>
           </div>
         </div>
 
