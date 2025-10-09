@@ -147,7 +147,7 @@ class TenantInfoController extends Controller
         'file',
         'image',
         'mimes:jpeg,jpg,png,gif,webp',
-        'max:4096', // 4MB max
+        'max:10240', // 10MB max
         'dimensions:min_width=100,min_height=100,max_width=2000,max_height=2000'
       ],
     ], [
@@ -201,76 +201,76 @@ class TenantInfoController extends Controller
 
   public function generateQrCode(Request $request): RedirectResponse
   {
-      $user = auth()->user();
-      $tenant = $user->tenant;
+    $user = auth()->user();
+    $tenant = $user->tenant;
 
-      if (!$tenant || !$tenant->slug) {
-          return back()->with([
-              'title' => __('website_response.error_title'),
-              'message' => __('website_response.save_tenant_info_first_message'),
-              'status' => 'error'
-          ]);
+    if (!$tenant || !$tenant->slug) {
+      return back()->with([
+        'title' => __('website_response.error_title'),
+        'message' => __('website_response.save_tenant_info_first_message'),
+        'status' => 'error'
+      ]);
+    }
+
+    try {
+      // QR content and paths
+      $url = url('/') . '/' . $tenant->slug;
+      $filename = $tenant->slug . '_qr_' . time() . '.png';
+      $path = 'tenants/' . $tenant->id . '/qr-codes/' . $filename;
+      $fullPath = storage_path('app/public/' . $path);
+
+      // Ensure directory exists
+      if (!file_exists(dirname($fullPath))) {
+        mkdir(dirname($fullPath), 0755, true);
       }
 
-      try {
-          // QR content and paths
-          $url = url('/') . '/' . $tenant->slug;
-          $filename = $tenant->slug . '_qr_' . time() . '.png';
-          $path = 'tenants/' . $tenant->id . '/qr-codes/' . $filename;
-          $fullPath = storage_path('app/public/' . $path);
-
-          // Ensure directory exists
-          if (!file_exists(dirname($fullPath))) {
-              mkdir(dirname($fullPath), 0755, true);
-          }
-
-          // Delete old QR code if exists
-          if ($tenant->qr_code && Storage::disk('public')->exists($tenant->qr_code)) {
-              Storage::disk('public')->delete($tenant->qr_code);
-          }
-
-          // Method 1: Using the Builder constructor (current version)
-          $builder = new Builder(
-              writer: new PngWriter(),
-              writerOptions: [],
-              validateResult: false,
-              data: $url,
-              encoding: new \Endroid\QrCode\Encoding\Encoding('UTF-8'),
-              errorCorrectionLevel: \Endroid\QrCode\ErrorCorrectionLevel::Low,
-              size: 300,
-              margin: 10,
-              roundBlockSizeMode: \Endroid\QrCode\RoundBlockSizeMode::Margin,
-              foregroundColor: new \Endroid\QrCode\Color\Color(0, 0, 0),
-              backgroundColor: new \Endroid\QrCode\Color\Color(255, 255, 255)
-          );
-
-          $result = $builder->build();
-
-          // Save to disk
-          $result->saveToFile($fullPath);
-
-          // Verify the file was created
-          if (!file_exists($fullPath)) {
-              throw new \Exception('QR code file was not created');
-          }
-
-          // Update tenant with the QR code path
-          $tenant->update(['qr_code' => $path]);
-
-          return back()->with([
-              'title' => __('website_response.qr_code_generated_title'),
-              'message' => __('website_response.qr_code_generated_message'),
-              'status' => 'success'
-          ]);
-
-      } catch (\Exception $e) {
-          Log::error('QR Code generation failed: ' . $e->getMessage());
-          return back()->with([
-              'title' => __('website_response.error_title'),
-              'message' => __('website_response.qr_code_generation_failed_message') ?: 'QR code generation failed: ' . $e->getMessage(),
-              'status' => 'error'
-          ]);
+      // Delete old QR code if exists
+      if ($tenant->qr_code && Storage::disk('public')->exists($tenant->qr_code)) {
+        Storage::disk('public')->delete($tenant->qr_code);
       }
+
+      // Method 1: Using the Builder constructor (current version)
+      $builder = new Builder(
+        writer: new PngWriter(),
+        writerOptions: [],
+        validateResult: false,
+        data: $url,
+        encoding: new \Endroid\QrCode\Encoding\Encoding('UTF-8'),
+        errorCorrectionLevel: \Endroid\QrCode\ErrorCorrectionLevel::Low,
+        size: 300,
+        margin: 10,
+        roundBlockSizeMode: \Endroid\QrCode\RoundBlockSizeMode::Margin,
+        foregroundColor: new \Endroid\QrCode\Color\Color(0, 0, 0),
+        backgroundColor: new \Endroid\QrCode\Color\Color(255, 255, 255)
+      );
+
+      $result = $builder->build();
+
+      // Save to disk
+      $result->saveToFile($fullPath);
+
+      // Verify the file was created
+      if (!file_exists($fullPath)) {
+        throw new \Exception('QR code file was not created');
+      }
+
+      // Update tenant with the QR code path
+      $tenant->update(['qr_code' => $path]);
+
+      return back()->with([
+        'title' => __('website_response.qr_code_generated_title'),
+        'message' => __('website_response.qr_code_generated_message'),
+        'status' => 'success'
+      ]);
+
+    } catch (\Exception $e) {
+      Log::error('QR Code generation failed: ' . $e->getMessage());
+      return back()->with([
+        'title' => __('website_response.error_title'),
+        'message' => __('website_response.qr_code_generation_failed_message') ?: 'QR code generation failed: ' . $e->getMessage(),
+        'status' => 'error'
+      ]);
+    }
   }
 
 

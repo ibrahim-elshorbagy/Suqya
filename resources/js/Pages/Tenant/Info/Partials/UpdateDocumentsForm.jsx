@@ -61,7 +61,7 @@ export default function UpdateDocumentsForm({ tenant, className = "" }) {
   const submit = (e) => {
     e.preventDefault();
 
-    post(route("tenant.documents.update"), data, {
+    post(route("tenant.documents.update", tenant.slug), data, {
       preserveScroll: true,
       forceFormData: true,
       onSuccess: () => {

@@ -349,8 +349,8 @@ return [
   'qr_code' => 'رمز الاستجابة السريعة',
   'qr_code_description' => 'رمز QR الخاص بشركتك للوصول السريع',
   'website_url' => 'رابط الموقع',
-  "save_basic_info_first"=>"يرجى حفظ معلوماتك الأساسية أولاً لإنشاء رمز QR.",
-  
+  "save_basic_info_first" => "يرجى حفظ معلوماتك الأساسية أولاً لإنشاء رمز QR.",
+
   // Documents and QR Code
   'documents' => 'الوثائق',
   'business_documents' => 'وثائق العمل',
@@ -369,7 +369,7 @@ return [
   'current_qr_code_available' => 'رمز الاستجابة السريعة متوفر',
   // File validation and requirements
   'invalid_file_type' => 'نوع الملف غير مدعوم',
-  'file_too_large' => 'حجم الملف كبير جداً',
+  'file_too_large' => 'حجم الملف كبير جداً، الحد الأقصى هو 10 ميجابايت.',
   'invalid_document_type' => 'نوع المستند غير مدعوم',
   'document_too_large' => 'حجم المستند كبير جداً',
   'logo_file_requirements' => 'أنواع مدعومة: JPG, PNG, GIF, WEBP | حد أقصى: 4MB | أبعاد: 100x100 إلى 2000x2000',
@@ -441,6 +441,7 @@ return [
   'footer_text' => 'نص التذييل',
   'footer_text_placeholder' => 'جميع الحقوق محفوظة © 2025',
   'footer_text_help' => 'يظهر في كل صفحات لوحات التحكم',
+  "remove" => "حذف",
 
   // Contact Settings
   'contact_info_description' => 'معلومات الاتصال بالدعم الفني',

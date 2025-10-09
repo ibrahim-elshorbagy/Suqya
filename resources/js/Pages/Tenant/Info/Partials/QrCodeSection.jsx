@@ -32,7 +32,7 @@ export default function QrCodeSection({ tenant, className = '' }) {
 
     setIsGeneratingQr(true);
 
-    router.post(route('tenant.generate-qr'), {}, {
+    router.post(route('tenant.generate-qr', tenant.slug), {}, {
       preserveState: true,
       preserveScroll: true,
       onSuccess: (page) => {

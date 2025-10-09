@@ -30,7 +30,7 @@ export default function UpdateBrandingInfo({ tenant, className = "" }) {
   const submit = (e) => {
     e.preventDefault();
 
-    post(route("tenant.logo.update"), data, {
+    post(route("tenant.logo.update", tenant.slug), data, {
       preserveScroll: true,
       forceFormData: true,
       onSuccess: () => {

@@ -17,7 +17,7 @@ export default function UpdateBasicInfo({ tenant, currencies, className = '' }) 
 
   const submit = (e) => {
     e.preventDefault();
-    patch(route('tenant.basic-info.update'), data, {
+    patch(route('tenant.basic-info.update', tenant.slug), data, {
       preserveScroll: true,
     });
   };

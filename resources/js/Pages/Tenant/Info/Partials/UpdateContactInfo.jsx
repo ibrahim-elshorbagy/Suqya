@@ -19,7 +19,7 @@ export default function UpdateContactInfo({ tenant, className = '' }) {
   const submit = (e) => {
     e.preventDefault();
 
-    patch(route('tenant.contact-info.update'), data, {
+    patch(route('tenant.contact-info.update', tenant.slug), data, {
       preserveScroll: true,
     });
   };

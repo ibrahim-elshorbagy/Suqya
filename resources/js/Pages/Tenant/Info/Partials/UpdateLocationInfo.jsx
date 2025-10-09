@@ -80,7 +80,7 @@ export default function UpdateLocationInfo({ tenant, className = '' }) {
   const submit = (e) => {
     e.preventDefault();
 
-    patch(route('tenant.location-info.update'), data, {
+    patch(route('tenant.location-info.update', tenant.slug), data, {
       preserveScroll: true,
     });
   };
