@@ -183,8 +183,7 @@ export default function UpdateLocationInfo({ tenant, className = '' }) {
           <InputLabel value={t('location_picker')} />
           <div
             ref={mapRef}
-            className="w-full h-128 border border-neutral-300 dark:border-neutral-700 rounded-lg"
-            style={{ height: '600px' }}
+            className="w-full h-[300px] xl:h-[600px] border border-neutral-300 dark:border-neutral-700 rounded-lg"
           ></div>
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
             {t('click_drag_map_description')}

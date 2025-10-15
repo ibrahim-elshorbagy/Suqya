@@ -64,7 +64,7 @@ export default function Register() {
               onChange={(e) => setData('tenant_slug', e.target.value)}
               required
               icon="fa-link"
-              placeholder={t('company_slug_placeholder')}
+              placeholder={t('water-company-slug')}
             />
             <span className=' italic text-sm text-gray-500'>suqya.net/water-company-slug</span>
             <InputError message={errors.tenant_slug} className="mt-2" />

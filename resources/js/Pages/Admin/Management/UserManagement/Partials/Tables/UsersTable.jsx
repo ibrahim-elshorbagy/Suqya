@@ -114,6 +114,11 @@ export default function UsersTable({ users, onEdit, pageParam }) {
           <span className="text-sm text-neutral-900 dark:text-neutral-100">
             {user.email}
           </span>
+          {user.email_verified_at ? (
+            <i className="fa-solid fa-check text-green-500" title="Verified"></i>
+          ) : (
+            <i className="fa-solid fa-times text-red-500" title="Not Verified"></i>
+          )}
         </div>
       </td>
       <td className="px-3 py-4 whitespace-nowrap">
@@ -249,9 +254,16 @@ export default function UsersTable({ users, onEdit, pageParam }) {
             <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 truncate">
               {user.name}
             </h3>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 truncate">
-              {user.email}
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 truncate">
+                {user.email}
+              </p>
+              {user.email_verified_at ? (
+                <i className="fa-solid fa-check text-green-500" title="Verified"></i>
+              ) : (
+                <i className="fa-solid fa-times text-red-500" title="Not Verified"></i>
+              )}
+            </div>
           </div>
         </div>
 
