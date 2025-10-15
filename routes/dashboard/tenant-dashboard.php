@@ -4,6 +4,12 @@
 use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 
+// Tenant owner dashboard
+Route::prefix('{slug}')->middleware(['validate.tenant.slug', 'auth', 'role:tenant', 'verify.tenant.ownership'])->group(function () {
+  Route::get('/dashboard', [DashboardController::class, 'tenant'])->name('tenant.dashboard');
+});
+
+
 // Tenant users dashboards (client, employee, driver)
 Route::prefix('{slug}')->middleware(['validate.tenant.slug', 'auth'])->group(function () {
 
@@ -22,3 +28,5 @@ Route::prefix('{slug}')->middleware(['validate.tenant.slug', 'auth'])->group(fun
     Route::get('/driver/dashboard', [DashboardController::class, 'driver'])->name('driver.dashboard');
   });
 });
+
+
