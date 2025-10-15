@@ -13,9 +13,13 @@ return [
   'language_changed_message' => 'تم تغيير اللغة بنجاح.',
   "blocked_account" => "تم حظر حسابك. يُرجى التواصل مع المسؤول.",
 
-  "error_title"=>"خطاء",
+  "error_title" => "خطاء",
 
   /* Auth Controller Responses */
+  'login_use_company' => 'يرجى تسجيل الدخول عبر صفحة شركتك: :tenant',
+  'login_not_allowed' => 'هذا الحساب غير مخول للدخول من هنا.',
+  'login_use_company_page' => 'يرجى تسجيل الدخول عبر صفحة شركتك: :url',
+
   'login_successful_title' => 'تم تسجيل الدخول بنجاح',
   'login_successful_message' => 'مرحباً بعودتك! تم تسجيل دخولك بنجاح.',
   'logout_successful_title' => 'تم تسجيل الخروج',
