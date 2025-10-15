@@ -56,6 +56,7 @@ class ProviderCallbackController extends Controller
       if (!$user->tenant_id) {
         // Create a tenant for the new OAuth user
         $tenant = Tenant::create([
+          'slug' => $user->id . '-' . Str::random(5),
           'name' => $socialUser->getName() . "'s Company",
           'owner_id' => $user->id,
         ]);
