@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('{slug}')->middleware(['validate.tenant.slug'])->group(function () {
 
   // Tenant owner settings - nested under dashboard/settings
-  Route::prefix('dashboard')->middleware(['auth', 'role:tenant', 'verify.tenant.ownership'])->group(function () {
+  Route::prefix('dashboard')->middleware(['auth', 'verified', 'role:tenant', 'verify.tenant.ownership'])->group(function () {
     Route::prefix('settings')->group(function () {
 
       // My Info Settings

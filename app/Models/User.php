@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Tenant\Tenant;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -14,7 +14,7 @@ use Spatie\Permission\Contracts\Role;
 use Spatie\Permission\Models\Role as ModelsRole;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
   /** @use HasFactory<\Database\Factories\UserFactory> */
   use HasFactory, Notifiable;

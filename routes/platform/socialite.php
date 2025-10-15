@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/auth/{provider}/redirect', ProviderRedirectController::class)->name('auth.redirect');
 Route::get('/auth/{provider}/callback', ProviderCallbackController::class)->name('auth.callback');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('/', [DashboardController::class, 'index'])->name('home');
 });
 

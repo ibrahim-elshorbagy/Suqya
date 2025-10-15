@@ -63,14 +63,12 @@ export default function Login({ status, canResetPassword, tenant, isMainLogin = 
           <div>
             <div className="flex items-center justify-between">
               <InputLabel htmlFor="password" value={t('auth_password')} />
-              {canResetPassword && (
-                <Link
-                  href={isMainLogin ? route('password.request') : route('tenant-user.password.request', { slug: tenant.slug })}
-                  className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                >
-                  {t('auth_forgot_password')}
-                </Link>
-              )}
+              <Link
+                href={isMainLogin ? route('password.request') : route('tenant-user.password.request', { slug: tenant.slug })}
+                className="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                {t('auth_forgot_password')}
+              </Link>
             </div>
             <TextInput
               id="password"

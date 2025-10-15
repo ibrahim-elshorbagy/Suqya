@@ -7,12 +7,12 @@ use App\Http\Controllers\Site\SiteSettingsController;
 use Illuminate\Support\Facades\Route;
 
 // Admin Dashboard
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
   Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
 });
 
 // Admin routes - using Spatie permission with /admin prefix
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
   // Test routes
   Route::get('/test/map', [AdminController::class, 'TestMap'])->name('test.map');

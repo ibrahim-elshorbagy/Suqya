@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Route;
 
 
 // Return to admin (accessible to all authenticated users who were impersonated)
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
   Route::post('/admin/return-to-admin', [AdminController::class, 'returnToAdmin'])->name('admin.return_to_admin');
 });
 
 
 // Admin routes - using Spatie permission with /admin prefix
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
   // User Impersonation
   Route::post('/login-as/{user}', [AdminController::class, 'loginAs'])->name('login_as');

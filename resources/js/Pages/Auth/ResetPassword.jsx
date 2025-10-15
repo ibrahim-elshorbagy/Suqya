@@ -1,8 +1,9 @@
+
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, useForm, Link } from '@inertiajs/react';
+import UniversalAuthLayout from '@/Layouts/UniversalAuthLayout';
+import { Link, useForm } from '@inertiajs/react';
 import { useTrans } from '@/Hooks/useTrans';
 
 export default function ResetPassword({ token, email }) {
@@ -16,93 +17,101 @@ export default function ResetPassword({ token, email }) {
 
   const submit = (e) => {
     e.preventDefault();
-
     post(route('password.store'), {
       onFinish: () => reset('password', 'password_confirmation'),
     });
   };
 
   return (
-    <GuestLayout title={t('auth_reset_password')}>
+    <UniversalAuthLayout title={t('auth_reset_password')}>
       <div className="mb-6 text-center">
-        <h1 className="text-3xl font-bold text-blue-600 dark:text-blue-400 flex items-center justify-center gap-2">
-          <i className="fa-solid fa-key"></i> {t('auth_reset_your_password')}
+        <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+          <i className="fa-solid fa-key text-2xl text-blue-500 dark:text-blue-400"></i>
+        </div>
+        <h1 className="text-2xl font-bold text-neutral-800 dark:text-blue-100">
+          {t('auth_reset_your_password')}
         </h1>
-        <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
           {t('auth_enter_new_password')}
         </p>
       </div>
-      <div className="">
-        <form onSubmit={submit} className="space-y-6">
-          <div>
-            <InputLabel htmlFor="email" value={t('auth_email_address')} />
-            <TextInput
-              id="email"
-              type="email"
-              name="email"
-              value={data.email}
-              className="mt-1 block w-full"
-              autoComplete="email"
-              onChange={(e) => setData('email', e.target.value)}
-              icon="fa-envelope"
-              placeholder={t('auth_email_address')}
-              required
-            />
-            <InputError message={errors.email} className="mt-2" />
-          </div>
-          <div>
-            <InputLabel htmlFor="password" value={t('auth_new_password')} />
-            <TextInput
-              id="password"
-              type="password"
-              name="password"
-              value={data.password}
-              className="mt-1 block w-full"
-              autoComplete="new-password"
-              isFocused={true}
-              onChange={(e) => setData('password', e.target.value)}
-              placeholder={t('auth_new_password')}
-              icon="fa-lock"
-              required
-            />
-            <InputError message={errors.password} className="mt-2" />
-          </div>
-          <div>
-            <InputLabel htmlFor="password_confirmation" value={t('auth_confirm_new_password')} />
-            <TextInput
-              type="password"
-              id="password_confirmation"
-              name="password_confirmation"
-              value={data.password_confirmation}
-              className="mt-1 block w-full"
-              autoComplete="new-password"
-              onChange={(e) => setData('password_confirmation', e.target.value)}
-              placeholder={t('auth_confirm_new_password')}
-              icon="fa-lock"
-              required
-            />
-            <InputError message={errors.password_confirmation} className="mt-2" />
-          </div>
-          <button
-            type="submit"
-            disabled={processing}
-            className="w-full flex justify-center items-center gap-1 px-4 py-2 font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-all disabled:opacity-70"
+
+      <form onSubmit={submit} className="space-y-6">
+        <div>
+          <InputLabel htmlFor="email" value={t('auth_email_address')} />
+          <TextInput
+            id="email"
+            type="email"
+            name="email"
+            value={data.email}
+            className="mt-1 block w-full"
+            autoComplete="email"
+            onChange={(e) => setData('email', e.target.value)}
+            icon="fa-envelope"
+            placeholder={t('auth_email_address')}
+            required
+          />
+          <InputError message={errors.email} className="mt-2" />
+        </div>
+
+        <div>
+          <InputLabel htmlFor="password" value={t('auth_new_password')} />
+          <TextInput
+            id="password"
+            type="password"
+            name="password"
+            value={data.password}
+            className="mt-1 block w-full"
+            autoComplete="new-password"
+            isFocused={true}
+            onChange={(e) => setData('password', e.target.value)}
+            placeholder={t('auth_new_password')}
+            icon="fa-lock"
+            required
+          />
+          <InputError message={errors.password} className="mt-2" />
+        </div>
+
+        <div>
+          <InputLabel htmlFor="password_confirmation" value={t('auth_confirm_new_password')} />
+          <TextInput
+            type="password"
+            id="password_confirmation"
+            name="password_confirmation"
+            value={data.password_confirmation}
+            className="mt-1 block w-full"
+            autoComplete="new-password"
+            onChange={(e) => setData('password_confirmation', e.target.value)}
+            placeholder={t('auth_confirm_new_password')}
+            icon="fa-lock"
+            required
+          />
+          <InputError message={errors.password_confirmation} className="mt-2" />
+        </div>
+
+        <button
+          type="submit"
+          disabled={processing}
+          className="w-full flex justify-center items-center gap-2 px-4 py-2 font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-all disabled:opacity-70"
+        >
+          {processing ? (
+            <i className="fa-solid fa-circle-notch animate-spin"></i>
+          ) : (
+            <i className="fa-solid fa-key"></i>
+          )}
+          {t('auth_reset_password')}
+        </button>
+
+        <div className="text-center text-sm text-neutral-600 dark:text-neutral-400">
+          {t('auth_remember_password')} {" "}
+          <Link
+            href={route('login')}
+            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
           >
-            {processing ? (
-              <i className="fa-solid fa-circle-notch animate-spin"></i>
-            ) : (
-              <i className="fa-solid fa-key"></i>
-            )}
-            {t('auth_reset_password')}
-          </button>
-          <div className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-4">
-            {t('auth_remember_password')} {" "}
-            <Link href={route('login')} className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-              {t('auth_back_to_login')}
-            </Link>
-          </div>
-        </form>
-      </div>
-    </GuestLayout>
+            {t('auth_back_to_login')}
+          </Link>
+        </div>
+      </form>
+    </UniversalAuthLayout>
   );
 }

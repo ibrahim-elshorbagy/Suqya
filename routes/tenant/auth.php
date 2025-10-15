@@ -17,17 +17,6 @@ Route::prefix('{slug}')->middleware('validate.tenant.slug')->group(function () {
     Route::post('/login', [AuthenticatedSessionController::class, 'tenantStore'])
       ->name('tenant-user.login.store');
 
-    // Forgot Password
-    Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
-      ->name('tenant-user.password.request');
-    Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-      ->name('tenant-user.password.email');
-
-    // Reset Password
-    Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
-      ->name('tenant-user.password.reset');
-    Route::post('/reset-password', [NewPasswordController::class, 'store'])
-      ->name('tenant-user.password.store');
   });
 
 });
