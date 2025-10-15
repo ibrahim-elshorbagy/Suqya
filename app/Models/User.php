@@ -67,6 +67,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
   public function getDashboardRoute(): string
   {
+    if ($this->tenant_id) {
+      setPermissionsTeamId($this->tenant_id);
+    }
 
     // Admin - goes to main admin dashboard
     if ($this->hasRole('admin')) {
