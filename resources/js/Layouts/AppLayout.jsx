@@ -51,8 +51,8 @@ export default function AppLayout({ children, title }) {
           <Sidebar sidebarIsOpen={sidebarIsOpen} setSidebarIsOpen={setSidebarIsOpen} />
 
           {/* Main Content with Footer */}
-          <div className="flex-1 flex flex-col">
-            <main className="flex-1 w-full overflow-y-auto">
+          <div className="flex-1 flex flex-col min-w-0">
+            <main className="flex-1 w-full  ">
               {children}
             </main>
 

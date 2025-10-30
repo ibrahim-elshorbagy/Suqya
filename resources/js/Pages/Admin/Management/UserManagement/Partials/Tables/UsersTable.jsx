@@ -91,7 +91,7 @@ export default function UsersTable({ users, onEdit, pageParam }) {
     // { field: 'row_number', label: t('se rial') },
     { field: 'name', label: t('name') },
     { field: 'email', label: t('email_address') },
-    { field: 'blocked', label: t('status') },
+    // { field: 'blocked', label: t('status') },
     { field: 'created_at', label: t('created_at') }
   ];
 

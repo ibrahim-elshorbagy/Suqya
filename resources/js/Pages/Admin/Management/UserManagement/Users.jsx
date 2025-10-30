@@ -118,7 +118,7 @@ export default function Users({ auth, tenants, admins, roles, queryParams = null
     <AppLayout user={auth.user}>
       <Head title={t('manage_tenants')} />
       <div className="m-3 xl:m-5">
-        <div className="overflow-hidden rounded-2xl shadow-lg dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700">
+        <div className="rounded-2xl shadow-lg dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700">
           <div className="p-4 text-neutral-900 dark:text-neutral-100">
             <Tabs tabs={tabs} />
           </div>

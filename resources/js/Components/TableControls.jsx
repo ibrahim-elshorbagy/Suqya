@@ -159,7 +159,7 @@ export default function TableControls({
         )}
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         {/* View Toggle Button - Only show on desktop */}
         {!isMobile && onViewToggle && (
           <ActionButton
@@ -185,7 +185,7 @@ export default function TableControls({
               onClick={(e) => { e.stopPropagation(); setShowSortMenu(!showSortMenu); }}
             >
               {t('sort')}
-              {sortField && <span className="hidden sm:inline ml-1">{t('by')} {t(sortField)} {sortDirection === 'asc' ? `↑ ${t('ascending')}` : `↓ ${t('descending')}`}</span>}
+              {sortField && <span className="mx-1">{t('by')} {t(sortField)} {sortDirection === 'asc' ? `↑ ${t('ascending')}` : `↓ ${t('descending')}`}</span>}
             </ActionButton>
 
             {showSortMenu && (
