@@ -48,24 +48,22 @@ export default function Edit({ mustVerifyEmail, status }) {
       <Head title={t('profile_settings')} />
 
       <div className='m-3 xl:m-5'>
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-            {t('profile_settings')}
-          </h1>
-          <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-            {t('manage_account_settings')}
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left sidebar with navigation */}
           <div className="lg:col-span-1">
-            <div className="bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden sticky top-4">
+            <div className="bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden sticky top-20">
+
               <div className="p-4 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950/30">
-                <h2 className="font-semibold text-neutral-900 dark:text-neutral-100">
-                  {t('settings_menu')}
-                </h2>
+                <div className="">
+                  <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                    {t('profile_settings')}
+                  </h1>
+                  <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                    {t('manage_account_settings')}
+                  </p>
+                </div>
               </div>
+
               <div className="p-2 space-y-2">
                 <button
                   onClick={() => handleMenuClick('profile-info')}

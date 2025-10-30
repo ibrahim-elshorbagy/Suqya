@@ -1,7 +1,6 @@
 import React, { useState, useRef, useMemo } from 'react';
 import SidebarLink from './SidebarLink';
 import SidebarSubmenu from './SidebarSubmenu';
-import SidebarProfileMenu from './SidebarProfileMenu';
 import { Link, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { useTrans } from '@/Hooks/useTrans';
@@ -171,8 +170,6 @@ export default function Sidebar({ sidebarIsOpen, setSidebarIsOpen }) {
         </div>
       )}
 
-      {/* Profile menu at the bottom */}
-      <SidebarProfileMenu />
     </nav>
   );
 }

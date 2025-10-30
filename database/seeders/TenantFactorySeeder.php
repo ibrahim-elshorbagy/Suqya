@@ -26,7 +26,6 @@ class TenantFactorySeeder extends Seeder
                 'name' => "Water Company $i",
                 'slug' => "water-company-$i",
                 'phone' => "1234567$i",
-                'address' => "City $i",
                 'owner_id' => $owner->id,
             ]);
 
